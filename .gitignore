@@ -1,5 +1,7 @@
+# Mac-fix
+.DS_Store
+
 *target*
-*.jar
 *.war
 *.ear
 *.class
@@ -48,3 +50,8 @@ proguard/
 *.ipr
 *.iws
 .idea/
+
+# Project specific
+Project/project.properties
+
+
