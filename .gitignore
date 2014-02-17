@@ -47,6 +47,19 @@ proguard/
 
 # Intellij project files
 *.iml
+
+# Android Studio
+.idea/
+.gradle
+/*/local.properties
+/*/out
+/*/*/build
+/*/*/production
+*.iml
+*.iws
+*.ipr
+*~
+*.swp
 *.ipr
 *.iws
 .idea/
