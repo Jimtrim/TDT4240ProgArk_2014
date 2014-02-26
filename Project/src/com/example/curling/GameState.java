@@ -63,11 +63,18 @@ public class GameState extends State {
 	public void update(float dt){
 		world.update(dt);
 		moveCamera();
+		if(gameLayer.getNewThrow()){
+			resetCamera();
+		}
 	}
 	
 	public void draw(Canvas canvas){
-
 		world.draw(canvas);
+	}
+	
+	public void resetCamera(){
+		camera.setPosition(new Vector2(0,0));
+		gameLayer.setNewThrow(false);
 	}
 	
 	public void moveCamera(){

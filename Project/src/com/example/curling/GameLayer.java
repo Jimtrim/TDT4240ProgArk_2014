@@ -23,8 +23,10 @@ public class GameLayer extends Layer{
 	private int rounds,currentRound,totalStones;
 	private ArrayList<CurlingStone> stoneList = new ArrayList<CurlingStone>();
 	private Player playerOne,playerTow,currentPlayer;
-	private Vector2 nullvector = new Vector2(0, 0); 
+	private Vector2 nullvector = new Vector2(0.0f, 0.0f); 
 	private CurlingStone movingStone;
+	private boolean newThrow = false;
+	
 	
 	public GameLayer(int rounds){
 		this.rounds = rounds;
@@ -36,6 +38,7 @@ public class GameLayer extends Layer{
 	}
 
 	public void update(float dt) {
+		//sjekker om det er starten til spilleren
 		if (currentPlayer.getState() == 0){
 			movingStone = new CurlingStone(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.5f);
 			stoneList.add(movingStone);
@@ -44,20 +47,14 @@ public class GameLayer extends Layer{
 			currentPlayer.setState(1);
 		}
 		
+		if(movingStone.getSpeedX() == 0 && movingStone.getMoved()){
+			currentPlayer.setState(2);
+		}
+		
 		for(Sprite i: stoneList){
 			i.update(dt);
 		}
-		
-		if (noStonesMove()&&currentPlayer.getState() == 2){
-			evaluateStones();
-			nextPlayer();
-			if(totalStones == 0){
-				addPoints();
-				if(currentRound == rounds){
-					showWinner();
-				}
-			}
-		}
+		endTurn();
 	}
 	
 	public void draw(Canvas canvas, BoundingBox box) {
@@ -69,7 +66,7 @@ public class GameLayer extends Layer{
 	
 	public boolean noStonesMove(){
 		for(Sprite i: stoneList){
-			if (i.getSpeed() != nullvector){
+			if (i.getSpeed().getLength() != nullvector.getLength()){
 				return false;
 			}
 		}
@@ -77,9 +74,10 @@ public class GameLayer extends Layer{
 	}
 	
 	public void nextPlayer(){
+		newThrow = true;
 		currentPlayer.setState(0);
-		currentPlayer = playerTow;
-		
+		if(currentPlayer == playerOne) currentPlayer = playerTow;
+		else currentPlayer = playerOne;
 	}
 	
 	public void addPoints(){
@@ -94,7 +92,33 @@ public class GameLayer extends Layer{
 		
 	}
 	
+	public void endTurn(){
+		if (noStonesMove()&&currentPlayer.getState() == 2){
+			evaluateStones();
+			nextPlayer();
+			Log.d(TAG,"noe feil med resten av programmet");
+			if(totalStones == 0){
+				addPoints();
+				newRound();
+				if(currentRound == rounds){
+					showWinner();
+				}
+			}
+		}
+	}
+	
+	public void newRound(){
+	}
+	
 	public CurlingStone getStone(){
 		return this.movingStone;
+	}
+	
+	public boolean getNewThrow(){
+		return this.newThrow;
+	}
+	
+	public void setNewThrow(boolean s){
+		newThrow = s;
 	}
 }
