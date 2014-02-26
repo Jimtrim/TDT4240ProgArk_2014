@@ -3,11 +3,13 @@ package com.example.curling;
 import java.util.ArrayList;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
+import android.graphics.Matrix;
 import android.view.MotionEvent;
+import sheep.game.Camera;
 import sheep.game.State;
 import sheep.game.World;
 import sheep.input.TouchListener;
+import sheep.math.Vector2;
 
 /*
  * klassen hvor spilet faktisk blir spilst
@@ -15,14 +17,20 @@ import sheep.input.TouchListener;
 
 public class GameState extends State {
 	
+	
 	private GameLayer gameLayer;
 	private World world;
+	private Matrix matrix;
+	private Camera camera;
 	
 	public GameState(int rounds){
 		world = new World();
 		gameLayer = new GameLayer(rounds);
 		world.addLayer(gameLayer);
 		addTouchListener(new Touch());
+		matrix = new Matrix();
+		matrix.setScale(1, 1);
+		camera = world.getCamera();
 	}
 	
 	public class Touch implements TouchListener{
@@ -54,11 +62,18 @@ public class GameState extends State {
 	
 	public void update(float dt){
 		world.update(dt);
+		moveCamera();
 	}
 	
 	public void draw(Canvas canvas){
-		canvas.drawColor(Color.BLACK);
+
 		world.draw(canvas);
+	}
+	
+	public void moveCamera(){
+		if(gameLayer.getStone().getX() >= GlobalConstants.SCREENWIDTH*0.5f){
+			camera.setPosition(new Vector2(gameLayer.getStone().getX()-GlobalConstants.SCREENWIDTH*0.5f,0));
+		}	
 	}
 
 }

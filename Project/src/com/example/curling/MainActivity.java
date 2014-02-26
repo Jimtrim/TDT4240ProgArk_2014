@@ -19,7 +19,7 @@ public class MainActivity extends Activity {
 		
 		setContentView(R.layout.activity_main);
 		
-		// da jeg prøvde å bruke den nye funksjonen fikk jeg feilmedling med sheep...
+		// da jeg prøvde å bruke den nye funksjonen fikk jeg feilmedling med sheep... tror ikke sheep støtter en særlig høy api
 		GlobalConstants.SCREENHEIGHT = getWindowManager().getDefaultDisplay().getHeight();
 		GlobalConstants.SCREENWIDTH = getWindowManager().getDefaultDisplay().getWidth();
 		

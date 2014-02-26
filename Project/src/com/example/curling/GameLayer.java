@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.util.Log;
 import sheep.game.Layer;
 import sheep.game.Sprite;
+import sheep.graphics.Image;
 import sheep.math.BoundingBox;
 import sheep.math.Vector2;
 
@@ -17,6 +18,8 @@ public class GameLayer extends Layer{
 	
 	private static final String TAG = MainActivity.class.getSimpleName();
 	
+	private Background background = new Background(new Image(R.drawable.curlingbackground));
+
 	private int rounds,currentRound,totalStones;
 	private ArrayList<CurlingStone> stoneList = new ArrayList<CurlingStone>();
 	private Player playerOne,playerTow,currentPlayer;
@@ -58,6 +61,7 @@ public class GameLayer extends Layer{
 	}
 	
 	public void draw(Canvas canvas, BoundingBox box) {
+		background.draw(canvas);
 		for(Sprite i: stoneList){
 			i.draw(canvas);
 		}
