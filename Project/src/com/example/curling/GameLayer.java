@@ -96,7 +96,6 @@ public class GameLayer extends Layer{
 		if (noStonesMove()&&currentPlayer.getState() == 2){
 			evaluateStones();
 			nextPlayer();
-			Log.d(TAG,"noe feil med resten av programmet");
 			if(totalStones == 0){
 				addPoints();
 				newRound();
