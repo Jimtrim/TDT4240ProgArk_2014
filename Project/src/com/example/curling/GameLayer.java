@@ -3,6 +3,7 @@ package com.example.curling;
 import java.util.ArrayList;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.util.Log;
 import sheep.game.Layer;
 import sheep.game.Sprite;
@@ -40,7 +41,7 @@ public class GameLayer extends Layer{
 	public void update(float dt) {
 		//sjekker om det er starten til spilleren
 		if (currentPlayer.getState() == 0){
-			movingStone = new CurlingStone(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.5f);
+			movingStone = new CurlingStone(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.5f,currentPlayer.getPlayerIndex());
 			stoneList.add(movingStone);
 			totalStones = totalStones - 1;
 			Log.d(TAG,Integer.toString(stoneList.size()));
@@ -58,6 +59,7 @@ public class GameLayer extends Layer{
 	}
 	
 	public void draw(Canvas canvas, BoundingBox box) {
+		canvas.drawColor(Color.WHITE);
 		background.draw(canvas);
 		for(Sprite i: stoneList){
 			i.draw(canvas);
