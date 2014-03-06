@@ -120,4 +120,10 @@ public class GameLayer extends Layer{
 	public void setNewThrow(boolean s){
 		newThrow = s;
 	}
+
+    public boolean outOfBounds(CurlingStone Stone){
+        stone.po
+
+        return false
+    }
 }
