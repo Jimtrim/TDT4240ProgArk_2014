@@ -47,7 +47,7 @@ public class GameLayer extends Layer{
 			currentPlayer.setState(1);
 		}
 		
-		if(movingStone.getSpeedX() == 0 && movingStone.getMoved()){
+		if(noStonesMove() && movingStone.getMoved()){
 			currentPlayer.setState(2);
 		}
 		

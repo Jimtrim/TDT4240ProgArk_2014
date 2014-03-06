@@ -15,12 +15,14 @@ public class CurlingStone extends Sprite{
 	private float speedX;
 	private float friction = 2.0f;
 	
-	private static Image image = new Image(R.drawable.curling);
+	private static Image red = new Image(R.drawable.curling);
+	private static Image yellow = new Image(R.drawable.curlingyellow);
 	
-	public CurlingStone(float x,float y){
-		super(image);
+	public CurlingStone(float x,float y,int playerIndex){
+		super(red);
 		this.speedX = 0;
 		setPosition(x, y);
+		if(playerIndex == 1) setView(yellow);
 	}
 	
 	public void update(float dt){
