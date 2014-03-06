@@ -27,5 +27,7 @@ public class Track extends Sprite{
 	public void draw(Canvas canvas){
 		image.draw(canvas,matrix);
 	}
-	
+	public float getHogLine(){
+        return 3266*scale;
+    }
 }
