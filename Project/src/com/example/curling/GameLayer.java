@@ -129,7 +129,8 @@ public class GameLayer extends Layer{
     public void outOfBounds(Sprite Stone){
         Float posX = Stone.getPosition().getX();
         Float posy = Stone.getPosition().getY();
-        if (posX > track.image.getWidth()){
+        if (posX > track.getLenght()){
+        	Log.d(TAG,Float.toString(track.image.getWidth()));
             stoneList.remove(Stone);
         }
     }
