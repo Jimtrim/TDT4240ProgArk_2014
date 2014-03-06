@@ -19,7 +19,7 @@ public class GameLayer extends Layer{
 	
 	private static final String TAG = MainActivity.class.getSimpleName();
 	
-	private Background background = new Background(new Image(R.drawable.curlingbackground));
+	private Track track = new Track(new Image(R.drawable.curlingbackground));
 
 	private int rounds,currentRound,totalStones;
 	private ArrayList<CurlingStone> stoneList = new ArrayList<CurlingStone>();
@@ -59,8 +59,9 @@ public class GameLayer extends Layer{
 	}
 	
 	public void draw(Canvas canvas, BoundingBox box) {
+
 		canvas.drawColor(Color.WHITE);
-		background.draw(canvas);
+		track.draw(canvas);
 		for(Sprite i: stoneList){
 			i.draw(canvas);
 		}
