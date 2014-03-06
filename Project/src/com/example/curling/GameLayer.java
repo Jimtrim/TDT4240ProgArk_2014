@@ -3,6 +3,7 @@ package com.example.curling;
 import java.util.ArrayList;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.util.Log;
 import sheep.game.Layer;
 import sheep.game.Sprite;
@@ -58,6 +59,8 @@ public class GameLayer extends Layer{
 	}
 	
 	public void draw(Canvas canvas, BoundingBox box) {
+
+		canvas.drawColor(Color.WHITE);
 		track.draw(canvas);
 		for(Sprite i: stoneList){
 			i.draw(canvas);
