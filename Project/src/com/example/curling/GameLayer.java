@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.Log;
 import sheep.game.Layer;
 import sheep.game.Sprite;
@@ -128,7 +129,7 @@ public class GameLayer extends Layer{
     public void outOfBounds(Sprite Stone){
         Float posX = Stone.getPosition().getX();
         Float posy = Stone.getPosition().getY();
-        if (posX > track.getLength() || posX < track.getHogLine()){
+        if (posX > track.getLenght() || posX < track.getHogLine()){
             stoneList.remove(Stone);
         }
     }

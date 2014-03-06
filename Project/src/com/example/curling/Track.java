@@ -9,11 +9,12 @@ public class Track extends Sprite{
 
 	Matrix matrix = new Matrix();
 	Image image;
+	float scale;
 	
 	public Track(Image image){
 		super(image);
 		this.image = image;
-		float scale = GlobalConstants.SCREENHEIGHT/image.getHeight();
+		this.scale = GlobalConstants.SCREENHEIGHT/image.getHeight();
 		
 		matrix.setScale(scale, scale);
 		
@@ -27,7 +28,13 @@ public class Track extends Sprite{
 	public void draw(Canvas canvas){
 		image.draw(canvas,matrix);
 	}
+
 	public float getHogLine(){
         return 3266*scale;
     }
+
+	public float getLenght(){
+		return image.getWidth()*scale;
+	}
+
 }
