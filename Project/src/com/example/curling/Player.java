@@ -1,8 +1,8 @@
 package com.example.curling;
 
 /*
- * sjapp kode for å få til rundene i curling
- * state 0: steinen har ikke blitt snedt av gårde ennå
+ * kjapp kode for ï¿½ fï¿½ til rundene i curling
+ * state 0: steinen har ikke blitt snedt av gï¿½rde ennï¿½
  * state 1: steinen har blitt sendt
  * state 2: steinen har stoppet
  */
