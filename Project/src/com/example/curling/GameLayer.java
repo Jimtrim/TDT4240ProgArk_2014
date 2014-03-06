@@ -58,7 +58,7 @@ public class GameLayer extends Layer{
 			i.update(dt);
             outOfBounds(i);
 		}
-        stoneList.remove(removeStone);
+        stoneList.removeAll(removeStone);
         removeStone.clear();
 		endTurn();
 	}
@@ -132,7 +132,7 @@ public class GameLayer extends Layer{
     public void outOfBounds(Sprite stone){
         Float posX = stone.getPosition().getX();
         Float posY = stone.getPosition().getY();
-        if (posX > track.getLenght() || (posX < track.getHogLine() && playerOne.getState()==3)){
+        if (posX > track.getLenght() || (posX < track.getHogLine() && currentPlayer.getState()==3)){
             removeStone.add((CurlingStone) stone);
         }
         else if (posY > track.getHeight() || posY < 0){
