@@ -126,11 +126,15 @@ public class GameLayer extends Layer{
 		newThrow = s;
 	}
 
-    public void outOfBounds(Sprite Stone){
-        Float posX = Stone.getPosition().getX();
-        Float posy = Stone.getPosition().getY();
-        if (posX > track.getLenght() || (posX < track.getHogLine() && currentPlayer.getState()==3)){
-            stoneList.remove(Stone);
+
+    public void outOfBounds(Sprite stone){
+        Float posX = stone.getPosition().getX();
+        Float posY = stone.getPosition().getY();
+        if (posX > track.getLenght() || (posX < track.getHogLine() && playerOne.getState()==3)){
+            stoneList.remove(stone);
+        }
+        else if (posY > track.getHeight() || posY < 0){
+            stoneList.remove(stone);
         }
     }
 }
