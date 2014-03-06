@@ -10,9 +10,11 @@ package com.example.curling;
 public class Player {
 	
 	private int state;
-	
-	public Player(){
+	private int playerIndex;
+
+	public Player(int index){
 		state = 0;
+        playerIndex = index;
 	}
 	
 	public int getState(){
@@ -22,6 +24,11 @@ public class Player {
 	public void setState(int state){
 		this.state = state;
 	}
+
+    public int getPlayerIndex(){
+        return this.playerIndex;
+    }
+    public void setPlayerIndex(int playerIndex){ this.playerIndex=playerIndex;}
 	
 	
 
