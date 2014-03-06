@@ -27,7 +27,7 @@ public class GameLayer extends Layer{
 	private Player playerOne,playerTwo,currentPlayer;
 	private Vector2 nullvector = new Vector2(0.0f, 0.0f); 
 	private CurlingStone movingStone;
-	private boolean newThrow = false;
+	private boolean newThrow = true;
 	
 	
 	public GameLayer(int rounds){
@@ -49,8 +49,8 @@ public class GameLayer extends Layer{
 			currentPlayer.setState(2);
 		}
 		
-		if(noStonesMove() && movingStone.getMoved()){
-			currentPlayer.setState(3);
+		if(noStonesMove() && currentPlayer.getState() > 0){
+			if (movingStone.getMoved())	currentPlayer.setState(3);
 		}
 		
 		for(Sprite i: stoneList){

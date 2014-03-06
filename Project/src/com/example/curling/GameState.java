@@ -39,6 +39,7 @@ public class GameState extends State {
 		public boolean onTouchDown(MotionEvent event) {
 			if (gameLayer.getCurrentPlayer().getState() == 0){
 				gameLayer.getCurrentPlayer().setState(1);
+				resetCamera();
 				return false;
 			}else{
 			float[] point = {event.getX(),event.getY()};
@@ -69,14 +70,11 @@ public class GameState extends State {
 	public void update(float dt){
 		world.update(dt);
 		moveCamera();
-		if(gameLayer.getNewThrow()){
-			resetCamera();
-		}
 	}
 	
 	public void draw(Canvas canvas){
 		world.draw(canvas);
-		canvas.drawText(Float.toString(gameLayer.getStone().getSpeedX()), 10, 10, new Paint(20));
+//		if (gameLayer.getCurrentPlayer().getState() >0)	canvas.drawText(Float.toString(gameLayer.getStone().getSpeedX()), 10, 10, new Paint(20));
 	}
 	
 	public void resetCamera(){
