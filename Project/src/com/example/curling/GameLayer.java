@@ -54,6 +54,7 @@ public class GameLayer extends Layer{
 		
 		for(Sprite i: stoneList){
 			i.update(dt);
+            outOfBounds(i);
 		}
 		endTurn();
 	}
@@ -124,9 +125,11 @@ public class GameLayer extends Layer{
 		newThrow = s;
 	}
 
-    public boolean outOfBounds(CurlingStone Stone){
-        stone.po
-
-        return false
+    public void outOfBounds(Sprite Stone){
+        Float posX = Stone.getPosition().getX();
+        Float posy = Stone.getPosition().getY();
+        if (posX > track.image.getWidth()){
+            stoneList.remove(Stone);
+        }
     }
 }
