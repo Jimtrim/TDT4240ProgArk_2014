@@ -129,7 +129,7 @@ public class GameLayer extends Layer{
     public void outOfBounds(Sprite Stone){
         Float posX = Stone.getPosition().getX();
         Float posy = Stone.getPosition().getY();
-        if (posX > track.getLenght() || posX < track.getHogLine()){
+        if (posX > track.getLenght() || (posX < track.getHogLine() && playerOne.getState()==2)){
             stoneList.remove(Stone);
         }
     }
