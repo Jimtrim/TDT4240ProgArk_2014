@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.view.MotionEvent;
 import sheep.game.Camera;
 import sheep.game.State;
@@ -70,6 +71,7 @@ public class GameState extends State {
 	
 	public void draw(Canvas canvas){
 		world.draw(canvas);
+		canvas.drawText(Float.toString(gameLayer.getStone().getSpeedX()), 10, 10, new Paint(20));
 	}
 	
 	public void resetCamera(){

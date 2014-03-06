@@ -41,16 +41,16 @@ public class GameLayer extends Layer{
 
 	public void update(float dt) {
 		//sjekker om det er starten til spilleren
-		if (currentPlayer.getState() == 0){
+		if (currentPlayer.getState() == 1){
 			movingStone = new CurlingStone(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.5f,currentPlayer.getPlayerIndex());
 			stoneList.add(movingStone);
 			totalStones = totalStones - 1;
 			Log.d(TAG,Integer.toString(stoneList.size()));
-			currentPlayer.setState(1);
+			currentPlayer.setState(2);
 		}
 		
 		if(noStonesMove() && movingStone.getMoved()){
-			currentPlayer.setState(2);
+			currentPlayer.setState(3);
 		}
 		
 		for(Sprite i: stoneList){
@@ -98,7 +98,7 @@ public class GameLayer extends Layer{
 	}
 	
 	public void endTurn(){
-		if (noStonesMove()&&currentPlayer.getState() == 2){
+		if (noStonesMove()&&currentPlayer.getState() == 3){
 			evaluateStones();
 			nextPlayer();
 			if(totalStones == 0){
@@ -129,7 +129,7 @@ public class GameLayer extends Layer{
     public void outOfBounds(Sprite Stone){
         Float posX = Stone.getPosition().getX();
         Float posy = Stone.getPosition().getY();
-        if (posX > track.getLenght() || (posX < track.getHogLine() && playerOne.getState()==2)){
+        if (posX > track.getLenght() || (posX < track.getHogLine() && currentPlayer.getState()==3)){
             stoneList.remove(Stone);
         }
     }
