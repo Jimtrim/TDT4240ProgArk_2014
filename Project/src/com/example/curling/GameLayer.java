@@ -24,6 +24,7 @@ public class GameLayer extends Layer{
 
 	private int rounds,currentRound,totalStones;
 	private ArrayList<CurlingStone> stoneList = new ArrayList<CurlingStone>();
+    private ArrayList<CurlingStone> removeStone = new ArrayList<CurlingStone>();
 	private Player playerOne,playerTwo,currentPlayer;
 	private Vector2 nullvector = new Vector2(0.0f, 0.0f); 
 	private CurlingStone movingStone;
@@ -57,6 +58,8 @@ public class GameLayer extends Layer{
 			i.update(dt);
             outOfBounds(i);
 		}
+        stoneList.remove(removeStone);
+        removeStone.clear();
 		endTurn();
 	}
 	
@@ -130,13 +133,13 @@ public class GameLayer extends Layer{
         Float posX = stone.getPosition().getX();
         Float posY = stone.getPosition().getY();
         if (posX > track.getLenght() || (posX < track.getHogLine() && playerOne.getState()==3)){
-            stoneList.remove(stone);
+            removeStone.add((CurlingStone) stone);
         }
         else if (posY > track.getHeight() || posY < 0){
-            stoneList.remove(stone);
+            removeStone.add((CurlingStone) stone);
         }
     }
-    
+      
     public Player getCurrentPlayer(){
     	return this.currentPlayer;
     }
