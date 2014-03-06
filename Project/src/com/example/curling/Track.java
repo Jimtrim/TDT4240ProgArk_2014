@@ -37,4 +37,7 @@ public class Track extends Sprite{
 		return image.getWidth()*scale;
 	}
 
+    public float getHeight(){
+        return GlobalConstants.SCREENHEIGHT;
+    }
 }
