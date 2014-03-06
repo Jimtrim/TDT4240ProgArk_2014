@@ -18,7 +18,7 @@ public class GameLayer extends Layer{
 	
 	private static final String TAG = MainActivity.class.getSimpleName();
 	
-	private Background background = new Background(new Image(R.drawable.curlingbackground));
+	private Track track = new Track(new Image(R.drawable.curlingbackground));
 
 	private int rounds,currentRound,totalStones;
 	private ArrayList<CurlingStone> stoneList = new ArrayList<CurlingStone>();
@@ -40,7 +40,7 @@ public class GameLayer extends Layer{
 	public void update(float dt) {
 		//sjekker om det er starten til spilleren
 		if (currentPlayer.getState() == 0){
-			movingStone = new CurlingStone(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.5f);
+			movingStone = new CurlingStone(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.5f,currentPlayer.getPlayerIndex());
 			stoneList.add(movingStone);
 			totalStones = totalStones - 1;
 			Log.d(TAG,Integer.toString(stoneList.size()));
@@ -58,7 +58,7 @@ public class GameLayer extends Layer{
 	}
 	
 	public void draw(Canvas canvas, BoundingBox box) {
-		background.draw(canvas);
+		track.draw(canvas);
 		for(Sprite i: stoneList){
 			i.draw(canvas);
 		}
