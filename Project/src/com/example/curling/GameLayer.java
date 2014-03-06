@@ -22,7 +22,7 @@ public class GameLayer extends Layer{
 
 	private int rounds,currentRound,totalStones;
 	private ArrayList<CurlingStone> stoneList = new ArrayList<CurlingStone>();
-	private Player playerOne,playerTow,currentPlayer;
+	private Player playerOne,playerTwo,currentPlayer;
 	private Vector2 nullvector = new Vector2(0.0f, 0.0f); 
 	private CurlingStone movingStone;
 	private boolean newThrow = false;
@@ -32,8 +32,8 @@ public class GameLayer extends Layer{
 		this.rounds = rounds;
 		this.currentRound = 0;
 		this.totalStones = 16;
-		playerOne = new Player();
-		playerTow = new Player();
+		playerOne = new Player(0);
+		playerTwo = new Player(1);
 		currentPlayer = playerOne;
 	}
 
@@ -76,7 +76,7 @@ public class GameLayer extends Layer{
 	public void nextPlayer(){
 		newThrow = true;
 		currentPlayer.setState(0);
-		if(currentPlayer == playerOne) currentPlayer = playerTow;
+		if(currentPlayer == playerOne) currentPlayer = playerTwo;
 		else currentPlayer = playerOne;
 	}
 	
