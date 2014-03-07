@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.view.MotionEvent;
 import sheep.game.Camera;
 import sheep.game.State;
@@ -57,11 +58,16 @@ public class GameState extends State {
 
 		public boolean onTouchMove(MotionEvent event) {
 			float[] point = {event.getX(),event.getY()};
-			touchList.add(point);
+			if (touchList.size()>0)	if (!equalFloatPoints(touchList.get(touchList.size()-1),point)) touchList.add(point);
 			if (touchList.size() >= 10){
 				gameLayer.getStone().move(touchList.subList(touchList.size()-10, touchList.size()));
 			}
 			return true;
+		}
+
+		private boolean equalFloatPoints(float[] fs, float[] fs2) {
+			if(fs[0] == fs2[0] && fs[1] == fs2[1]) return true;
+			return false;
 		}
 		
 	}
@@ -73,12 +79,11 @@ public class GameState extends State {
 	
 	public void draw(Canvas canvas){
 		world.draw(canvas);
-//		if (gameLayer.getCurrentPlayer().getState() >0)	canvas.drawText(Float.toString(gameLayer.getStone().getSpeedX()), 10, 10, new Paint(20));
+		if (gameLayer.getStone() != null)	canvas.drawText(Float.toString(gameLayer.getStone().getSpeedX()), 10, 10, new Paint(20));
 	}
 	
 	public void resetCamera(){
 		camera.setPosition(new Vector2(0,0));
-		gameLayer.setNewThrow(false);
 	}
 	
 	public void moveCamera(){

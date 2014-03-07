@@ -57,7 +57,7 @@ public class CurlingStone extends Sprite{
 	public String makeString(List<float[]> list){
 		String s = "";
 		for(int i = 0; i < list.size();i++){
-			s = s + Float.toString(list.get(i)[0]) + " : " + Float.toString(list.get(i)[0]) + " ";
+			s = s + Float.toString(list.get(i)[0]) + " : " + Float.toString(list.get(i)[1]) + " ";
 		}
 		return s;
 	}
