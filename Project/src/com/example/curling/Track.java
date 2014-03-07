@@ -2,11 +2,14 @@ package com.example.curling;
 
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.util.Log;
 import sheep.game.Sprite;
 import sheep.graphics.Image;
 
 public class Track extends Sprite{
 
+	private static final String TAG = MainActivity.class.getSimpleName();
+	
 	Matrix matrix = new Matrix();
 	Image image;
 	float scale;
@@ -15,7 +18,7 @@ public class Track extends Sprite{
 		super(image);
 		this.image = image;
 		this.scale = GlobalConstants.SCREENHEIGHT/image.getHeight();
-		
+		Log.d(TAG,"scale: " + Float.toString(scale));
 		matrix.setScale(scale, scale);
 		
 		setOffset(0, 0);
