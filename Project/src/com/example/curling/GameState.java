@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.view.MotionEvent;
 import sheep.game.Camera;
 import sheep.game.State;

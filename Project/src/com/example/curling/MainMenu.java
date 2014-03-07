@@ -1,11 +1,12 @@
 package com.example.curling;
 
 import sheep.game.State;
+import sheep.graphics.Image;
 import sheep.gui.TextButton;
 import sheep.gui.WidgetAction;
 import sheep.gui.WidgetListener;
 import android.graphics.Canvas;
-import android.graphics.Color;
+import android.graphics.Matrix;
 
 /*
  * hovedmenye til spillet
@@ -14,12 +15,15 @@ import android.graphics.Color;
 public class MainMenu extends State implements WidgetListener{
 	
 	private TextButton StartGame,Exit,Tutorial;
+	private float scalex,scaley;
+	private Matrix matrix = new Matrix();
+	public Image mainMenuScreen = new Image(R.drawable.frontscreencurling);
 	
 	public MainMenu(){
 		
-		StartGame = new TextButton(GlobalConstants.SCREENWIDTH*0.3f, GlobalConstants.SCREENHEIGHT*0.2f, "Start Game",GlobalConstants.menuFont);
-		Tutorial = new TextButton(GlobalConstants.SCREENWIDTH*0.3f, GlobalConstants.SCREENHEIGHT*0.4f,"Tutorial",GlobalConstants.menuFont);
-		Exit = new TextButton(GlobalConstants.SCREENWIDTH*0.3f, GlobalConstants.SCREENHEIGHT*0.6f,"Exit",GlobalConstants.menuFont);
+		StartGame = new TextButton(GlobalConstants.SCREENWIDTH*0.1f, GlobalConstants.SCREENHEIGHT*0.4f, "Start Game",GlobalConstants.menuFont);
+		Tutorial = new TextButton(GlobalConstants.SCREENWIDTH*0.1f, GlobalConstants.SCREENHEIGHT*0.55f,"Tutorial",GlobalConstants.menuFont);
+		Exit = new TextButton(GlobalConstants.SCREENWIDTH*0.1f, GlobalConstants.SCREENHEIGHT*0.7f,"Exit",GlobalConstants.menuFont);
 		
 		addTouchListener(StartGame);
 		addTouchListener(Tutorial);
@@ -28,6 +32,10 @@ public class MainMenu extends State implements WidgetListener{
 		StartGame.addWidgetListener(this);
 		Tutorial.addWidgetListener(this);
 		Exit.addWidgetListener(this);
+		
+		this.scaley = GlobalConstants.SCREENHEIGHT/mainMenuScreen.getHeight();
+		this.scalex = GlobalConstants.SCREENWIDTH/mainMenuScreen.getWidth();
+		this.matrix.setScale(scalex, scaley);
 	}
 	
 	public void update(float dt){
@@ -36,7 +44,7 @@ public class MainMenu extends State implements WidgetListener{
 	
 	public void draw(Canvas canvas){
 		super.draw(canvas);
-		canvas.drawColor(Color.BLACK);
+		mainMenuScreen.draw(canvas, this.matrix);
 		StartGame.draw(canvas);
 		Tutorial.draw(canvas);
 		Exit.draw(canvas);
