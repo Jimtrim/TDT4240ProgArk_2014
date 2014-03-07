@@ -69,7 +69,6 @@ public class GameState extends State {
 			if(fs[0] == fs2[0] && fs[1] == fs2[1]) return true;
 			return false;
 		}
-		
 	}
 	
 	public void update(float dt){
@@ -79,7 +78,7 @@ public class GameState extends State {
 	
 	public void draw(Canvas canvas){
 		world.draw(canvas);
-		if (gameLayer.getStone() != null)	canvas.drawText(Float.toString(gameLayer.getStone().getSpeedX()), 10, 10, new Paint(20));
+		if (gameLayer.getStone() != null)	canvas.drawText(Float.toString(gameLayer.getStone().getSpeedX()), 10, 10, new Paint());
 	}
 	
 	public void resetCamera(){

@@ -62,7 +62,6 @@ public class GameLayer extends Layer{
 	}
 	
 	public void draw(Canvas canvas, BoundingBox box) {
-
 		canvas.drawColor(Color.WHITE);
 		track.draw(canvas);
 		for(Sprite i: stoneList){
