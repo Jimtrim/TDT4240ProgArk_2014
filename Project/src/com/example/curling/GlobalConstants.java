@@ -1,7 +1,6 @@
 package com.example.curling;
 
 import sheep.graphics.Font;
-import sheep.graphics.Image;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 

@@ -3,11 +3,13 @@ package com.example.curling;
 import sheep.game.Game;
 import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.Point;
 import android.view.Window;
 import android.view.WindowManager;
 
 public class MainActivity extends Activity {
 
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,9 +21,11 @@ public class MainActivity extends Activity {
 		
 		setContentView(R.layout.activity_main);
 		
+		Point screenSize = new Point();
+		getWindowManager().getDefaultDisplay().getSize(screenSize);
 		// da jeg prøvde å bruke den nye funksjonen fikk jeg feilmedling med sheep... tror ikke sheep støtter en særlig høy api
-		GlobalConstants.SCREENHEIGHT = getWindowManager().getDefaultDisplay().getHeight();
-		GlobalConstants.SCREENWIDTH = getWindowManager().getDefaultDisplay().getWidth();
+		GlobalConstants.SCREENHEIGHT = screenSize.y;
+		GlobalConstants.SCREENWIDTH = screenSize.x;
 		
 		Game game = new Game(this,null);
 		game.pushState(new MainMenu());
