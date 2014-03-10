@@ -60,10 +60,10 @@ public class GameStateConfig extends State implements WidgetListener{
 		if(action.getSource() == startGame){
 			getGame().pushState(new GameState(gameRounds));
 		}
-		if(action.getSource() == addRound && gameRounds>=0 && gameRounds<20) {
+		if(action.getSource() == addRound && gameRounds>=2 && gameRounds<20) {
 			gameRounds+=2;
 		}
-		if(action.getSource() == removeRound && gameRounds>0 && gameRounds<=20) {
+		if(action.getSource() == removeRound && gameRounds>2 && gameRounds<=20) {
 			gameRounds-=2;
 		}
 	}
