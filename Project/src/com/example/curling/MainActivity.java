@@ -10,7 +10,6 @@ import android.view.WindowManager;
 
 public class MainActivity extends Activity {
 
-	
 	private Game game;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +23,8 @@ public class MainActivity extends Activity {
 		
 		Point screenSize = new Point();
 		getWindowManager().getDefaultDisplay().getSize(screenSize);
-		// da jeg prøvde å bruke den nye funksjonen fikk jeg feilmedling med sheep... tror ikke sheep støtter en særlig høy api
+		
+		GlobalConstants.context = getApplicationContext();
 		GlobalConstants.SCREENHEIGHT = screenSize.y;
 		GlobalConstants.SCREENWIDTH = screenSize.x;
 		
@@ -47,6 +47,8 @@ public class MainActivity extends Activity {
 	}
 	
 	public void onBackPressed(){
+		try{
 		game.popState();
+		}catch (Exception e){super.onBackPressed();}
 	}
 }

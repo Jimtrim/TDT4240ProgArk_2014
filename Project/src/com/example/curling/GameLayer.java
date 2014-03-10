@@ -48,7 +48,7 @@ public class GameLayer extends Layer{
 			currentPlayer.setState(2);
 		}
 		
-		if(noStonesMove() && currentPlayer.getState() > 0){
+		if(noStonesMove() && currentPlayer.getState() > 1){
 			if (movingStone.getMoved())	currentPlayer.setState(3);
 		}
 		
@@ -97,7 +97,7 @@ public class GameLayer extends Layer{
 	}
 	
 	public void endTurn(){
-		if (noStonesMove()&&currentPlayer.getState() == 3){
+		if (currentPlayer.getState() == 3){
 			evaluateStones();
 			nextPlayer();
 			if(totalStones == 0){
