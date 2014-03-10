@@ -32,7 +32,6 @@ public class GameState extends State {
 		matrix = new Matrix();
 		matrix.setScale(1, 1);
 		camera = world.getCamera();
-		//lolssdfdafdasfd
 	}
 	
 	public class Touch implements TouchListener{

@@ -23,6 +23,7 @@ public class MainActivity extends Activity {
 		Point screenSize = new Point();
 		getWindowManager().getDefaultDisplay().getSize(screenSize);
 		
+		GlobalConstants.context = getApplicationContext();
 		GlobalConstants.SCREENHEIGHT = screenSize.y;
 		GlobalConstants.SCREENWIDTH = screenSize.x;
 		
