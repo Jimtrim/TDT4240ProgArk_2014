@@ -10,7 +10,7 @@ import android.view.WindowManager;
 public class MainActivity extends Activity {
 
 	
-	
+	private Game game;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,9 +27,25 @@ public class MainActivity extends Activity {
 		GlobalConstants.SCREENHEIGHT = screenSize.y;
 		GlobalConstants.SCREENWIDTH = screenSize.x;
 		
-		Game game = new Game(this,null);
+		game = new Game(this,null);
 		game.pushState(new MainMenu());
 		game.setKeepScreenOn(true);
 		setContentView(game);
+	}
+	
+	public void onPause(){
+		super.onPause();
+	}
+	
+	public void onResume(){
+		super.onResume();
+	}
+	
+	public void onStop(){
+		super.onStop();
+	}
+	
+	public void onBackPressed(){
+		game.popState();
 	}
 }

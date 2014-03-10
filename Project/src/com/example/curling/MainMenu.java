@@ -44,10 +44,12 @@ public class MainMenu extends State implements WidgetListener{
 	
 	public void draw(Canvas canvas){
 		super.draw(canvas);
+		try{
 		mainMenuScreen.draw(canvas, this.matrix);
 		StartGame.draw(canvas);
 		Tutorial.draw(canvas);
 		Exit.draw(canvas);
+		}catch(Exception e){};
 	}
 
 	public void actionPerformed(WidgetAction action) {

@@ -30,8 +30,10 @@ public class GameStateConfig extends State implements WidgetListener{
 	
 	public void draw(Canvas canvas){
 		super.draw(canvas);
+		try{
 		canvas.drawColor(Color.CYAN);
 		startGame.draw(canvas);
+		}catch (Exception e){};
 	}
 
 	@Override

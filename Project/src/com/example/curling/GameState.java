@@ -77,8 +77,11 @@ public class GameState extends State {
 	}
 	
 	public void draw(Canvas canvas){
+		super.draw(canvas);
+		try{
 		world.draw(canvas);
 		if (gameLayer.getStone() != null)	canvas.drawText(Float.toString(gameLayer.getStone().getSpeedX()), 10, 10, new Paint());
+		}catch (Exception e){};
 	}
 	
 	public void resetCamera(){
