@@ -70,8 +70,8 @@ public class CurlingStone extends Sprite{
 		return this.moved;
 	}
 	
-	public void setSpeedX(){
-		
+	public void setSpeedX(float speedx){
+		this.speedX = speedx;
 	}
 
 }

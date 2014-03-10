@@ -3,12 +3,12 @@ package com.example.curling;
 import java.util.ArrayList;
 
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 import sheep.game.Camera;
 import sheep.game.State;
 import sheep.game.World;
+import sheep.graphics.Image;
 import sheep.input.TouchListener;
 import sheep.math.Vector2;
 
@@ -19,9 +19,9 @@ import sheep.math.Vector2;
 public class GameState extends State {
 	
 	
+	private Image target = new Image(R.drawable.curling);
 	private GameLayer gameLayer;
 	private World world;
-	private Matrix matrix;
 	private Camera camera;
 	
 	private float camerax,cameray;
@@ -31,8 +31,6 @@ public class GameState extends State {
 		gameLayer = new GameLayer(rounds);
 		world.addLayer(gameLayer);
 		addTouchListener(new Touch());
-		matrix = new Matrix();
-		matrix.setScale(1, 1);
 		camera = world.getCamera();
 		camerax = gameLayer.getTrack().getHogLine();
 		cameray = 0;
@@ -43,13 +41,13 @@ public class GameState extends State {
 		private float localx,localy;
 		public boolean onTouchDown(MotionEvent event) {
 			if (gameLayer.getCurrentPlayer().getState() == 0){
-				//gameLayer.getCurrentPlayer().setState(1);
-				//resetCamera();
-//				camerax = event.getX();
-//				cameray = event.getY();
+				if(event.getX() > GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2 && event.getX() < GlobalConstants.SCREENWIDTH*.5f+target.getHeight()/2
+						&& event.getY() > GlobalConstants.SCREENHEIGHT*.5f-target.getHeight()/2 && event.getY() < GlobalConstants.SCREENHEIGHT*.5f+target.getHeight()/2){
+					gameLayer.getCurrentPlayer().setState(1);
+					resetCamera();
+				}
 				localx = event.getX();
 				localy = event.getY();
-				
 				return true;
 			}else{
 			float[] point = {event.getX(),event.getY()};
@@ -60,8 +58,8 @@ public class GameState extends State {
 		
 		public boolean onTouchUp(MotionEvent event){
 			if(gameLayer.getCurrentPlayer().getState() == 0){
-				camerax = camerax + (event.getX() - localx);
-				cameray = cameray + (event.getY() - localy);
+				camerax = camerax - (event.getX() - localx);
+				cameray = cameray - (event.getY() - localy);
 				return false;
 			}else{
 				if (touchList.size() >= 10){
@@ -74,8 +72,8 @@ public class GameState extends State {
 
 		public boolean onTouchMove(MotionEvent event) {
 			if(gameLayer.getCurrentPlayer().getState() == 0){
-				camerax = camerax + (event.getX() - localx);
-				cameray = cameray + (event.getY() - localy);
+				camerax = camerax - (event.getX() - localx);
+				cameray = cameray - (event.getY() - localy);
 				localx = event.getX();
 				localy = event.getY();
 				return true;
@@ -104,6 +102,9 @@ public class GameState extends State {
 		super.draw(canvas);
 		try{
 		world.draw(canvas);
+		if(gameLayer.getCurrentPlayer().getState() == 0){
+			target.draw(canvas, GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2,GlobalConstants.SCREENHEIGHT*0.5f-target.getHeight()/2);
+		}
 		if (gameLayer.getStone() != null)	canvas.drawText(Float.toString(gameLayer.getStone().getSpeedX()), 10, 10, new Paint());
 		}catch (Exception e){};
 	}

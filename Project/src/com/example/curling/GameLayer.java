@@ -58,13 +58,13 @@ public class GameLayer extends Layer{
 			for(Sprite cld: stoneList){
 				if(i != cld){
 					if(i.collides(cld)){
-						cld.setSpeed(((CurlingStone)i).getSpeedX(), 0);
-						i.setSpeed(0,0);
+						((CurlingStone)cld).setSpeedX(((CurlingStone)i).getSpeedX());
+						((CurlingStone)i).setSpeedX(0);
 					}
 				}
 				
 			}
-            outOfBounds(i);
+            //outOfBounds(i);
 		}
         stoneList.removeAll(removeStone);
         removeStone.clear();
