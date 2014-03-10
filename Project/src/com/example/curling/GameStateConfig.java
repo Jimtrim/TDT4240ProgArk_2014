@@ -47,7 +47,7 @@ public class GameStateConfig extends State implements WidgetListener{
 	public void draw(Canvas canvas){
 		super.draw(canvas);
 		try{
-		canvas.drawColor(Color.YELLOW);
+		canvas.drawColor(Color.TRANSPARENT);
 		startGame.draw(canvas);
 		addRound.draw(canvas);
 		removeRound.draw(canvas);
