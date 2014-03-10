@@ -1,5 +1,7 @@
 package com.example.curling;
 
+import java.util.Random;
+
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -19,7 +21,7 @@ public class GameStateConfig extends State implements WidgetListener{
 	private TextButton startGame, addRound, removeRound;
 	private Paint numberOfRounds;
 	private int gameRounds = 10;
-	
+	private Random rand = new Random(); 
 	
 	public GameStateConfig(){
 		
@@ -47,11 +49,16 @@ public class GameStateConfig extends State implements WidgetListener{
 	public void draw(Canvas canvas){
 		super.draw(canvas);
 		try{
-		canvas.drawColor(Color.YELLOW);
-		startGame.draw(canvas);
-		addRound.draw(canvas);
-		removeRound.draw(canvas);
-		canvas.drawText(gameRounds + " Rounds", GlobalConstants.SCREENWIDTH*0.6f, GlobalConstants.SCREENHEIGHT*0.4f, numberOfRounds);
+			Thread t1 = new Thread(); 
+			while (true) {
+				canvas.drawColor(Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+				startGame.draw(canvas);
+				addRound.draw(canvas);
+				removeRound.draw(canvas);
+				canvas.drawText(gameRounds + " Rounds", GlobalConstants.SCREENWIDTH*0.6f, GlobalConstants.SCREENHEIGHT*0.4f, numberOfRounds);
+				t1.wait(500);
+			}
+		
 		}catch (Exception e){};
 	}
 
