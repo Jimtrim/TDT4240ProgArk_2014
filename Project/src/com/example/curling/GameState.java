@@ -24,6 +24,8 @@ public class GameState extends State {
 	private Matrix matrix;
 	private Camera camera;
 	
+	private float camerax,cameray;
+	
 	public GameState(int rounds){
 		world = new World();
 		gameLayer = new GameLayer(rounds);
@@ -32,15 +34,23 @@ public class GameState extends State {
 		matrix = new Matrix();
 		matrix.setScale(1, 1);
 		camera = world.getCamera();
+		camerax = gameLayer.getTrack().getHogLine();
+		cameray = 0;
 	}
 	
 	public class Touch implements TouchListener{
 		private ArrayList<float[]> touchList = new ArrayList<float[]>();
+		private float localx,localy;
 		public boolean onTouchDown(MotionEvent event) {
 			if (gameLayer.getCurrentPlayer().getState() == 0){
-				gameLayer.getCurrentPlayer().setState(1);
-				resetCamera();
-				return false;
+				//gameLayer.getCurrentPlayer().setState(1);
+				//resetCamera();
+//				camerax = event.getX();
+//				cameray = event.getY();
+				localx = event.getX();
+				localy = event.getY();
+				
+				return true;
 			}else{
 			float[] point = {event.getX(),event.getY()};
 			touchList.add(point);
@@ -49,20 +59,34 @@ public class GameState extends State {
 		}
 		
 		public boolean onTouchUp(MotionEvent event){
-			if (touchList.size() >= 10){
-				gameLayer.getStone().move(touchList.subList(touchList.size()-10, touchList.size()-1));
+			if(gameLayer.getCurrentPlayer().getState() == 0){
+				camerax = camerax + (event.getX() - localx);
+				cameray = cameray + (event.getY() - localy);
+				return false;
+			}else{
+				if (touchList.size() >= 10){
+					gameLayer.getStone().move(touchList.subList(touchList.size()-10, touchList.size()-1));
+				}
+				touchList = new ArrayList<float[]>();
+				return false;
 			}
-			touchList = new ArrayList<float[]>();
-			return false;
 		}
 
 		public boolean onTouchMove(MotionEvent event) {
-			float[] point = {event.getX(),event.getY()};
-			if (touchList.size()>0)	if (!equalFloatPoints(touchList.get(touchList.size()-1),point)) touchList.add(point);
-			if (touchList.size() >= 10){
-				gameLayer.getStone().move(touchList.subList(touchList.size()-10, touchList.size()));
+			if(gameLayer.getCurrentPlayer().getState() == 0){
+				camerax = camerax + (event.getX() - localx);
+				cameray = cameray + (event.getY() - localy);
+				localx = event.getX();
+				localy = event.getY();
+				return true;
+			}else{
+				float[] point = {event.getX(),event.getY()};
+				if (touchList.size()>0)	if (!equalFloatPoints(touchList.get(touchList.size()-1),point)) touchList.add(point);
+				if (touchList.size() >= 10){
+					gameLayer.getStone().move(touchList.subList(touchList.size()-10, touchList.size()));
+				}
+				return true;
 			}
-			return true;
 		}
 
 		private boolean equalFloatPoints(float[] fs, float[] fs2) {
@@ -90,7 +114,7 @@ public class GameState extends State {
 	
 	public void moveCamera(){
 		if (gameLayer.getCurrentPlayer().getState() == 0){
-			camera.setPosition(new Vector2(gameLayer.getTrack().getHogLine(),0));
+			camera.setPosition(new Vector2(camerax,cameray));
 		}
 		else if(gameLayer.getStone().getX() >= GlobalConstants.SCREENWIDTH*0.5f){
 			camera.setPosition(new Vector2(gameLayer.getStone().getX()-GlobalConstants.SCREENWIDTH*0.5f,0));
