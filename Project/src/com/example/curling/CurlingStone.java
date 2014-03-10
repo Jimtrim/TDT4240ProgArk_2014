@@ -69,5 +69,9 @@ public class CurlingStone extends Sprite{
 	public boolean getMoved(){
 		return this.moved;
 	}
+	
+	public void setSpeedX(){
+		
+	}
 
 }
