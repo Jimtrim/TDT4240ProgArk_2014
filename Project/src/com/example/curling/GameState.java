@@ -41,18 +41,15 @@ public class GameState extends State {
 		private float localx,localy;
 		public boolean onTouchDown(MotionEvent event) {
 			if (gameLayer.getCurrentPlayer().getState() == 0){
-<<<<<<< HEAD
 				gameLayer.getCurrentPlayer().setState(1);
 				resetCamera();
 //				camerax = event.getX();
 //				cameray = event.getY();
-=======
 				if(event.getX() > GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2 && event.getX() < GlobalConstants.SCREENWIDTH*.5f+target.getHeight()/2
 						&& event.getY() > GlobalConstants.SCREENHEIGHT*.5f-target.getHeight()/2 && event.getY() < GlobalConstants.SCREENHEIGHT*.5f+target.getHeight()/2){
 					gameLayer.getCurrentPlayer().setState(1);
 					resetCamera();
 				}
->>>>>>> 8e21c09cab9e0e1b87f2ae5fd1490c3cb605213c
 				localx = event.getX();
 				localy = event.getY();
 				return true;
