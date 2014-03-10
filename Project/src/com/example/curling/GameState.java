@@ -43,8 +43,8 @@ public class GameState extends State {
 		private float localx,localy;
 		public boolean onTouchDown(MotionEvent event) {
 			if (gameLayer.getCurrentPlayer().getState() == 0){
-				//gameLayer.getCurrentPlayer().setState(1);
-				//resetCamera();
+				gameLayer.getCurrentPlayer().setState(1);
+				resetCamera();
 //				camerax = event.getX();
 //				cameray = event.getY();
 				localx = event.getX();

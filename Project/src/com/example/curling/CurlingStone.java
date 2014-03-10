@@ -11,8 +11,10 @@ public class CurlingStone extends Sprite{
 	
 	private static final String TAG = MainActivity.class.getSimpleName();
 	
+	private CurlingStone collidedStone = null; 
 	private boolean moved = false;
 	private float speedX;
+	private float speedY;
     private float differentiation;
 	private float friction = 2.0f;
 	
@@ -66,12 +68,28 @@ public class CurlingStone extends Sprite{
 		return this.speedX;
 	}
 	
+	public float getSpeedY(){
+		return this.speedX;
+	}
+	
 	public boolean getMoved(){
 		return this.moved;
 	}
 	
-	public void setSpeedX(){
-		
+	public void setSpeedX(float SpeedX){
+		this.speedX = speedX;
+	}
+	
+	public void setSpeedY(float SpeedY){
+		this.speedY = speedY;
+	}
+	
+	public void setCollidedStone(CurlingStone stone){
+		this.collidedStone = stone; 
+	}
+	
+	public CurlingStone getCollidedStone(){
+		return this.collidedStone;
 	}
 
 }
