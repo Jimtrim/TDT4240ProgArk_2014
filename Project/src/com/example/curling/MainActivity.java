@@ -4,6 +4,7 @@ import sheep.game.Game;
 import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Point;
+import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 

@@ -6,6 +6,7 @@ import sheep.game.State;
 import sheep.gui.TextButton;
 import sheep.gui.WidgetAction;
 import sheep.gui.WidgetListener;
+import android.widget.SeekBar;
 
 /*
  * klassen hvor man bestemmer hvor mange runder man vil spille
@@ -14,10 +15,13 @@ import sheep.gui.WidgetListener;
 public class GameStateConfig extends State implements WidgetListener{
 	
 	private TextButton startGame;
+	private SeekBar numberOfRounds;
+	
 	
 	public GameStateConfig(){
 		
 		startGame = new TextButton(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.4f,"Start Game",GlobalConstants.menuFont);
+		numberOfRounds = new SeekBar(GlobalConstants.this);
 		
 		addTouchListener(startGame);
 		startGame.addWidgetListener(this);
