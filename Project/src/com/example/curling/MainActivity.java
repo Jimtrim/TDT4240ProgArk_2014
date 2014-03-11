@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
 	
 	public void onBackPressed(){
 		try{
-		game.popState();
+			game.popState();
 		}catch (Exception e){super.onBackPressed();}
 	}
 }

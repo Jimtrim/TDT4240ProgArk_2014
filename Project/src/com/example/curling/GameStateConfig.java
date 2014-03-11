@@ -9,8 +9,6 @@ import sheep.game.State;
 import sheep.gui.TextButton;
 import sheep.gui.WidgetAction;
 import sheep.gui.WidgetListener;
-import android.widget.SeekBar;
-import sheep.gui.Widget;
 
 /*
  * klassen hvor man bestemmer hvor mange runder man vil spille
@@ -21,8 +19,8 @@ public class GameStateConfig extends State implements WidgetListener{
 	private TextButton startGame, addRound, removeRound;
 	private Paint numberOfRounds;
 	private int gameRounds = 10;
-	private Random rand = new Random(); 
-	
+	private Random rand = new Random();
+
 	public GameStateConfig(){
 		
 		startGame = new TextButton(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.4f,"Start Game",GlobalConstants.menuFont);
