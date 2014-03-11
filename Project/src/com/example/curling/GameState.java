@@ -59,7 +59,7 @@ public class GameState extends State {
 			if (gameLayer.getCurrentPlayer().getState() == 0){
 				if(event.getX() > GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2 && event.getX() < GlobalConstants.SCREENWIDTH*.5f+target.getHeight()/2
 						&& event.getY() > GlobalConstants.SCREENHEIGHT*.5f-target.getHeight()/2 && event.getY() < GlobalConstants.SCREENHEIGHT*.5f+target.getHeight()/2){
-					gameLayer.setTarget(new Vector2(camerax,cameray));
+					gameLayer.setTarget(new Vector2(camerax+GlobalConstants.SCREENWIDTH*0.5f,cameray+GlobalConstants.SCREENHEIGHT*0.5f));
 					gameLayer.getCurrentPlayer().setState(1);
 					resetCamera();
 				}
