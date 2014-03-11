@@ -37,7 +37,6 @@ public class CurlingStone extends Sprite{
 			}
 			setSpeed(speedX, 0);
 		}
-		setPosition(getX(), getY());
 	}
 	
 	public void move(List<float[]> touchList){
