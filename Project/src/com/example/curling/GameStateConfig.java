@@ -20,6 +20,8 @@ public class GameStateConfig extends State implements WidgetListener{
 	private Paint numberOfRounds;
 	private int gameRounds = 10;
 	private Random rand = new Random();
+	private int R,B,G;
+	private float time = 0;
 
 	public GameStateConfig(){
 		
@@ -41,13 +43,19 @@ public class GameStateConfig extends State implements WidgetListener{
 	
 	public void update(float dt){
 		super.update(dt);
-		
+		time = time + dt;
+		if (time >= 0.25){
+			R = rand.nextInt(255);
+			B = rand.nextInt(255);
+			G = rand.nextInt(255);
+			time = 0;
+		}
 	}
 	
 	public void draw(Canvas canvas){
 		super.draw(canvas);
 		try{
-			canvas.drawColor(Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+			canvas.drawColor(Color.rgb(R, B, G));
 			startGame.draw(canvas);
 			addRound.draw(canvas);
 			removeRound.draw(canvas);
