@@ -36,6 +36,22 @@ public class GameState extends State {
 		cameray = 0;
 	}
 	
+	public void update(float dt){
+		world.update(dt);
+		moveCamera();
+	}
+	
+	public void draw(Canvas canvas){
+		super.draw(canvas);
+		try{
+		world.draw(canvas);
+		if(gameLayer.getCurrentPlayer().getState() == 0){
+			target.draw(canvas, GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2,GlobalConstants.SCREENHEIGHT*0.5f-target.getHeight()/2);
+		}
+		if (gameLayer.getStone() != null)	canvas.drawText(Float.toString(gameLayer.getStone().getSpeedX()), 10, 10, new Paint());
+		}catch (Exception e){};
+	}
+	
 	public class Touch implements TouchListener{
 		private ArrayList<float[]> touchList = new ArrayList<float[]>();
 		private float localx,localy;
@@ -43,6 +59,7 @@ public class GameState extends State {
 			if (gameLayer.getCurrentPlayer().getState() == 0){
 				if(event.getX() > GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2 && event.getX() < GlobalConstants.SCREENWIDTH*.5f+target.getHeight()/2
 						&& event.getY() > GlobalConstants.SCREENHEIGHT*.5f-target.getHeight()/2 && event.getY() < GlobalConstants.SCREENHEIGHT*.5f+target.getHeight()/2){
+					gameLayer.setTarget(new Vector2(camerax,cameray));
 					gameLayer.getCurrentPlayer().setState(1);
 					resetCamera();
 				}
@@ -91,22 +108,6 @@ public class GameState extends State {
 			if(fs[0] == fs2[0] && fs[1] == fs2[1]) return true;
 			return false;
 		}
-	}
-	
-	public void update(float dt){
-		world.update(dt);
-		moveCamera();
-	}
-	
-	public void draw(Canvas canvas){
-		super.draw(canvas);
-		try{
-		world.draw(canvas);
-		if(gameLayer.getCurrentPlayer().getState() == 0){
-			target.draw(canvas, GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2,GlobalConstants.SCREENHEIGHT*0.5f-target.getHeight()/2);
-		}
-		if (gameLayer.getStone() != null)	canvas.drawText(Float.toString(gameLayer.getStone().getSpeedX()), 10, 10, new Paint());
-		}catch (Exception e){};
 	}
 	
 	public void resetCamera(){

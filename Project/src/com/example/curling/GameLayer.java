@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.util.Log;
 import sheep.game.Layer;
 import sheep.game.Sprite;
@@ -27,6 +28,8 @@ public class GameLayer extends Layer{
 	private Player playerOne,playerTwo,currentPlayer;
 	private Vector2 nullvector = new Vector2(0.0f, 0.0f); 
 	private CurlingStone movingStone;
+	
+	private Vector2 target;
 	
 	
 	public GameLayer(int rounds){
@@ -81,7 +84,7 @@ public class GameLayer extends Layer{
 	}
 	
 	public void draw(Canvas canvas, BoundingBox box) {
-		canvas.drawColor(Color.WHITE);
+		canvas.drawColor(Color.BLACK);
 		track.draw(canvas);
 		for(Sprite i: stoneList){
 			i.draw(canvas);
@@ -116,7 +119,7 @@ public class GameLayer extends Layer{
 	}
 	
 	public void endTurn(){
-		if (currentPlayer.getState() == 3){
+		if (noStonesMove() && currentPlayer.getState() == 3){
 			evaluateStones();
 			nextPlayer();
 			if(totalStones == 0){
@@ -153,5 +156,9 @@ public class GameLayer extends Layer{
     
     public Track getTrack(){
     	return this.track;
+    }
+    
+    public void setTarget(Vector2 p){
+    	this.target = p;
     }
 }
