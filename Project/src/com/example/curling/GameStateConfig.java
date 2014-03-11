@@ -49,16 +49,11 @@ public class GameStateConfig extends State implements WidgetListener{
 	public void draw(Canvas canvas){
 		super.draw(canvas);
 		try{
-			Thread t1 = new Thread(); 
-			while (true) {
-				canvas.drawColor(Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
-				startGame.draw(canvas);
-				addRound.draw(canvas);
-				removeRound.draw(canvas);
-				canvas.drawText(gameRounds + " Rounds", GlobalConstants.SCREENWIDTH*0.6f, GlobalConstants.SCREENHEIGHT*0.4f, numberOfRounds);
-				t1.wait(500);
-			}
-		
+			canvas.drawColor(Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+			startGame.draw(canvas);
+			addRound.draw(canvas);
+			removeRound.draw(canvas);
+			canvas.drawText(gameRounds + " Rounds", GlobalConstants.SCREENWIDTH*0.6f, GlobalConstants.SCREENHEIGHT*0.4f, numberOfRounds);
 		}catch (Exception e){};
 	}
 
