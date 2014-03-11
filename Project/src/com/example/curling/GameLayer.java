@@ -64,6 +64,7 @@ public class GameLayer extends Layer{
 							
 							cld.setSpeedX(((CurlingStone)i).getSpeedX());
 							i.setSpeedX(0);
+							i.setSpeed(0, 0);
 						}
 
 						
