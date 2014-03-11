@@ -19,7 +19,7 @@ import sheep.math.Vector2;
 public class GameState extends State {
 	
 	
-	private Image target = new Image(R.drawable.curling);
+	private Image target = new Image(R.drawable.target);
 	private GameLayer gameLayer;
 	private World world;
 	private Camera camera;
