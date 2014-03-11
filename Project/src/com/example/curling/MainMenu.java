@@ -1,11 +1,15 @@
 package com.example.curling;
 
+import java.util.Random;
+
 import sheep.game.State;
 import sheep.graphics.Image;
 import sheep.gui.TextButton;
 import sheep.gui.WidgetAction;
 import sheep.gui.WidgetListener;
+import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 
 /*
@@ -14,6 +18,7 @@ import android.graphics.Matrix;
 
 public class MainMenu extends State implements WidgetListener{
 	
+	Random rand = new Random();
 	private TextButton StartGame,Exit,Tutorial;
 	private float scalex,scaley;
 	private Matrix matrix = new Matrix();
@@ -51,12 +56,26 @@ public class MainMenu extends State implements WidgetListener{
 		Exit.draw(canvas);
 		}catch(Exception e){};
 	}
+	
+	public void draw2(Canvas canvas){
+		super.draw(canvas);
+		try{
+		canvas.drawColor(Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+		StartGame.draw(canvas);
+		Tutorial.draw(canvas);
+		Exit.draw(canvas);
+		}catch(Exception e){};
+	}
 
 	public void actionPerformed(WidgetAction action) {
 		if(action.getSource() == StartGame){
 			getGame().pushState(new GameStateConfig());
 		}else if(action.getSource() == Exit){
 			//TODO finn ut av hvordan sheep får kalt main activity finish metode
+			Thread tr2 = new Thread();
+			while(true) {
+				
+			}
 		}else if(action.getSource() == Tutorial){
 			//TODO lag tutorial
 		}

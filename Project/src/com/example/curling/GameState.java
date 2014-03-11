@@ -13,7 +13,7 @@ import sheep.input.TouchListener;
 import sheep.math.Vector2;
 
 /*
- * klassen hvor spilet faktisk blir spilst
+ * klassen hvor spillet faktisk blir spilst
  */
 
 public class GameState extends State {
