@@ -9,6 +9,7 @@ import android.view.WindowManager;
 
 public class MainActivity extends Activity {
 
+	
 	private Game game;
 	
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +36,15 @@ public class MainActivity extends Activity {
 	
 	public void onPause(){
 //		//fjerner unødvedige bannere
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		setContentView(R.layout.activity_pause);
-		Point screenSize = new Point();
-		getWindowManager().getDefaultDisplay().getSize(screenSize);
-		game.pushState(new PauseMenu());
-		game.setKeepScreenOn(true);
+//		requestWindowFeature(Window.FEATURE_NO_TITLE);
+//		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//		setContentView(R.layout.activity_pause);
+//		Point screenSize = new Point();
+//		getWindowManager().getDefaultDisplay().getSize(screenSize);
+		if (game.getPreviousState().getClass() == GameStateConfig.class){
+			game.pushState(new PauseMenu());
+			game.setKeepScreenOn(true);
+		}
 		super.onPause();
 	}
 	
@@ -66,7 +69,9 @@ public class MainActivity extends Activity {
 	}
 	
 	public void onBackPressed(){
-		if (game.getPreviousState() == null)super.onBackPressed();
-		else game.popState();
+		if (game.getPreviousState().getClass() == sheep.game.State.class){
+			super.onBackPressed();
+		}
+		else {game.popState();}
 	}
 }
