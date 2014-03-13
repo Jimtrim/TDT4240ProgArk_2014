@@ -26,7 +26,11 @@ public class CurlingGame extends Game {
 		stateStack.remove(stateStack.size()-1); 
 	}
 	
-	public ArrayList<State> getTopState() {
+	public State getTopState() {
+		return stateStack.get(stateStack.size()-1);
+	}
+	
+	public ArrayList<State> getStateStack() {
 		return stateStack;
 	}
 	

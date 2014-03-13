@@ -9,7 +9,7 @@ import android.view.WindowManager;
 
 public class MainActivity extends Activity {
 
-	private Game game;
+	private CurlingGame game;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,13 +35,16 @@ public class MainActivity extends Activity {
 	
 	public void onPause(){
 		super.onPause();
-		//fjerner unødvedige bannere
-		game.pushState(new PauseMenu());
+		if(game.getTopState().getClass() == GameState.class) {
+			game.pushState(new PauseMenu());
+		}
 	}
 	
 	public void onResume(){
 		super.onResume();
-		
+		if(game.getTopState().getClass() == GameState.class) {
+			game.popState();
+		}
 		
 	}
 	
