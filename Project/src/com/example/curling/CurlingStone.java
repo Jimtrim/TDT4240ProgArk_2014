@@ -50,7 +50,8 @@ public class CurlingStone extends Sprite{
 				speedX = speedX + touchList.get(i)[0] - touchList.get(0)[0];
 			}
             differentiation = speedX/(9*(touchList.get(1)[0])-touchList.get(0)[0]);
-			setSpeed(speedX, aimSlope()*speedX);
+			setSpeed(speedX, aimSlope());
+			
 			moved = true;
 		}
 	}
