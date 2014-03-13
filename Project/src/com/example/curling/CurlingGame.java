@@ -16,6 +16,12 @@ public class CurlingGame extends Game {
 		
 	}
 
+	public void resumeStates() { 
+		for (int i=1; i<stateStack.size(); i++) {
+			super.pushState(stateStack.get(i));
+		}
+	}
+	
 	public void pushState(State state) {
 		super.pushState(state);
 		stateStack.add(state);

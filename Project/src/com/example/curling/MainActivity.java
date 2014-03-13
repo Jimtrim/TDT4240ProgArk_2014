@@ -42,10 +42,8 @@ public class MainActivity extends Activity {
 	
 	public void onResume(){
 		super.onResume();
-		if(game.getTopState().getClass() == GameState.class) {
-			game.popState();
-		}
-		
+		game.resumeStates();
+		game.popState();
 	}
 	
 	public void onStop(){
