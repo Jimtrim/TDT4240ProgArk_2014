@@ -43,7 +43,7 @@ public class GameLayer extends Layer{
 	public void update(float dt) {
 		//sjekker om det er starten til spilleren
 		if (currentPlayer.getState() == 1){
-			movingStone = new CurlingStone(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.5f,currentPlayer.getPlayerIndex());
+			movingStone = new CurlingStone(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.5f,currentPlayer.getPlayerIndex(),target);
 			stoneList.add(movingStone);
 			totalStones = totalStones - 1;
 			Log.d(TAG,Integer.toString(stoneList.size()));
