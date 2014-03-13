@@ -10,7 +10,7 @@ import android.view.WindowManager;
 public class MainActivity extends Activity {
 
 	private Game game;
-	@Override
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -34,8 +34,7 @@ public class MainActivity extends Activity {
 	}
 	
 	public void onPause(){
-		super.onPause();
-		//fjerner unødvedige bannere
+//		//fjerner unødvedige bannere
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_pause);
@@ -43,20 +42,31 @@ public class MainActivity extends Activity {
 		getWindowManager().getDefaultDisplay().getSize(screenSize);
 		game.pushState(new PauseMenu());
 		game.setKeepScreenOn(true);
+		super.onPause();
 	}
 	
 	public void onResume(){
 		super.onResume();
-		
 	}
 	
 	public void onStop(){
 		super.onStop();
 	}
 	
+	public void onDestroy(){
+		super.onDestroy();
+	}
+	
+	public void onStart(){
+		super.onStart();
+	}
+	
+	public void onRestart(){
+		super.onRestart();
+	}
+	
 	public void onBackPressed(){
-		try{
-			game.popState();
-		}catch (Exception e){super.onBackPressed();}
+		if (game.getPreviousState() == null)super.onBackPressed();
+		else game.popState();
 	}
 }
