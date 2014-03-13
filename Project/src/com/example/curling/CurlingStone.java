@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.util.Log;
 import sheep.game.Sprite;
 import sheep.graphics.Image;
+import sheep.math.Vector2;
 
 public class CurlingStone extends Sprite{
 	
@@ -90,5 +91,9 @@ public class CurlingStone extends Sprite{
 	public void setSpeedX(float speedx){
 		this.speedX = speedx;
 	}
+
+    public Vector2 setTarget (){
+        return target;
+    }
 
 }
