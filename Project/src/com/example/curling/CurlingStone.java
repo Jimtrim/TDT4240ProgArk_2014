@@ -39,7 +39,7 @@ public class CurlingStone extends Sprite{
 			if(speedX < 0){
 				speedX = 0;
 			}
-			setSpeed(speedX, 0);
+			setSpeed(speedX, aimSlope()*speedX);
 		}
 	}
 	
@@ -50,7 +50,7 @@ public class CurlingStone extends Sprite{
 				speedX = speedX + touchList.get(i)[0] - touchList.get(0)[0];
 			}
             differentiation = speedX/(9*(touchList.get(1)[0])-touchList.get(0)[0]);
-			setSpeed(speedX, 0);
+			setSpeed(speedX, aimSlope()*speedX);
 			moved = true;
 		}
 	}
@@ -94,5 +94,9 @@ public class CurlingStone extends Sprite{
 	public void setSpeedX(float speedx){
 		this.speedX = speedx;
 	}
+
+    public float aimSlope(){
+        return target.getY()-getY()/target.getX()-getX();
+    }
 
 }
