@@ -36,13 +36,7 @@ public class MainActivity extends Activity {
 	public void onPause(){
 		super.onPause();
 		//fjerner unødvedige bannere
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		setContentView(R.layout.activity_pause);
-		Point screenSize = new Point();
-		getWindowManager().getDefaultDisplay().getSize(screenSize);
 		game.pushState(new PauseMenu());
-		game.setKeepScreenOn(true);
 	}
 	
 	public void onResume(){
