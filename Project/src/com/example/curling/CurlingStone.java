@@ -99,6 +99,8 @@ public class CurlingStone extends Sprite{
     public float aimSlope(){
         return (target.getY()-getY())/(target.getX()-getX());
     }
+    
+    
 
 
 }
