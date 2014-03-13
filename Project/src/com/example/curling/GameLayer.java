@@ -75,7 +75,7 @@ public class GameLayer extends Layer{
 				}
 				
 			}
-            outOfBounds(i);
+            //outOfBounds(i);
 		}
         stoneList.removeAll(removeStone);
         removeStone.clear();
