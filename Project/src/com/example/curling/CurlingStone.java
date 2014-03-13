@@ -39,7 +39,7 @@ public class CurlingStone extends Sprite{
 			if(speedX < 0){
 				speedX = 0;
 			}
-			setSpeed(speedX, 0);
+			setSpeed(speedX, aimSlope()*speedX);
 		}
 	}
 	
