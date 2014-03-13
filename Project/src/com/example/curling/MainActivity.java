@@ -1,13 +1,16 @@
 package com.example.curling;
 
+import sheep.game.GameThread;
 import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Point;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
 public class MainActivity extends Activity {
 
+	private static final String TAG = MainActivity.class.getSimpleName();
 	private CurlingGame game;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,27 +30,38 @@ public class MainActivity extends Activity {
 		GlobalConstants.SCREENWIDTH = screenSize.x;
 		
 		game = new CurlingGame(this,null);
-		game.pushState(new MainMenu());
 		game.setKeepScreenOn(true);
 		setContentView(game);
 	}
 	
 	public void onPause(){
-		super.onPause();
+		game.surfaceDestroyed(game.getHolder());
 		if(game.getTopState().getClass() == GameState.class) {
+			Log.d(TAG,"legger til pause menu");
 			game.pushState(new PauseMenu());
 		}
+		super.onPause();
 	}
 	
 	public void onResume(){
 		super.onResume();
-		if(game.getStateStack().size() >1){
+		Log.d(TAG,"pusher main menu...");
+		game.setThread(new GameThread(game));
+		if(game.getStateStack().size() >2){
+			Log.d(TAG,Integer.toString(game.getStateStack().size()));
 			game.resumeStates();
+		}else{
+			game.getStateStack().clear();
+			game.pushState(new MainMenu());
 		}
 	}
 	
 	public void onStop(){
 		super.onStop();
+	}
+	
+	public void onStart(){
+		super.onStart();
 	}
 	
 	public void onBackPressed(){
