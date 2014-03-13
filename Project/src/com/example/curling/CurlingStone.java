@@ -48,6 +48,7 @@ public class CurlingStone extends Sprite{
                 speedY = 0;
 			}
 			setSpeed(speedX, speedY);
+
 		}
 	}
 	
@@ -59,6 +60,7 @@ public class CurlingStone extends Sprite{
 			}*/
             speedX = v0;
             speedY = diff()*speedX;
+
 			setSpeed(speedX, speedY);
 			moved = true;
 		}
@@ -115,6 +117,8 @@ public class CurlingStone extends Sprite{
     public float acceleration(){
         return ((float) Math.pow((double) v0, 2))/(2*(target.getX()-startMarkerX));
     }
+    
+    
 
 
 }

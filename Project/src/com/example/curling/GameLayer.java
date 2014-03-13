@@ -61,12 +61,53 @@ public class GameLayer extends Layer{
 				if(i != cld){
 					if(i.collides(cld)){
 						if(cld.getCollidedStone() == null || cld != i.getCollidedStone()){
-							i.setCollidedStone(cld);
-							cld.setCollidedStone(i);
 							
-							cld.setSpeedX(((CurlingStone)i).getSpeedX());
-							i.setSpeedX(0);
-							i.setSpeed(0, 0);
+							
+							double d = 32;
+							Vector2 vectorBetween = cld.getPosition().getSubtracted(i.getPosition());
+							float length = vectorBetween.getLength();
+							
+							
+							
+							//double dx= Math.abs(cld.getX()-i.getX());
+							//double dy= Math.abs(cld.getY()-i.getY()); 
+							//double length = Math.sqrt(dx*dx+dy*dy);
+							
+							if (d >= length){
+								/*
+								i.setCollidedStone(cld);
+								cld.setCollidedStone(i);
+								
+								double ax=dx/length, ay=dy/length;
+								
+								double va1=(i.getSpeedX()*ax+i.getSpeedY()*ay);
+								double vb1=(-i.getSpeedX()*ay+i.getSpeedY()*ax); 
+								
+								double va2=(cld.getSpeedX()*ax+cld.getSpeedY()*ay);
+								double vb2=(-cld.getSpeedX()*ay+cld.getSpeedY()*ax);
+								
+								double ed = 1; //elastic collision
+								double mass = 20;
+								
+								double vaP1=va1 + (1+ed)*(va2-va1)/(1+mass/mass);
+								double vaP2=va2 + (1+ed)*(va1-va2)/(1+mass/mass);
+								
+								
+								
+								double vx1=vaP1*ax-vb1*ay,  vy1=vaP1*ay+vb1*ax;// new vx,vy for ball 1 after collision
+								double vx2=vaP2*ax-vb2*ay,  vy2=vaP2*ay+vb2*ax;// new vx,vy for ball 2 after collision
+								
+								i.setSpeedX((float)vx1);
+								i.setSpeedY((float)vy1);
+								
+								cld.setSpeedX((float)vx2);
+								cld.setSpeedY((float)vy2);
+								*/
+								cld.setSpeedX(((CurlingStone)i).getSpeedX());
+								i.setSpeedX(0);
+								i.setSpeed(0, 0);
+							}
+
 						}
 
 						
