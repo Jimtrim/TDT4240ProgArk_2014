@@ -1,6 +1,5 @@
 package com.example.curling;
 
-import sheep.game.Game;
 import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Point;
@@ -42,8 +41,9 @@ public class MainActivity extends Activity {
 	
 	public void onResume(){
 		super.onResume();
-		game.resumeStates();
-		game.popState();
+		if(game.getStateStack().size() >1){
+			game.resumeStates();
+		}
 	}
 	
 	public void onStop(){
