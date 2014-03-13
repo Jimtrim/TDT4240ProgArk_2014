@@ -16,8 +16,10 @@ public class CurlingStone extends Sprite{
 	private boolean moved = false;
 	private float speedX;
 	private float speedY;
-    private float differentiation;
+    private float startMarkerX = GlobalConstants.SCREENWIDTH*0.3f;
+    private float acceleration;
 	private float friction = 2.0f;
+    private float v0 = 1000 ; //speed to hit marker
 	
 	private Vector2 target;
 	
@@ -30,28 +32,34 @@ public class CurlingStone extends Sprite{
 		setPosition(x, y);
 		if(playerIndex == 1) setView(yellow);
 		this.target = target;
+        this.acceleration  = acceleration();
+
+
+
 	}
 	
 	public void update(float dt){
 		super.update(dt);
-		if(speedX != 0){
-			speedX = speedX - friction;
-			if(speedX < 0){
+		if(speedX != 0 || speedY != 0){
+			speedX = changeSpeedX();
+            speedY = speedX*diff();
+			if(speedX <= 0){
 				speedX = 0;
+                speedY = 0;
 			}
-			setSpeed(speedX, 0);
-            setPosition(getX(), GlobalConstants.SCREENHEIGHT*0.5f+aimSlope()*getX());
+			setSpeed(speedX, speedY);
 		}
 	}
 	
 	public void move(List<float[]> touchList){
 		Log.d(TAG,makeString(touchList));
 		if (!moved){
-			for(int i = 1; i < touchList.size(); i ++){
+			/*for(int i = 1; i < touchList.size(); i ++){
 				speedX = speedX + touchList.get(i)[0] - touchList.get(0)[0];
-			}
-            differentiation = speedX/(9*(touchList.get(1)[0])-touchList.get(0)[0]);
-			setSpeed(speedX, 0);
+			}*/
+            speedX = v0;
+            speedY = diff()*speedX;
+			setSpeed(speedX, speedY);
 			moved = true;
 		}
 	}
@@ -71,33 +79,41 @@ public class CurlingStone extends Sprite{
 	public float getSpeedX(){
 		return this.speedX;
 	}
-	
-	public float getSpeedY(){
+
+    public void setSpeedX(float speed){
+        this.speedX = speed;
+    }
+
+    public float getSpeedY(){
 		return this.speedX;
 	}
-	
-	public boolean getMoved(){
-		return this.moved;
-	}
-	
-	public void setSpeedY(float SpeedY){
-		this.speedY = speedY;
-	}
-	
-	public void setCollidedStone(CurlingStone stone){
+
+    //find speed in y-direction to get the scaling correct with the x-speed
+    public float diff(){
+        return (target.getY()-GlobalConstants.SCREENHEIGHT*0.5f)/(target.getX()-startMarkerX);
+    }
+    public float changeSpeedX(){
+        if ((target.getX()-getX()) > 0){
+            return ((float) Math.sqrt((double) 2*(this.acceleration)*(target.getX()-getX())));
+        }
+        return 0;
+    }
+
+    public boolean getMoved(){
+        return this.moved;
+    }
+
+
+    public void setCollidedStone(CurlingStone stone){
 		this.collidedStone = stone; 
 	}
 	
 	public CurlingStone getCollidedStone(){
 		return this.collidedStone;
 	}
-	
-	public void setSpeedX(float speedx){
-		this.speedX = speedx;
-	}
-
-    public float aimSlope(){
-        return (target.getY()-getY())/(target.getX()-getX());
+    //acceleration to get v0 a perfect speed
+    public float acceleration(){
+        return ((float) Math.pow((double) v0, 2))/(2*(target.getX()-startMarkerX));
     }
 
 
