@@ -56,16 +56,6 @@ public class MainMenu extends State implements WidgetListener{
 		Exit.draw(canvas);
 		}catch(Exception e){};
 	}
-	
-	public void draw2(Canvas canvas){
-		super.draw(canvas);
-		try{
-		canvas.drawColor(Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
-		StartGame.draw(canvas);
-		Tutorial.draw(canvas);
-		Exit.draw(canvas);
-		}catch(Exception e){};
-	}
 
 	public void actionPerformed(WidgetAction action) {
 		if(action.getSource() == StartGame){

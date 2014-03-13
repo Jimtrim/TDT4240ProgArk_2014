@@ -34,13 +34,16 @@ public class CurlingStone extends Sprite{
 	
 	public void update(float dt){
 		super.update(dt);
-		if(speedX != 0){
+		if(speedX != 0 || speedY != 0){
 			speedX = speedX - friction;
+			speedY = speedY - friction;
 			if(speedX < 0){
 				speedX = 0;
+			}if(speedY < 0){
+				speedY = 0;
 			}
-			setSpeed(speedX, 0);
-            setPosition(getX(), GlobalConstants.SCREENHEIGHT*0.5f+aimSlope()*getX());
+			setSpeed(speedX, speedY);
+//            setPosition(getX(), GlobalConstants.SCREENHEIGHT*0.5f+aimSlope()*getX());
 		}
 	}
 	
@@ -51,7 +54,8 @@ public class CurlingStone extends Sprite{
 				speedX = speedX + touchList.get(i)[0] - touchList.get(0)[0];
 			}
             differentiation = speedX/(9*(touchList.get(1)[0])-touchList.get(0)[0]);
-			setSpeed(speedX, 0);
+            speedY = aimSlope()*speedX;
+			setSpeed(speedX, speedY);
 			moved = true;
 		}
 	}
