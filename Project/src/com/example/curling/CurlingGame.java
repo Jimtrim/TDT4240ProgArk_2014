@@ -1,6 +1,6 @@
 package com.example.curling;
 
-import java.util.ArrayList;
+import java.util.Stack;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -15,8 +15,8 @@ import sheep.input.Touch;
 public class CurlingGame extends Game {
 
 	private static final String TAG = MainActivity.class.getSimpleName();
-	private ArrayList<State> stateStack = new ArrayList<State>(); 
-	GameThread thread;
+	private Stack<State> stateStack = new Stack<State>(); 
+	private GameThread thread;
 	
 	public CurlingGame(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -24,32 +24,33 @@ public class CurlingGame extends Game {
 
 	public void resumeStates() { 
 		for (int i=0; i<stateStack.size(); i++) {
-			stateStack.get(i).setGame(this);
 			thread.pushState(stateStack.get(i));
+			Log.d(TAG,stateStack.get(i).getClass().toString());
 		}
+		stateStack.peek().setGame(this);
 	}
 	
 	public void pushState(State state) {
 		state.setGame(this);
-		thread.pushState(state);
+		this.thread.pushState(state);
 		stateStack.add(state);
 	}
 	
 	public State getTopState() {
-		return stateStack.get(stateStack.size()-1);
+		return stateStack.peek();
 	}
 	
-	public ArrayList<State> getStateStack() {
+	public Stack<State> getStateStack() {
 		return stateStack;
 	}
 		
 	public void popState() {
-		thread.popState(1);
-		stateStack.remove(stateStack.size()-1); 
+		this.thread.popState(1);
+		stateStack.pop();
 	}
 	
 	public void popState(int n) {
-		thread.popState(n);
+		this.thread.popState(n);
 	}
 	
 	public State getPreviousState() {
@@ -61,15 +62,15 @@ public class CurlingGame extends Game {
 		Log.d(TAG,"lager surface");
 		Keyboard.getInstance().addKeyboardListener(thread);
 		Touch.getInstance().addTouchListener(thread);
-		thread.setRunning(true);
-		thread.start();
+		this.thread.setRunning(true);
+		this.thread.start();
 	}
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder arg0) {
-		thread.setRunning(false);
+		this.thread.setRunning(false);
 		try {
-			thread.join();
+			this.thread.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
