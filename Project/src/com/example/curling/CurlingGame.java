@@ -47,10 +47,12 @@ public class CurlingGame extends Game {
 	public void popState() {
 		this.thread.popState(1);
 		stateStack.pop();
+		Log.d(TAG,"bruker riktig klasse :p");
 	}
 	
 	public void popState(int n) {
 		this.thread.popState(n);
+
 	}
 	
 	public State getPreviousState() {

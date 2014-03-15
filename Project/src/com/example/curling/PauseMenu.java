@@ -28,7 +28,6 @@ public class PauseMenu extends State implements WidgetListener {
 	public void draw(Canvas canvas){
 		super.draw(canvas);
 		try{
-			
 			canvas.drawColor(Color.CYAN);
 			resumeButton.draw(canvas);
 			optionsButton.draw(canvas);
