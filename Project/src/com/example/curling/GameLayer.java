@@ -32,8 +32,6 @@ public class GameLayer extends Layer{
 	private ArrayList<CurlingStone> stonesInGame = new ArrayList<CurlingStone>();
 	private long maximumXFromCenter;
 	private long maximumYFromCenter;
-	
-	
 	private Vector2 target;
 	
 	

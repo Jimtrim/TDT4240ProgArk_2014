@@ -43,4 +43,8 @@ public class Track extends Sprite{
     public float getHeight(){
         return GlobalConstants.SCREENHEIGHT;
     }
+    
+    public float getGoalPoint(){
+    	return 3901*scale;
+    }
 }

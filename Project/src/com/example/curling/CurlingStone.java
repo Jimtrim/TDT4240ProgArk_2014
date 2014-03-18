@@ -20,6 +20,8 @@ public class CurlingStone extends Sprite{
     private float acceleration;
 	private float friction = 2.0f;
     private float v0 = 1000 ; //speed to hit marker
+    
+    private int SPIN; 
 	
     
 	private Vector2 target;
@@ -30,6 +32,8 @@ public class CurlingStone extends Sprite{
 	private static Image red = new Image(R.drawable.curling);
 	private static Image yellow = new Image(R.drawable.curlingyellow);
 	
+	
+	
 	public CurlingStone(float x,float y,int playerIndex, Vector2 target){
 		super(red);
 		this.speedX = 0;
@@ -37,6 +41,7 @@ public class CurlingStone extends Sprite{
 		if(playerIndex == 1) setView(yellow);
 		this.target = target;
         this.acceleration  = acceleration();
+        this.SPIN = 0;
 
 
 	}
@@ -51,7 +56,7 @@ public class CurlingStone extends Sprite{
                 speedY = 0;
 			}
 			setSpeed(speedX, speedY);
-
+			
 		}
 	}
 	
