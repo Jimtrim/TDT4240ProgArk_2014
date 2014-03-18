@@ -24,6 +24,8 @@ public class CurlingStone extends Sprite{
 	private static Image red = new Image(R.drawable.curling);
 	private static Image yellow = new Image(R.drawable.curlingyellow);
 	
+	
+	
 	public CurlingStone(float x,float y,int playerIndex, Vector2 target){
 		super(red);
 		this.speedX = 0;
