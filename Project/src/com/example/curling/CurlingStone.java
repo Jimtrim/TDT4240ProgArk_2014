@@ -53,7 +53,7 @@ public class CurlingStone extends Sprite{
                 speedY = 0;
 			}
 			setSpeed(speedX, speedY);
-
+			
 		}
 	}
 	
