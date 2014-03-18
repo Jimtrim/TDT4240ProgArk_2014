@@ -17,6 +17,7 @@ public class CurlingStone extends Sprite{
 	private float speedX;
 	private float speedY;
     private float startMarkerX = GlobalConstants.SCREENWIDTH*0.3f;
+    private float velociy;
     private float acceleration;
 	private float friction = 2.0f;
     private float v0 = 1000 ; //speed to hit marker
@@ -33,7 +34,8 @@ public class CurlingStone extends Sprite{
 		setPosition(x, y);
 		if(playerIndex == 1) setView(yellow);
 		this.target = target;
-        this.acceleration  = acceleration();
+        this.acceleration = 20;
+        this.velociy  = velociy();
 
 
 
@@ -42,12 +44,17 @@ public class CurlingStone extends Sprite{
 	public void update(float dt){
 		super.update(dt);
 		if(speedX != 0 || speedY != 0){
-			speedX = speedX - this.acceleration/dt;
-            speedY = speedY - this.acceleration/dt;
+			speedX = speedX - (this.acceleration*dt);
+            speedY = speedY - (this.acceleration*dt*diff());
 			if(speedX <= 0){
 				speedX = 0;
+            }
+            if (diff() < 0 && speedY >= 0){
                 speedY = 0;
-			}
+            }
+            else if (diff() > 0 && speedY <= 0){
+                speedY = 0;
+            }
 			setSpeed(speedX, speedY);
 
 		}
@@ -57,9 +64,10 @@ public class CurlingStone extends Sprite{
 		Log.d(TAG,makeString(touchList));
 		if (!moved){
 			/*for(int i = 1; i < touchList.size(); i ++){
-				speedX = speedX + touchList.get(i)[0] - touchList.get(0)[0];
-			}*/
-            speedX = v0;
+                speedX = speedX + touchList.get(i)[0] - touchList.get(0)[0];
+            }*/
+
+            speedX = velociy;
             speedY = diff()*speedX;
 
 			setSpeed(speedX, speedY);
@@ -117,8 +125,8 @@ public class CurlingStone extends Sprite{
 		return this.collidedStone;
 	}
     //acceleration to get v0 a perfect speed
-    public float acceleration(){
-        return ((float) Math.pow((double) v0, 2))/(2*(target.getX()-startMarkerX));
+    public float velociy(){
+        return ((float) Math.sqrt((double) 2*(this.acceleration)*(target.getX()-getX())));
     }
     
     
