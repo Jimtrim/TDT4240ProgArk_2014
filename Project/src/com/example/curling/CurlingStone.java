@@ -23,6 +23,9 @@ public class CurlingStone extends Sprite{
 	
     
 	private Vector2 target;
+
+	public int distanceX = 0;
+	public int distanceY = 0;
 	
 	private static Image red = new Image(R.drawable.curling);
 	private static Image yellow = new Image(R.drawable.curlingyellow);
@@ -118,6 +121,21 @@ public class CurlingStone extends Sprite{
         return ((float) Math.pow((double) v0, 2))/(2*(target.getX()-startMarkerX));
     }
     
+	public long getDistanceX(){
+		return Math.abs(this.distanceY);
+	}
+	
+	public long getDistanceY(){
+		return Math.abs(this.distanceX);
+	}
+	
+	public void setDistanveX(){
+		this.distanceX = distanceX;
+	}
+	
+	public void setDistanveY(){
+		this.distanceY = distanceY;	
+	}
     
 
 
