@@ -20,6 +20,8 @@ public class CurlingStone extends Sprite{
     private float acceleration;
 	private float friction = 2.0f;
     private float v0 = 1000 ; //speed to hit marker
+    
+    private int SPIN; 
 	
     
 	private Vector2 target;
@@ -36,6 +38,7 @@ public class CurlingStone extends Sprite{
 		if(playerIndex == 1) setView(yellow);
 		this.target = target;
         this.acceleration  = acceleration();
+        this.SPIN = 0;
 
 
 	}

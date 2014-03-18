@@ -27,7 +27,6 @@ public class GameLayer extends Layer{
 	private Player playerOne,playerTwo,currentPlayer;
 	private Vector2 nullvector = new Vector2(0.0f, 0.0f); 
 	private CurlingStone movingStone;
-	
 	private Vector2 target;
 	
 	
