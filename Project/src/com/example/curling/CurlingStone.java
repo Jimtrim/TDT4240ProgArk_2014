@@ -20,6 +20,7 @@ public class CurlingStone extends Sprite{
     private float acceleration;
 	private float friction = 2.0f;
     private float v0 = 1000 ; //speed to hit marker
+    private float t;
 	
 	private Vector2 target;
 	
@@ -41,8 +42,8 @@ public class CurlingStone extends Sprite{
 	public void update(float dt){
 		super.update(dt);
 		if(speedX != 0 || speedY != 0){
-			speedX = changeSpeedX();
-            speedY = speedX*diff();
+			speedX = speedX - this.acceleration/dt;
+            speedY = speedY - this.acceleration/dt;
 			if(speedX <= 0){
 				speedX = 0;
                 speedY = 0;
@@ -94,11 +95,13 @@ public class CurlingStone extends Sprite{
     public float diff(){
         return (target.getY()-GlobalConstants.SCREENHEIGHT*0.5f)/(target.getX()-startMarkerX);
     }
-    public float changeSpeedX(){
-        if ((target.getX()-getX()) > 0){
+    public float changeSpeedX(float dt){
+        t = (v0/this.acceleration)/dt;
+        return v0/t;
+        /*if ((target.getX()-getX()) > 0){
             return ((float) Math.sqrt((double) 2*(this.acceleration)*(target.getX()-getX())));
         }
-        return 0;
+        return 0;*/
     }
 
     public boolean getMoved(){
