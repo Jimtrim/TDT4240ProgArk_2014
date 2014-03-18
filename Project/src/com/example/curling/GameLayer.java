@@ -27,11 +27,8 @@ public class GameLayer extends Layer{
 	private Player playerOne,playerTwo,currentPlayer;
 	private Vector2 nullvector = new Vector2(0.0f, 0.0f); 
 	private CurlingStone movingStone;
-	private int playerOnePoints = 0;
-	private int playerTwoPoints = 0;
-	private ArrayList<CurlingStone> stonesInGame = new ArrayList<CurlingStone>();
-	private long maximumXFromCenter;
-	private long maximumYFromCenter;
+	private int playerOnePoints;
+	private int playerTwoPoints;
 	private Vector2 target;
 	
 	
@@ -39,6 +36,8 @@ public class GameLayer extends Layer{
 		this.rounds = rounds;
 		this.currentRound = 0;
 		this.totalStones = 16;
+		playerOnePoints = 0;
+		playerTwoPoints = 0;
 		playerOne = new Player(0);
 		playerTwo = new Player(1);
 		currentPlayer = playerOne;
@@ -152,15 +151,12 @@ public class GameLayer extends Layer{
 	
 	public void addPoints(){
 		currentRound = currentRound + 1;
-		for(CurlingStone i: stonesInGame){
+		for(CurlingStone i: stoneList){
 			
 		}		
 	}
 	
 	public void evaluateStones(){
-		if ((getStone().distanceX < maximumXFromCenter || getStone().distanceY < maximumYFromCenter) && stonesInGame.size() < 4){
-			stonesInGame.add(getStone());
-			}
 	}
 
 	public void showWinner(){

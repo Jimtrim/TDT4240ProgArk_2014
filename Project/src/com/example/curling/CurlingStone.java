@@ -20,15 +20,8 @@ public class CurlingStone extends Sprite{
     private float acceleration;
 	private float friction = 2.0f;
     private float v0 = 1000 ; //speed to hit marker
-    
     private int SPIN; 
-	
-    
 	private Vector2 target;
-
-	public int distanceX = 0;
-	public int distanceY = 0;
-	
 	private static Image red = new Image(R.drawable.curling);
 	private static Image yellow = new Image(R.drawable.curlingyellow);
 	
@@ -55,8 +48,7 @@ public class CurlingStone extends Sprite{
 				speedX = 0;
                 speedY = 0;
 			}
-			setSpeed(speedX, speedY);
-			
+			setSpeed(speedX, speedY);	
 		}
 	}
 	
@@ -125,23 +117,6 @@ public class CurlingStone extends Sprite{
     public float acceleration(){
         return ((float) Math.pow((double) v0, 2))/(2*(target.getX()-startMarkerX));
     }
-    
-	public long getDistanceX(){
-		return Math.abs(this.distanceY);
-	}
-	
-	public long getDistanceY(){
-		return Math.abs(this.distanceX);
-	}
-	
-	public void setDistanveX(){
-		this.distanceX = distanceX;
-	}
-	
-	public void setDistanveY(){
-		this.distanceY = distanceY;	
-	}
-    
 
 
 }
