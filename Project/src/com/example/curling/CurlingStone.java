@@ -63,7 +63,7 @@ public class CurlingStone extends Sprite{
 			for(int i = 1; i < touchList.size(); i ++){
                 factor = factor + touchList.get(i)[0] - touchList.get(i-1)[0];
             }
-            //factor = factor/((touchList.get(1)[0]-touchList.get(0)[0])*touchList.size());
+            factor = factor/((touchList.get(1)[0]-touchList.get(0)[0])*touchList.size());
             Log.d(TAG,Float.toString(factor));
             speedX = velociy();
             speedY = diff()*speedX;

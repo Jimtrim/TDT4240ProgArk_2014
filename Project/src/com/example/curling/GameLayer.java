@@ -121,8 +121,8 @@ public class GameLayer extends Layer{
 			}
             //outOfBounds(i);
 		}
-        stoneList.removeAll(removeStone);
-        removeStone.clear();
+        //stoneList.removeAll(removeStone);
+        //removeStone.clear();
 		endTurn();
 	}
 	
