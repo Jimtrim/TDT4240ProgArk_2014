@@ -22,7 +22,6 @@ public class GameStateConfig extends State implements WidgetListener{
 	private Random rand = new Random();
 	private int R,B,G;
 	private float time = 0;
-	private GameState currentGame;
 
 	public GameStateConfig(){
 		

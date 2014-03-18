@@ -22,11 +22,12 @@ public class CurlingStone extends Sprite{
 	private float friction = 2.0f;
     private float v0 = 1000 ; //speed to hit marker
     private float t;
-	
+    private int SPIN;
 	private Vector2 target;
-	
 	private static Image red = new Image(R.drawable.curling);
 	private static Image yellow = new Image(R.drawable.curlingyellow);
+	
+	
 	
 	public CurlingStone(float x,float y,int playerIndex, Vector2 target){
 		super(red);
@@ -36,7 +37,7 @@ public class CurlingStone extends Sprite{
 		this.target = target;
         this.acceleration = 20;
         this.velociy  = velociy();
-
+        this.SPIN = 0;
 
 
 	}
@@ -56,7 +57,6 @@ public class CurlingStone extends Sprite{
                 speedY = 0;
             }
 			setSpeed(speedX, speedY);
-
 		}
 	}
 	
@@ -103,19 +103,10 @@ public class CurlingStone extends Sprite{
     public float diff(){
         return (target.getY()-GlobalConstants.SCREENHEIGHT*0.5f)/(target.getX()-startMarkerX);
     }
-    public float changeSpeedX(float dt){
-        t = (v0/this.acceleration)/dt;
-        return v0/t;
-        /*if ((target.getX()-getX()) > 0){
-            return ((float) Math.sqrt((double) 2*(this.acceleration)*(target.getX()-getX())));
-        }
-        return 0;*/
-    }
 
     public boolean getMoved(){
         return this.moved;
     }
-
 
     public void setCollidedStone(CurlingStone stone){
 		this.collidedStone = stone; 
@@ -124,12 +115,10 @@ public class CurlingStone extends Sprite{
 	public CurlingStone getCollidedStone(){
 		return this.collidedStone;
 	}
-    //acceleration to get v0 a perfect speed
+    //perfect velocity
     public float velociy(){
         return ((float) Math.sqrt((double) 2*(this.acceleration)*(target.getX()-getX())));
     }
-    
-    
 
 
 }

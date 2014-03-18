@@ -1,7 +1,5 @@
 package com.example.curling;
 
-import java.util.Random;
-
 import sheep.game.State;
 import sheep.gui.TextButton;
 import sheep.gui.WidgetAction;
@@ -11,7 +9,6 @@ import android.graphics.Color;
 
 public class PauseMenu extends State implements WidgetListener {
 	
-	private Random rand;
 	private TextButton resumeButton, exitButton, optionsButton;
 	
 	public PauseMenu() {
@@ -31,8 +28,10 @@ public class PauseMenu extends State implements WidgetListener {
 	public void draw(Canvas canvas){
 		super.draw(canvas);
 		try{
-			
 			canvas.drawColor(Color.CYAN);
+			resumeButton.draw(canvas);
+			optionsButton.draw(canvas);
+			exitButton.draw(canvas);
 		}catch (Exception e){};
 	}
 
@@ -46,7 +45,9 @@ public class PauseMenu extends State implements WidgetListener {
 			
 		}
 		if(action.getSource() == exitButton) {
-			
+			getGame().popState();
+			getGame().popState();
+			getGame().popState();
 		}
 		
 	}
