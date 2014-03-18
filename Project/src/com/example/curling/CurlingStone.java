@@ -17,13 +17,11 @@ public class CurlingStone extends Sprite{
 	private float speedX;
 	private float speedY;
     private float startMarkerX = GlobalConstants.SCREENWIDTH*0.3f;
-    private float velociy;
     private float acceleration;
 	private float friction = 2.0f;
-    private float v0 = 1000 ; //speed to hit marker
-    private float t;
     private int SPIN;
 	private Vector2 target;
+    private float factor;
 	private static Image red = new Image(R.drawable.curling);
 	private static Image yellow = new Image(R.drawable.curlingyellow);
 	
@@ -35,8 +33,7 @@ public class CurlingStone extends Sprite{
 		setPosition(x, y);
 		if(playerIndex == 1) setView(yellow);
 		this.target = target;
-        this.acceleration = 20;
-        this.velociy  = velociy();
+        this.acceleration = 50;
         this.SPIN = 0;
 
 
@@ -63,11 +60,12 @@ public class CurlingStone extends Sprite{
 	public void move(List<float[]> touchList){
 		Log.d(TAG,makeString(touchList));
 		if (!moved){
-			/*for(int i = 1; i < touchList.size(); i ++){
-                speedX = speedX + touchList.get(i)[0] - touchList.get(0)[0];
-            }*/
-
-            speedX = velociy;
+			for(int i = 1; i < touchList.size(); i ++){
+                factor = factor + touchList.get(i)[0] - touchList.get(i-1)[0];
+            }
+            //factor = factor/((touchList.get(1)[0]-touchList.get(0)[0])*touchList.size());
+            Log.d(TAG,Float.toString(factor));
+            speedX = velociy()*factor;
             speedY = diff()*speedX;
 
 			setSpeed(speedX, speedY);
