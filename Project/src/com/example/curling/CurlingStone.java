@@ -70,7 +70,7 @@ public class CurlingStone extends Sprite{
             factor = factor/(touchList.size()-1);
             factor = factor/(touchList.get(1)[0]-touchList.get(0)[0]);
             Log.d(TAG,Float.toString(factor));
-            speedX = velociy();
+            speedX = velocity();
             speedY = diff()*speedX;
 
 			setSpeed(speedX, speedY);
@@ -120,7 +120,7 @@ public class CurlingStone extends Sprite{
 		return this.collidedStone;
 	}
     //perfect velocity
-    public float velociy(){
+    public float velocity(){
         return ((float) Math.sqrt((double) 2*(this.acceleration)*(target.getX()-getX())));
     }
 
