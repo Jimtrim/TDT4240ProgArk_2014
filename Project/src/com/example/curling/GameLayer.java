@@ -154,7 +154,7 @@ public class GameLayer extends Layer{
 		double targetY = GlobalConstants.SCREENHEIGHT*0.5;
 		for(CurlingStone i: stoneList){
 			Math.abs(i.getPosition().getX()-target.getX());
-			Math.abs(i.getPosition().getY()-target.getY());
+			Math.abs(i.getPosition().getY()-targetY);
 			//make sorted list
 			if (Math.abs(i.getPosition().getX()-target.getX()) < Math.abs(winningStone.getPosition().getX()-target.getX())){
 				winningStone = i;
