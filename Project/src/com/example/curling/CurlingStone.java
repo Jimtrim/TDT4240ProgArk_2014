@@ -24,19 +24,22 @@ public class CurlingStone extends Sprite{
 	private Vector2 target;
 	private static Image red = new Image(R.drawable.curling);
 	private static Image yellow = new Image(R.drawable.curlingyellow);
+	private int stoneIndex;
 	
 	
 	
 	public CurlingStone(float x,float y,int playerIndex, Vector2 target){
 		super(red);
 		this.speedX = 0;
+		this.setStoneIndex(0);
 		setPosition(x, y);
-		if(playerIndex == 1) setView(yellow);
+		if(playerIndex == 1) {
+			setView(yellow);
+			this.setStoneIndex(1);
+		}
 		this.target = target;
         this.acceleration  = acceleration();
         this.SPIN = 0;
-
-
 	}
 	
 	public void update(float dt){
@@ -117,6 +120,15 @@ public class CurlingStone extends Sprite{
     public float acceleration(){
         return ((float) Math.pow((double) v0, 2))/(2*(target.getX()-startMarkerX));
     }
+
+	public int getStoneIndex() {
+		return stoneIndex;
+	}
+
+	public int setStoneIndex(int stoneIndex) {
+		this.stoneIndex = stoneIndex;
+		return stoneIndex;
+	}
 
 
 }

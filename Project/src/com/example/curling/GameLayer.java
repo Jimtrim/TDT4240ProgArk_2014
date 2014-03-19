@@ -27,9 +27,10 @@ public class GameLayer extends Layer{
 	private Player playerOne,playerTwo,currentPlayer;
 	private Vector2 nullvector = new Vector2(0.0f, 0.0f); 
 	private CurlingStone movingStone;
-	private int playerOnePoints;
-	private int playerTwoPoints;
+	private int playerOnePoints,playerTwoPoints;
 	private Vector2 target;
+	private CurlingStone winningStone;
+	private Player winnerOfRound;
 	
 	
 	public GameLayer(int rounds){
@@ -149,14 +150,44 @@ public class GameLayer extends Layer{
 		else currentPlayer = playerOne;
 	}
 	
-	public void addPoints(){
-		currentRound = currentRound + 1;
+	public ArrayList<CurlingStone> sortStoneList(ArrayList<CurlingStone> stoneList){
+		double targetY = GlobalConstants.SCREENHEIGHT*0.5;
 		for(CurlingStone i: stoneList){
-			
-		}		
+			Math.abs(i.getPosition().getX()-target.getX());
+			Math.abs(i.getPosition().getY()-target.getY());
+			//make sorted list
+			if (Math.abs(i.getPosition().getX()-target.getX()) < Math.abs(winningStone.getPosition().getX()-target.getX())){
+				winningStone = i;
+			}}
+		return stoneList;	
 	}
 	
+	public void addPoints(){
+		currentRound = currentRound + 1;
+		int points = 0;
+		winnerOfRound = null;
+		ArrayList<CurlingStone> sortedList = sortStoneList(stoneList);
+		for(CurlingStone i: sortedList){
+			if(sortedList.get(0).getStoneIndex() != i.getStoneIndex()){
+				break;
+			}
+			else {
+				points += 1;
+			}
+		}
+		
+		if (sortedList.get(0).getStoneIndex() == 0){
+			playerOnePoints = points;
+		}
+		else if (sortedList.get(0).getStoneIndex() == 1){
+			playerTwoPoints = points;
+		}
+		
+	}
+	
+	
 	public void evaluateStones(){
+		
 	}
 
 	public void showWinner(){
