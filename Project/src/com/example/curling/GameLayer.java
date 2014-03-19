@@ -153,7 +153,7 @@ public class GameLayer extends Layer{
 	public ArrayList<CurlingStone> sortStoneList(ArrayList<CurlingStone> stoneList){
 		double targetY = GlobalConstants.SCREENHEIGHT*0.5;
 		for(CurlingStone i: stoneList){
-			Math.abs(i.getPosition().getX()-target.getX());
+			Math.abs(i.getPosition().getX()-track.getGoalPoint());
 			Math.abs(i.getPosition().getY()-targetY);
 			//make sorted list
 			if (Math.abs(i.getPosition().getX()-target.getX()) < Math.abs(winningStone.getPosition().getX()-target.getX())){
@@ -248,5 +248,6 @@ public class GameLayer extends Layer{
     public void setTarget(Vector2 p){
     	this.target = p;
     }
+
     
 }
