@@ -67,17 +67,17 @@ public class GameLayer extends Layer{
 							
 							
 							double d = 32;
-							Vector2 vectorBetween = cld.getPosition().getSubtracted(i.getPosition());
-							float length = vectorBetween.getLength();
+							//Vector2 vectorBetween = cld.getPosition().getSubtracted(i.getPosition());
+							//float length = vectorBetween.getLength();
 							
 							
 							
-							//double dx= Math.abs(cld.getX()-i.getX());
-							//double dy= Math.abs(cld.getY()-i.getY()); 
-							//double length = Math.sqrt(dx*dx+dy*dy);
+							double dx= Math.abs(cld.getX()-i.getX());
+							double dy= Math.abs(cld.getY()-i.getY());
+							double length = Math.sqrt(dx*dx+dy*dy);
 							
 							if (d >= length){
-								/*
+
 								i.setCollidedStone(cld);
 								cld.setCollidedStone(i);
 								
@@ -105,10 +105,10 @@ public class GameLayer extends Layer{
 								
 								cld.setSpeedX((float)vx2);
 								cld.setSpeedY((float)vy2);
-								*/
-								cld.setSpeedX(((CurlingStone)i).getSpeedX());
-								i.setSpeedX(0);
-								i.setSpeed(0, 0);
+
+								//cld.setSpeedX(((CurlingStone)i).getSpeedX());
+								//i.setSpeedX(0);
+								//i.setSpeed(0, 0);
 							}
 
 						}

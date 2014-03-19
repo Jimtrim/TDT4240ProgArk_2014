@@ -22,6 +22,7 @@ public class CurlingStone extends Sprite{
     private int SPIN;
 	private Vector2 target;
     private float factor;
+    private float diff;
 	private static Image red = new Image(R.drawable.curling);
 	private static Image yellow = new Image(R.drawable.curlingyellow);
 	
@@ -35,7 +36,7 @@ public class CurlingStone extends Sprite{
 		this.target = target;
         this.acceleration = 50;
         this.SPIN = 0;
-
+        this.diff = diff();
 
 	}
 	
@@ -43,14 +44,13 @@ public class CurlingStone extends Sprite{
 		super.update(dt);
 		if(speedX != 0 || speedY != 0){
 			speedX = speedX - (this.acceleration*dt);
-            speedY = speedY - (this.acceleration*dt*diff());
+            speedY = speedY - (this.acceleration*dt*diff);
 			if(speedX <= 0){
 				speedX = 0;
-            }
-            if (diff() < 0 && speedY >= 0){
                 speedY = 0;
             }
-            else if (diff() > 0 && speedY <= 0){
+            else if(speedX <= 0 && speedY!=0){
+                speedX = 0;
                 speedY = 0;
             }
 			setSpeed(speedX, speedY);
@@ -63,7 +63,7 @@ public class CurlingStone extends Sprite{
 			for(int i = 1; i < touchList.size(); i ++){
                 factor = factor + touchList.get(i)[0] - touchList.get(i-1)[0];
             }
-            factor = factor/((touchList.get(1)[0]-touchList.get(0)[0])*touchList.size());
+            factor = factor/((touchList.get(1)[0]-touchList.get(0)[0])*touchList.size()-1);
             Log.d(TAG,Float.toString(factor));
             speedX = velociy();
             speedY = diff()*speedX;
@@ -94,8 +94,9 @@ public class CurlingStone extends Sprite{
     }
 
     public float getSpeedY(){
-		return this.speedX;
+		return this.speedY;
 	}
+    public void setSpeedY(float speed) { this.speedY = speed; }
 
     //find speed in y-direction to get the scaling correct with the x-speed
     public float diff(){
