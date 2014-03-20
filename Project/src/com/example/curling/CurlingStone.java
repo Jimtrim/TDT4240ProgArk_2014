@@ -46,6 +46,7 @@ public class CurlingStone extends Sprite{
         this.SPIN = 0;
         this.diff = diff();
         this.ay = this.ax*this.diff;
+        Log.d(TAG,Float.toString(ay));
         this.picLength = red.getHeight();
 
 	}
@@ -53,14 +54,29 @@ public class CurlingStone extends Sprite{
 	public void update(float dt){
 		super.update(dt);
 		if(speedX != 0 || speedY != 0){
+			float lastSpeedy = speedY;
 			speedX = speedX - (this.ax*dt);
-            speedY = speedY - (this.ay*dt);
+			if (ay == 50){
+				if (speedY < 0){
+					speedY = speedY + (this.ay*dt);
+				}
+				else{
+					speedY = speedY - (this.ay*dt);
+				}
+			}
+			else{
+				speedY = speedY - (this.ay*dt);
+			}
+			
+            Log.d(TAG,Float.toString(ay));
+			
+//            Log.d(TAG,Float.toString(lastSpeedy));
+//            Log.d(TAG,Float.toString(speedY));
 			if(speedX <= 0){
 				speedX = 0;
-                speedY = 0;
             }
-            else if(speedX <= 0 && speedY!=0){
-                speedX = 0;
+            if((speedY > 0 && lastSpeedy < 0) || (speedY < 0 && lastSpeedy > 0)){
+            	Log.d(TAG,"yay det funker :p");
                 speedY = 0;
             }
 			setSpeed(speedX, speedY);
@@ -161,7 +177,7 @@ public class CurlingStone extends Sprite{
 	}
 	
 	public double getDy(Sprite stoneHitter, Sprite stoneHurt){
-		return Math.abs(stoneHurt.getPosition().getY()-stoneHitter.getPosition().getY());
+		return stoneHurt.getPosition().getY()-stoneHitter.getPosition().getY();
 	}
 	
 	public void collision(Sprite sprite){
@@ -195,12 +211,14 @@ public class CurlingStone extends Sprite{
 			this.setSpeedX((float)vx1);
 			this.setSpeedY((float)vy1);
 			
-			this.setAy(((float) ay));
+			this.setAy(this.ax);
             
+			
+			
 			((CurlingStone)sprite).setSpeedX((float) vx2);
 			((CurlingStone)sprite).setSpeedY((float)vy2);
 			
-			((CurlingStone)sprite).setAy(((float)ay));
+			((CurlingStone)sprite).setAy(this.ax);
 		}
 		
 	}
