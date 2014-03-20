@@ -27,7 +27,7 @@ public class CurlingStone extends Sprite{
 	private static Image red = new Image(R.drawable.curling);
 	private static Image yellow = new Image(R.drawable.curlingyellow);
 	private int stoneIndex;
-	
+	private int notation;
 	private double picLength; 
 	
 	
@@ -48,6 +48,7 @@ public class CurlingStone extends Sprite{
         this.ay = this.ax*this.diff;
         this.picLength = red.getHeight();
 
+
 	}
 	
 	public void update(float dt){
@@ -58,10 +59,7 @@ public class CurlingStone extends Sprite{
 			if(speedX <= 0){
 				speedX = 0;
             }
-            if ((float)Math.abs((double)speedY)<1){
-                speedY = 0;
-            }
-			setSpeed(speedX, speedY);
+            setSpeed(speedX, speedY);
 		}
 	}
 	
@@ -76,7 +74,7 @@ public class CurlingStone extends Sprite{
             Log.d(TAG,Float.toString(factor));
             speedX = velocity();
             speedY = speedX*diff();
-
+            notation = vyNotation(speedY);
 			setSpeed(speedX, speedY);
 			moved = true;
 		}
