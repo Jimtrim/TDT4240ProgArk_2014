@@ -66,13 +66,14 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 				if(i != cld){
 					if(i.collides(cld)){
 						if(cld.getCollidedStone() == null || cld != i.getCollidedStone()){
-
+							
 							double d = 48;
 							
 							double dx= Math.abs(cld.getPosition().getX()-i.getPosition().getX());
-							double dy= Math.abs(cld.getPosition().getY()-i.getPosition().getY());
+							double dy= (cld.getPosition().getY()-i.getPosition().getY());
 							double length = Math.sqrt(dx*dx+dy*dy);
 							
+							Log.d(TAG,"Length : " + Double.toString(length));
 							
 							if (d >= length){
 
