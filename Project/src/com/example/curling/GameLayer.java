@@ -65,19 +65,13 @@ public class GameLayer extends Layer{
 				if(i != cld){
 					if(i.collides(cld)){
 						if(cld.getCollidedStone() == null || cld != i.getCollidedStone()){
-							
-							
-							double d = 32;
-							//Vector2 vectorBetween = cld.getPosition().getSubtracted(i.getPosition());
-							//float length = vectorBetween.getLength();
-							//System.out.println(length);
-							
-							
+
+							double d = 48;
 							
 							double dx= Math.abs(cld.getPosition().getX()-i.getPosition().getX());
 							double dy= Math.abs(cld.getPosition().getY()-i.getPosition().getY());
 							double length = Math.sqrt(dx*dx+dy*dy);
-							System.out.println(length);
+							
 							
 							if (d >= length){
 
@@ -86,7 +80,8 @@ public class GameLayer extends Layer{
 								
 								double ax=dx/length, ay=dy/length;
 								
-								double va1=(i.getSpeedX()*ax+i.getSpeedY()*ay);
+								//component of velocity in the direction of (dx,dy). Projection of the velocities in these axes
+								double va1=(i.getSpeedX()*ax+i.getSpeedY()*ay); 
 								double vb1=(-i.getSpeedX()*ay+i.getSpeedY()*ax); 
 								
 								double va2=(cld.getSpeedX()*ax+cld.getSpeedY()*ay);
@@ -95,6 +90,7 @@ public class GameLayer extends Layer{
 								double ed = 1; //elastic collision
 								double mass = 20;
 								
+								// New velocities in these axes (after collision)
 								double vaP1=va1 + (1+ed)*(va2-va1)/(1+mass/mass);
 								double vaP2=va2 + (1+ed)*(va1-va2)/(1+mass/mass);
 								
