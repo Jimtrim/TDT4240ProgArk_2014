@@ -51,7 +51,7 @@ public class GameState extends State {
 		if(gameLayer.getCurrentPlayer().getState() == 0){
 			target.draw(canvas, GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2,GlobalConstants.SCREENHEIGHT*0.5f-target.getHeight()/2);
 		}
-        canvas.drawText("Red" + Float.toString(gameLayer.getPLayerOnePoints()) + Float.toString((gameLayer.getPLayerTwoPoints())) + "Yellow", 200, 10, new Paint());
+        canvas.drawText("Red  " + Float.toString(gameLayer.getPLayerOnePoints()) + "  :  "+ Float.toString((gameLayer.getPLayerTwoPoints())) + "  Yellow", GlobalConstants.SCREENWIDTH*0.4f, 10, new Paint());
 
 		if (gameLayer.getStone() != null)	canvas.drawText(Float.toString(gameLayer.getStone().getSpeedX()), 10, 10, new Paint());
 		}catch (Exception e){};
