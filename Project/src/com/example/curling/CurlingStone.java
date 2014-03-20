@@ -3,6 +3,7 @@ package com.example.curling;
 import java.util.List;
 
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.util.Log;
 import sheep.game.Sprite;
 import sheep.graphics.Image;
@@ -12,7 +13,11 @@ public class CurlingStone extends Sprite{
 	
 	private static final String TAG = MainActivity.class.getSimpleName();
 	
+
+	Matrix matrix;
+	
 	private Sprite collidedStone = null; 
+
 	private boolean moved = false;
 	private float speedX;
 	private float speedY;
@@ -20,7 +25,7 @@ public class CurlingStone extends Sprite{
     private float ax;
     private float ay;
 	private float friction = 2.0f;
-    private int SPIN;
+    private float SPIN;
 	private Vector2 target;
     private float factor;
     private float diff;
@@ -45,21 +50,50 @@ public class CurlingStone extends Sprite{
         this.ax = 50;
         this.SPIN = 0;
         this.diff = diff();
+
+        matrix = new Matrix();
+        updateMatrix();
         this.ay = this.ax*this.diff;
+        Log.d(TAG,Float.toString(ay));
         this.picLength = red.getHeight();
-
-
 	}
 	
 	public void update(float dt){
 		super.update(dt);
+		updateMatrix();
+		if (SPIN != 0) {
+			SPIN = (float) (SPIN*0.99); 
+			this.rotate(-SPIN);
+			if(speedX==0)
+				SPIN=0;
+		}
 		if(speedX != 0 || speedY != 0){
+			float lastSpeedy = speedY;
 			speedX = speedX - (this.ax*dt);
-            speedY = speedY - (this.ay*dt);
+			if (ay == 50){
+				if (speedY < 0){
+					speedY = speedY + (this.ay*dt);
+				}
+				else{
+					speedY = speedY - (this.ay*dt);
+				}
+			}
+			else{
+				speedY = speedY - (this.ay*dt);
+			}
+			
+            Log.d(TAG,Float.toString(ay));
+			
+//            Log.d(TAG,Float.toString(lastSpeedy));
+//            Log.d(TAG,Float.toString(speedY));
 			if(speedX <= 0){
 				speedX = 0;
             }
-            setSpeed(speedX, speedY);
+            if((speedY > 0 && lastSpeedy < 0) || (speedY < 0 && lastSpeedy > 0)){
+            	Log.d(TAG,"yay det funker :p");
+                speedY = 0;
+            }
+			setSpeed(speedX, speedY);
 		}
 	}
 	
@@ -74,14 +108,26 @@ public class CurlingStone extends Sprite{
             Log.d(TAG,Float.toString(factor));
             speedX = velocity();
             speedY = speedX*diff();
-            notation = vyNotation(speedY);
 			setSpeed(speedX, speedY);
 			moved = true;
+			
+			float spinDiff = touchList.get(0)[1] - touchList.get(touchList.size()-1)[1];
+			if ((Math.abs(spinDiff)>(GlobalConstants.SCREENHEIGHT*0.19)) && (Math.abs(spinDiff) < GlobalConstants.SCREENHEIGHT*0.51)) {
+				if (spinDiff > 0) {
+					SPIN = 10; 
+				}
+				else {
+					SPIN = -10;
+				}
+			}
+		}else{
+			
 		}
 	}
 	
 	public void draw(Canvas canvas){
-		super.draw(canvas);
+//		super.draw(canvas);
+		getView().draw(canvas, matrix);
 	}
 	
 	public String makeString(List<float[]> list){
@@ -142,7 +188,14 @@ public class CurlingStone extends Sprite{
 	public int setStoneIndex(int stoneIndex) {
 		this.stoneIndex = stoneIndex;
 		return stoneIndex;
+	}	
+	
+	private void updateMatrix() {
+		matrix.reset();
+		matrix.preRotate(getOrientation(), red.getWidth()/2, red.getHeight()/2);
+		matrix.postTranslate((getPosition().getX()-getOffset().getX()), (getPosition().getY()-getOffset().getY())); 
 	}
+
 	
 	public double getLengthOfStone(){
 		return picLength; 
@@ -191,12 +244,15 @@ public class CurlingStone extends Sprite{
 			this.setSpeedX((float)vx1);
 			this.setSpeedY((float)vy1);
 			
-			//this.setAy(((float) ay));
-
+			this.setAy(this.ax);
+            
+			
+			
 			((CurlingStone)sprite).setSpeedX((float) vx2);
 			((CurlingStone)sprite).setSpeedY((float)vy2);
 			
-			//((CurlingStone)sprite).setAy(((float)ay));
+			((CurlingStone)sprite).setAy(this.ax);
+
 		}
 		
 	}
