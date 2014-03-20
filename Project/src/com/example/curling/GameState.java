@@ -62,6 +62,7 @@ public class GameState extends State {
 	public class Touch implements TouchListener{
 		private ArrayList<float[]> touchList = new ArrayList<float[]>();
 		private float localx,localy;
+		
 		public boolean onTouchDown(MotionEvent event) {
 			if (gameLayer.getCurrentPlayer().getState() == 0){
 				if(event.getX() > GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2 && event.getX() < GlobalConstants.SCREENWIDTH*.5f+target.getHeight()/2
@@ -74,11 +75,13 @@ public class GameState extends State {
 				localx = event.getX();
 				localy = event.getY();
 				return true;
-			}else{
+			}
+			
 			float[] point = {event.getX(),event.getY()};
 			touchList.add(point);
 			return true;
-			}
+			
+			
 		}
 		
 		public boolean onTouchUp(MotionEvent event){

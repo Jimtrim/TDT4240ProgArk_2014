@@ -102,8 +102,8 @@ public class CurlingStone extends Sprite{
 				else {
 					SPIN = -10;
 				}
-		}
-		
+			}
+		}else{
 			
 		}
 	}
