@@ -17,7 +17,8 @@ public class CurlingStone extends Sprite{
 	private float speedX;
 	private float speedY;
     private float startMarkerX = GlobalConstants.SCREENWIDTH*0.3f;
-    private float acceleration;
+    private float ax;
+    private float ay;
 	private float friction = 2.0f;
     private int SPIN;
 	private Vector2 target;
@@ -39,16 +40,18 @@ public class CurlingStone extends Sprite{
 			this.setStoneIndex(1);
 		}
 		this.target = target;
-        this.acceleration = 50;
+        this.ax = 50;
         this.SPIN = 0;
         this.diff = diff();
+        this.ay = this.ax*this.diff;
+
 	}
 	
 	public void update(float dt){
 		super.update(dt);
 		if(speedX != 0 || speedY != 0){
-			speedX = speedX - (this.acceleration*dt);
-            speedY = speedY - (this.acceleration*dt*diff);
+			speedX = speedX - (this.ax*dt);
+            speedY = speedY - (this.ay*dt);
 			if(speedX <= 0){
 				speedX = 0;
                 speedY = 0;
@@ -121,7 +124,7 @@ public class CurlingStone extends Sprite{
 	}
     //perfect velocity
     public float velocity(){
-        return ((float) Math.sqrt((double) 2*(this.acceleration)*(target.getX()-getX())));
+        return ((float) Math.sqrt((double) 2*(this.ax)*(target.getX()-getX())));
     }
 
 	public int getStoneIndex() {
