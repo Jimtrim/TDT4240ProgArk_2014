@@ -151,12 +151,11 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	}
 	
 	public ArrayList<CurlingStone> sortStoneList(ArrayList<CurlingStone> stoneList){
-		ArrayList<CurlingStone> sortedList = new ArrayList<CurlingStone>();
 		int comparison;
 		CurlingStone a;
 		CurlingStone b;
 		int conflict = 0;
-		while(conflict < stoneList.size()-1){
+		while(conflict < stoneList.size()-2){
 			for (int i = 0; i < stoneList.size()-1; i++){
 				a = stoneList.get(i);
 				b = stoneList.get(i+1);
@@ -174,7 +173,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 				}
 			}
 		}
-		return sortedList;	
+		return stoneList;	
 	}
 	
     public int compare(CurlingStone a, CurlingStone b){
@@ -258,6 +257,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	
 	public void newRound(){
 		totalStones = 16;
+		stoneList.clear();
 	}
 	
 	public CurlingStone getStone(){
