@@ -3,6 +3,7 @@ package com.example.curling;
 import java.util.ArrayList;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 import sheep.game.Camera;
@@ -24,7 +25,7 @@ public class GameState extends State {
 	private GameLayer gameLayer;
 	private World world;
 	private Camera camera;
-	
+	private Paint red,yellow,gray;
 	private float camerax,cameray;
 	
 	public GameState(int rounds){
@@ -35,7 +36,15 @@ public class GameState extends State {
 		camera = world.getCamera();
 		camerax = gameLayer.getTrack().getHogLine();
 		cameray = 0;
-		
+        red = new Paint();
+        yellow = new Paint();
+        gray = new Paint();
+        red.setColor(Color.RED);
+        red.setTextSize(30);
+        yellow.setColor(Color.YELLOW);
+        yellow.setTextSize(30);
+        gray.setColor(Color.GRAY);
+        gray.setTextSize(20);
 	}
 	
 	public void update(float dt){
@@ -53,7 +62,9 @@ public class GameState extends State {
 		if(gameLayer.getCurrentPlayer().getState() == 0){
 			target.draw(canvas, GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2,GlobalConstants.SCREENHEIGHT*0.5f-target.getHeight()/2);
 		}
-        canvas.drawText("Red  " + Float.toString(gameLayer.getPLayerOnePoints()) + "  :  "+ Float.toString((gameLayer.getPLayerTwoPoints())) + "  Yellow", GlobalConstants.SCREENWIDTH*0.4f, 10, new Paint());
+        canvas.drawText("Red", GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.1f, red);
+        canvas.drawText(Float.toString((int)gameLayer.getPLayerOnePoints()) + "  :  "+ Float.toString((int)gameLayer.getPLayerTwoPoints()), GlobalConstants.SCREENWIDTH*0.45f, GlobalConstants.SCREENHEIGHT*0.1f, gray);
+        canvas.drawText("Yellow", GlobalConstants.SCREENWIDTH*0.6f, GlobalConstants.SCREENHEIGHT*0.1f, yellow);
 
 		if (gameLayer.getStone() != null)	canvas.drawText(Float.toString(gameLayer.getStone().getSpeedX()), 10, 10, new Paint());
 		}catch (Exception e){};
