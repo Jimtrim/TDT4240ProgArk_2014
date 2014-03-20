@@ -155,7 +155,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		CurlingStone a;
 		CurlingStone b;
 		int conflict = 0;
-		while(conflict < stoneList.size()-1){
+		while(conflict < stoneList.size()-2){
 			for (int i = 0; i < stoneList.size()-1; i++){
 				a = stoneList.get(i);
 				b = stoneList.get(i+1);
