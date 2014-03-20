@@ -57,10 +57,8 @@ public class CurlingStone extends Sprite{
             speedY = speedY - (this.ay*dt);
 			if(speedX <= 0){
 				speedX = 0;
-                speedY = 0;
             }
-            else if(speedX <= 0 && speedY!=0){
-                speedX = 0;
+            if ((float)Math.abs((double)speedY)<1){
                 speedY = 0;
             }
 			setSpeed(speedX, speedY);
@@ -161,7 +159,7 @@ public class CurlingStone extends Sprite{
 	}
 	
 	public double getDy(Sprite stoneHitter, Sprite stoneHurt){
-		return Math.abs(stoneHurt.getPosition().getY()-stoneHitter.getPosition().getY());
+		return stoneHurt.getPosition().getY()-stoneHitter.getPosition().getY();
 	}
 	
 	public void collision(Sprite sprite){
@@ -195,12 +193,12 @@ public class CurlingStone extends Sprite{
 			this.setSpeedX((float)vx1);
 			this.setSpeedY((float)vy1);
 			
-			this.setAy(((float) ay));
-            
+			//this.setAy(((float) ay));
+
 			((CurlingStone)sprite).setSpeedX((float) vx2);
 			((CurlingStone)sprite).setSpeedY((float)vy2);
 			
-			((CurlingStone)sprite).setAy(((float)ay));
+			//((CurlingStone)sprite).setAy(((float)ay));
 		}
 		
 	}
