@@ -95,7 +95,7 @@ public class CurlingStone extends Sprite{
 			moved = true;
 			
 			float spinDiff = touchList.get(0)[1] - touchList.get(touchList.size()-1)[1];
-			if ((Math.abs(spinDiff)>(GlobalConstants.SCREENHEIGHT*0.24)) && (Math.abs(spinDiff) < GlobalConstants.SCREENHEIGHT*0.51)) {
+			if ((Math.abs(spinDiff)>(GlobalConstants.SCREENHEIGHT*0.19)) && (Math.abs(spinDiff) < GlobalConstants.SCREENHEIGHT*0.51)) {
 				if (spinDiff > 0) {
 					SPIN = 10; 
 				}
