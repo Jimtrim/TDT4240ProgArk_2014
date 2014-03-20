@@ -68,7 +68,7 @@ public class CurlingStone extends Sprite{
 	}
 	
 	public void move(List<float[]> touchList){
-		Log.d(TAG,makeString(touchList));
+		Log.d(TAG, makeString(touchList));
 		if (!moved){
 			for(int i = 1; i < touchList.size(); i ++){
                 factor = factor + touchList.get(i)[0] - touchList.get(i-1)[0];
@@ -110,6 +110,9 @@ public class CurlingStone extends Sprite{
     
     public void setAy(float ay){
     	this.ay = ay;
+    }
+    public void setAx(float ax){
+        this.ax = ax;
     }
     
     public void setSpeedY(float speed){ 
@@ -192,9 +195,9 @@ public class CurlingStone extends Sprite{
 			this.setSpeedX((float)vx1);
 			this.setSpeedY((float)vy1);
 			
-			this.setAy(((float)ay));
-			
-			((CurlingStone)sprite).setSpeedX((float)vx2);
+			this.setAy(((float) ay));
+            
+			((CurlingStone)sprite).setSpeedX((float) vx2);
 			((CurlingStone)sprite).setSpeedY((float)vy2);
 			
 			((CurlingStone)sprite).setAy(((float)ay));
