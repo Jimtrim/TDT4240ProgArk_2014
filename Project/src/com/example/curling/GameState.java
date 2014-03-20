@@ -19,6 +19,7 @@ import sheep.math.Vector2;
 public class GameState extends State {
 	
 	
+	
 	private Image target = new Image(R.drawable.aim);
 	private GameLayer gameLayer;
 	private World world;
@@ -34,10 +35,12 @@ public class GameState extends State {
 		camera = world.getCamera();
 		camerax = gameLayer.getTrack().getHogLine();
 		cameray = 0;
+		
 	}
 	
 	public void update(float dt){
 		world.update(dt);
+
 		if (camera != null){
 			moveCamera();	
 		}
@@ -50,6 +53,8 @@ public class GameState extends State {
 		if(gameLayer.getCurrentPlayer().getState() == 0){
 			target.draw(canvas, GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2,GlobalConstants.SCREENHEIGHT*0.5f-target.getHeight()/2);
 		}
+        canvas.drawText("Red  " + Float.toString(gameLayer.getPLayerOnePoints()) + "  :  "+ Float.toString((gameLayer.getPLayerTwoPoints())) + "  Yellow", GlobalConstants.SCREENWIDTH*0.4f, 10, new Paint());
+
 		if (gameLayer.getStone() != null)	canvas.drawText(Float.toString(gameLayer.getStone().getSpeedX()), 10, 10, new Paint());
 		}catch (Exception e){};
 	}
