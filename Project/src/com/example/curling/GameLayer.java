@@ -1,6 +1,7 @@
 package com.example.curling;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -15,7 +16,7 @@ import sheep.math.Vector2;
  * modellen + logikken til spillet
  */
 
-public class GameLayer extends Layer{
+public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	
 	private static final String TAG = MainActivity.class.getSimpleName();
 	
@@ -65,7 +66,56 @@ public class GameLayer extends Layer{
 				if(i != cld){
 					if(i.collides(cld)){
 						if(cld.getCollidedStone() == null || cld != i.getCollidedStone()){
+<<<<<<< HEAD
 							i.collision(cld);
+=======
+							
+							double d = 48;
+							
+							double dx= Math.abs(cld.getPosition().getX()-i.getPosition().getX());
+							double dy= (cld.getPosition().getY()-i.getPosition().getY());
+							double length = Math.sqrt(dx*dx+dy*dy);
+							
+							Log.d(TAG,"Length : " + Double.toString(length));
+							
+							if (d >= length){
+
+								i.setCollidedStone(cld);
+								cld.setCollidedStone(i);
+								
+								double ax=dx/length, ay=dy/length;
+								
+								//component of velocity in the direction of (dx,dy). Projection of the velocities in these axes
+								double va1=(i.getSpeedX()*ax+i.getSpeedY()*ay); 
+								double vb1=(-i.getSpeedX()*ay+i.getSpeedY()*ax); 
+								
+								double va2=(cld.getSpeedX()*ax+cld.getSpeedY()*ay);
+								double vb2=(-cld.getSpeedX()*ay+cld.getSpeedY()*ax);
+								
+								double ed = 1; //elastic collision
+								double mass = 20;
+								
+								// New velocities in these axes (after collision)
+								double vaP1=va1 + (1+ed)*(va2-va1)/(1+mass/mass);
+								double vaP2=va2 + (1+ed)*(va1-va2)/(1+mass/mass);
+								
+								
+								
+								double vx1=vaP1*ax-vb1*ay,  vy1=vaP1*ay+vb1*ax;// new vx,vy for ball 1 after collision
+								double vx2=vaP2*ax-vb2*ay,  vy2=vaP2*ay+vb2*ax;// new vx,vy for ball 2 after collision
+								
+								i.setSpeedX((float)vx1);
+								i.setSpeedY((float)vy1);
+								
+								cld.setSpeedX((float)vx2);
+								cld.setSpeedY((float)vy2);
+
+								//cld.setSpeedX(((CurlingStone)i).getSpeedX());
+								//i.setSpeedX(0);
+								//i.setSpeed(0, 0);
+							}
+
+>>>>>>> b97f25632d1d5c2629a9dae84c28e9c79ea94edf
 						}
 
 					}
@@ -107,16 +157,45 @@ public class GameLayer extends Layer{
 	}
 	
 	public ArrayList<CurlingStone> sortStoneList(ArrayList<CurlingStone> stoneList){
-		double targetY = GlobalConstants.SCREENHEIGHT*0.5;
-		for(CurlingStone i: stoneList){
-			Math.abs(i.getPosition().getX()-track.getGoalPoint());
-			Math.abs(i.getPosition().getY()-targetY);
-			//make sorted list
-			if (Math.abs(i.getPosition().getX()-target.getX()) < Math.abs(winningStone.getPosition().getX()-target.getX())){
-				winningStone = i;
-			}}
+		int comparison;
+		CurlingStone a;
+		CurlingStone b;
+		int conflict = 0;
+		while(conflict < stoneList.size()-2){
+			for (int i = 0; i < stoneList.size()-1; i++){
+				a = stoneList.get(i);
+				b = stoneList.get(i+1);
+				comparison = compare(a, b);
+				if (comparison == -1){
+					conflict += 1;
+				}
+				else if (comparison == 1){
+					stoneList.set(i+1, a) ;
+					stoneList.set(i, b);
+					conflict = 0;
+				}
+				else {
+					continue;
+				}
+			}
+		}
 		return stoneList;	
 	}
+	
+    public int compare(CurlingStone a, CurlingStone b){
+    	double targetY = GlobalConstants.SCREENHEIGHT*0.5;
+		float targetX = track.getGoalPoint();
+		double distanceA = Math.pow(Math.abs(a.getPosition().getX()-targetX), 2) + Math.pow(Math.abs(a.getPosition().getY()-targetY), 2);
+		double distanceB = Math.pow(Math.abs(b.getPosition().getX()-targetX), 2) + Math.pow(Math.abs(b.getPosition().getY()-targetY), 2);
+    	int startComparison = compare(distanceA, distanceB);
+    	return startComparison;
+   	}
+    	
+    private int compare(double a, double b) {
+    	return a < b ? -1
+	         : a > b ? 1
+	         : 0;
+    }
 	
 	public void addPoints(){
 		currentRound = currentRound + 1;
@@ -133,12 +212,20 @@ public class GameLayer extends Layer{
 		}
 		
 		if (sortedList.get(0).getStoneIndex() == 0){
-			playerOnePoints = points;
+			playerOnePoints += points;
 		}
 		else if (sortedList.get(0).getStoneIndex() == 1){
-			playerTwoPoints = points;
+			playerTwoPoints += points;
 		}
 		
+	}
+	
+	public int getPLayerOnePoints(){
+		return this.playerOnePoints;
+	}
+	
+	public int getPLayerTwoPoints(){
+		return this.playerTwoPoints;
 	}
 	
 	
@@ -176,6 +263,7 @@ public class GameLayer extends Layer{
 	
 	public void newRound(){
 		totalStones = 16;
+		stoneList.clear();
 	}
 	
 	public CurlingStone getStone(){
@@ -205,5 +293,4 @@ public class GameLayer extends Layer{
     	this.target = p;
     }
 
-    
 }
