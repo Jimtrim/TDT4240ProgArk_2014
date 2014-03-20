@@ -66,18 +66,12 @@ public class GameLayer extends Layer{
 					if(i.collides(cld)){
 						if(cld.getCollidedStone() == null || cld != i.getCollidedStone()){
 							
-							
-							double d = 32;
-							//Vector2 vectorBetween = cld.getPosition().getSubtracted(i.getPosition());
-							//float length = vectorBetween.getLength();
-							//System.out.println(length);
-							
-							
+							double d = 48;
 							
 							double dx= Math.abs(cld.getPosition().getX()-i.getPosition().getX());
-							double dy= Math.abs(cld.getPosition().getY()-i.getPosition().getY());
+							double dy= (cld.getPosition().getY()-i.getPosition().getY());
 							double length = Math.sqrt(dx*dx+dy*dy);
-							System.out.println(length);
+							Log.d(TAG,"Length : " + Double.toString(length));
 							
 							if (d >= length){
 

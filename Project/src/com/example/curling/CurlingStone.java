@@ -48,7 +48,7 @@ public class CurlingStone extends Sprite{
 		super.update(dt);
 		if(speedX != 0 || speedY != 0){
 			speedX = speedX - (this.acceleration*dt);
-            speedY = speedY - (this.acceleration*dt*diff);
+            speedY = speedY - (this.acceleration*dt/Math.abs((target.getY()-GlobalConstants.SCREENHEIGHT*0.5f)));
 			if(speedX <= 0){
 				speedX = 0;
                 speedY = 0;
@@ -71,7 +71,7 @@ public class CurlingStone extends Sprite{
             factor = factor/(touchList.get(5)[0]-touchList.get(4)[0]);
             Log.d(TAG,Float.toString(factor));
             speedX = velocity();
-            speedY = diff()*speedX;
+            speedY = speedX*diff();
 
 			setSpeed(speedX, speedY);
 			moved = true;
