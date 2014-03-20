@@ -66,56 +66,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 				if(i != cld){
 					if(i.collides(cld)){
 						if(cld.getCollidedStone() == null || cld != i.getCollidedStone()){
-<<<<<<< HEAD
 							i.collision(cld);
-=======
-							
-							double d = 48;
-							
-							double dx= Math.abs(cld.getPosition().getX()-i.getPosition().getX());
-							double dy= (cld.getPosition().getY()-i.getPosition().getY());
-							double length = Math.sqrt(dx*dx+dy*dy);
-							
-							Log.d(TAG,"Length : " + Double.toString(length));
-							
-							if (d >= length){
-
-								i.setCollidedStone(cld);
-								cld.setCollidedStone(i);
-								
-								double ax=dx/length, ay=dy/length;
-								
-								//component of velocity in the direction of (dx,dy). Projection of the velocities in these axes
-								double va1=(i.getSpeedX()*ax+i.getSpeedY()*ay); 
-								double vb1=(-i.getSpeedX()*ay+i.getSpeedY()*ax); 
-								
-								double va2=(cld.getSpeedX()*ax+cld.getSpeedY()*ay);
-								double vb2=(-cld.getSpeedX()*ay+cld.getSpeedY()*ax);
-								
-								double ed = 1; //elastic collision
-								double mass = 20;
-								
-								// New velocities in these axes (after collision)
-								double vaP1=va1 + (1+ed)*(va2-va1)/(1+mass/mass);
-								double vaP2=va2 + (1+ed)*(va1-va2)/(1+mass/mass);
-								
-								
-								
-								double vx1=vaP1*ax-vb1*ay,  vy1=vaP1*ay+vb1*ax;// new vx,vy for ball 1 after collision
-								double vx2=vaP2*ax-vb2*ay,  vy2=vaP2*ay+vb2*ax;// new vx,vy for ball 2 after collision
-								
-								i.setSpeedX((float)vx1);
-								i.setSpeedY((float)vy1);
-								
-								cld.setSpeedX((float)vx2);
-								cld.setSpeedY((float)vy2);
-
-								//cld.setSpeedX(((CurlingStone)i).getSpeedX());
-								//i.setSpeedX(0);
-								//i.setSpeed(0, 0);
-							}
-
->>>>>>> b97f25632d1d5c2629a9dae84c28e9c79ea94edf
 						}
 
 					}
