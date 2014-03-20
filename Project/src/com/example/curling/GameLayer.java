@@ -1,6 +1,7 @@
 package com.example.curling;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -15,7 +16,7 @@ import sheep.math.Vector2;
  * modellen + logikken til spillet
  */
 
-public class GameLayer extends Layer{
+public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	
 	private static final String TAG = MainActivity.class.getSimpleName();
 	
@@ -149,16 +150,46 @@ public class GameLayer extends Layer{
 	}
 	
 	public ArrayList<CurlingStone> sortStoneList(ArrayList<CurlingStone> stoneList){
-		double targetY = GlobalConstants.SCREENHEIGHT*0.5;
-		for(CurlingStone i: stoneList){
-			Math.abs(i.getPosition().getX()-track.getGoalPoint());
-			Math.abs(i.getPosition().getY()-targetY);
-			//make sorted list
-			if (Math.abs(i.getPosition().getX()-target.getX()) < Math.abs(winningStone.getPosition().getX()-target.getX())){
-				winningStone = i;
-			}}
-		return stoneList;	
+		ArrayList<CurlingStone> sortedList = new ArrayList<CurlingStone>();
+		int comparison;
+		CurlingStone a;
+		CurlingStone b;
+		int conflict = 0;
+		while(conflict < stoneList.size()-1){
+			for (int i = 0; i < stoneList.size()-1; i++){
+				a = stoneList.get(i);
+				b = stoneList.get(i+1);
+				comparison = compare(a, b);
+				if (comparison == -1){
+					conflict += 1;
+				}
+				else if (comparison == 1){
+					stoneList.set(i+1, a) ;
+					stoneList.set(i, b);
+					conflict = 0;
+				}
+				else {
+					continue;
+				}
+			}
+		}
+		return sortedList;	
 	}
+	
+    public int compare(CurlingStone a, CurlingStone b){
+    	double targetY = GlobalConstants.SCREENHEIGHT*0.5;
+		float targetX = track.getGoalPoint();
+		double distanceA = Math.pow(Math.abs(a.getPosition().getX()-targetX), 2) + Math.pow(Math.abs(a.getPosition().getY()-targetY), 2);
+		double distanceB = Math.pow(Math.abs(b.getPosition().getX()-targetX), 2) + Math.pow(Math.abs(b.getPosition().getY()-targetY), 2);
+    	int startComparison = compare(distanceA, distanceB);
+    	return startComparison;
+   	}
+    	
+    private int compare(double a, double b) {
+    	return a < b ? -1
+	         : a > b ? 1
+	         : 0;
+    }
 	
 	public void addPoints(){
 		currentRound = currentRound + 1;
@@ -175,12 +206,20 @@ public class GameLayer extends Layer{
 		}
 		
 		if (sortedList.get(0).getStoneIndex() == 0){
-			playerOnePoints = points;
+			playerOnePoints += points;
 		}
 		else if (sortedList.get(0).getStoneIndex() == 1){
-			playerTwoPoints = points;
+			playerTwoPoints += points;
 		}
 		
+	}
+	
+	public int getPLayerOnePoints(){
+		return this.playerOnePoints;
+	}
+	
+	public int getPLayerTwoPoints(){
+		return this.playerTwoPoints;
 	}
 	
 	
@@ -247,5 +286,4 @@ public class GameLayer extends Layer{
     	this.target = p;
     }
 
-    
 }
