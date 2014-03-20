@@ -19,6 +19,7 @@ import sheep.math.Vector2;
 public class GameState extends State {
 	
 	
+	
 	private Image target = new Image(R.drawable.aim);
 	private GameLayer gameLayer;
 	private World world;
@@ -34,11 +35,13 @@ public class GameState extends State {
 		camera = world.getCamera();
 		camerax = gameLayer.getTrack().getHogLine();
 		cameray = 0;
+		
 	}
 	
 	public void update(float dt){
 		world.update(dt);
 		moveCamera();
+		
 	}
 	
 	public void draw(Canvas canvas){
