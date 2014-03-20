@@ -70,12 +70,14 @@ public class GameLayer extends Layer{
 							double d = 32;
 							//Vector2 vectorBetween = cld.getPosition().getSubtracted(i.getPosition());
 							//float length = vectorBetween.getLength();
+							//System.out.println(length);
 							
 							
 							
-							double dx= Math.abs(cld.getX()-i.getX());
-							double dy= Math.abs(cld.getY()-i.getY());
+							double dx= Math.abs(cld.getPosition().getX()-i.getPosition().getX());
+							double dy= Math.abs(cld.getPosition().getY()-i.getPosition().getY());
 							double length = Math.sqrt(dx*dx+dy*dy);
+							System.out.println(length);
 							
 							if (d >= length){
 
