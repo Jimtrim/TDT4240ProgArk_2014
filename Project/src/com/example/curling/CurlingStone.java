@@ -3,6 +3,7 @@ package com.example.curling;
 import java.util.List;
 
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.util.Log;
 import sheep.game.Sprite;
 import sheep.graphics.Image;
@@ -12,6 +13,10 @@ public class CurlingStone extends Sprite{
 	
 	private static final String TAG = MainActivity.class.getSimpleName();
 	
+	Matrix matrix;
+	
+	
+	
 	private CurlingStone collidedStone = null; 
 	private boolean moved = false;
 	private float speedX;
@@ -19,7 +24,7 @@ public class CurlingStone extends Sprite{
     private float startMarkerX = GlobalConstants.SCREENWIDTH*0.3f;
     private float acceleration;
 	private float friction = 2.0f;
-    private int SPIN;
+    private float SPIN;
 	private Vector2 target;
     private float factor;
     private float diff;
@@ -42,10 +47,20 @@ public class CurlingStone extends Sprite{
         this.acceleration = 50;
         this.SPIN = 0;
         this.diff = diff();
+        
+        matrix = new Matrix();
+        updateMatrix();
 	}
 	
 	public void update(float dt){
 		super.update(dt);
+		updateMatrix();
+		if (SPIN != 0) {
+			SPIN = (float) (SPIN*0.99); 
+			this.rotate(-SPIN);
+			if(speedX==0)
+				SPIN=0;
+		}
 		if(speedX != 0 || speedY != 0){
 			speedX = speedX - (this.acceleration*dt);
             speedY = speedY - (this.acceleration*dt*diff);
@@ -75,11 +90,24 @@ public class CurlingStone extends Sprite{
 
 			setSpeed(speedX, speedY);
 			moved = true;
+			
+			float spinDiff = touchList.get(0)[1] - touchList.get(touchList.size()-1)[1];
+			if ((Math.abs(spinDiff)>(GlobalConstants.SCREENHEIGHT*0.24)) && (Math.abs(spinDiff) < GlobalConstants.SCREENHEIGHT*0.51)) {
+				if (spinDiff > 0) {
+					SPIN = 10; 
+				}
+				else {
+					SPIN = -10;
+				}
+		}
+		
+			
 		}
 	}
 	
 	public void draw(Canvas canvas){
-		super.draw(canvas);
+//		super.draw(canvas);
+		getView().draw(canvas, matrix);
 	}
 	
 	public String makeString(List<float[]> list){
@@ -132,6 +160,13 @@ public class CurlingStone extends Sprite{
 		this.stoneIndex = stoneIndex;
 		return stoneIndex;
 	}
-
+		
+	
+	private void updateMatrix() {
+		matrix.reset();
+		matrix.preRotate(getOrientation(), red.getWidth()/2, red.getHeight()/2);
+		matrix.postTranslate((getPosition().getX()-getOffset().getX()), (getPosition().getY()-getOffset().getY())); 
+	}
+	
 
 }

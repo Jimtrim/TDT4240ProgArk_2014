@@ -38,7 +38,9 @@ public class GameState extends State {
 	
 	public void update(float dt){
 		world.update(dt);
-		moveCamera();
+		if (camera != null){
+			moveCamera();	
+		}
 	}
 	
 	public void draw(Canvas canvas){
