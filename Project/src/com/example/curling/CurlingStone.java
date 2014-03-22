@@ -109,7 +109,6 @@ public class CurlingStone extends Sprite{
             return (factor+200)/velocity();
         }
         Log.d(TAG,Float.toString(factor));
-        //TODO finish this function...
 		return 1;
 	}
 	
