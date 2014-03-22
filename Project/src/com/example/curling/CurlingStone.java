@@ -13,10 +13,8 @@ public class CurlingStone extends Sprite{
 	
 	private static final String TAG = MainActivity.class.getSimpleName();
 	
-	Matrix matrix;
-	
+	private Matrix matrix;	
 	private Sprite collidedStone = null; 
-
 	private boolean moved = false;
 	private float speedX,speedY,ax,ay,spin;
     private float startMarkerX = GlobalConstants.SCREENWIDTH*0.3f;
@@ -179,6 +177,18 @@ public class CurlingStone extends Sprite{
 		}
 	}
 	
+	public double getLengthBetweenStone(double dx, double dy){
+		return Math.sqrt(dx*dx+dy*dy);
+	}
+	
+	public double getDx(Sprite stoneHitter, Sprite stoneHurt){
+		return Math.abs(stoneHurt.getPosition().getX()-stoneHitter.getPosition().getX());
+	}
+	
+	public double getDy(Sprite stoneHitter, Sprite stoneHurt){
+		return stoneHurt.getPosition().getY()-stoneHitter.getPosition().getY();
+	}
+	
 	public boolean getMoved(){
         return this.moved;
     }
@@ -202,18 +212,6 @@ public class CurlingStone extends Sprite{
 	
 	public double getLengthOfStone(){
 		return picLength; 
-	}
-
-	public double getLengthBetweenStone(double dx, double dy){
-		return Math.sqrt(dx*dx+dy*dy);
-	}
-	
-	public double getDx(Sprite stoneHitter, Sprite stoneHurt){
-		return Math.abs(stoneHurt.getPosition().getX()-stoneHitter.getPosition().getX());
-	}
-	
-	public double getDy(Sprite stoneHitter, Sprite stoneHurt){
-		return stoneHurt.getPosition().getY()-stoneHitter.getPosition().getY();
 	}
 	
 	public float getSpeedX(){
