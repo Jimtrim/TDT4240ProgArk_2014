@@ -63,7 +63,7 @@ public class GameState extends State {
 			target.draw(canvas, GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2,GlobalConstants.SCREENHEIGHT*0.5f-target.getHeight()/2);
 		}
         canvas.drawText("Red", GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.1f, red);
-        canvas.drawText(Float.toString((int)gameLayer.getPLayerOnePoints()) + "  :  "+ Float.toString((int)gameLayer.getPLayerTwoPoints()), GlobalConstants.SCREENWIDTH*0.45f, GlobalConstants.SCREENHEIGHT*0.1f, gray);
+        canvas.drawText(Integer.toString(gameLayer.getPLayerOnePoints()) + "  :  "+ Integer.toString(gameLayer.getPLayerTwoPoints()), GlobalConstants.SCREENWIDTH*0.48f, GlobalConstants.SCREENHEIGHT*0.1f, gray);
         canvas.drawText("Yellow", GlobalConstants.SCREENWIDTH*0.6f, GlobalConstants.SCREENHEIGHT*0.1f, yellow);
 		if (gameLayer.getStone() != null)	canvas.drawText(Float.toString(gameLayer.getStone().getSpeedX()), 10, 10, new Paint());
 		}catch (Exception e){};
@@ -90,8 +90,6 @@ public class GameState extends State {
 			float[] point = {event.getX(),event.getY()};
 			touchList.add(point);
 			return true;
-			
-			
 		}
 		
 		public boolean onTouchUp(MotionEvent event){

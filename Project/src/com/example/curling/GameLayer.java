@@ -61,25 +61,20 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		
 		for(CurlingStone i: stoneList){
 			i.update(dt);
-			
 			for(CurlingStone cld: stoneList){
 				if(i != cld){
 					if(i.collides(cld)){
 						if(cld.getCollidedStone() == null || cld != i.getCollidedStone()){
 							i.collision(cld);
 						}
-
 					}
-
-						
-
 				}
 			}
-            outOfBounds(i);
-        }
-
+			outOfBounds(i);
+		}
         stoneList.removeAll(removeStone);
         removeStone.clear();
+        
 		endTurn();
 	}
 	
@@ -177,7 +172,6 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	public int getPLayerTwoPoints(){
 		return this.playerTwoPoints;
 	}
-	
 	
 	public void evaluateStones(){
 		
