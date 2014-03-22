@@ -221,8 +221,8 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	}
 
     public void outOfBounds(Sprite stone){
-        Float posX = stone.getPosition().getX();
-        Float posY = stone.getPosition().getY();
+        float posX = stone.getPosition().getX();
+        float posY = stone.getPosition().getY();
         if (posX > track.getLenght() || (posX < track.getHogLine() && currentPlayer.getState()==3)){
             removeStone.add((CurlingStone) stone);
         }
