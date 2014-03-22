@@ -100,10 +100,14 @@ public class CurlingStone extends Sprite{
 	public float getFactor(List<float[]> touchList){
 		float factor = 0;
 		for(int i = 1; i < touchList.size(); i ++){
-            factor = factor + touchList.get(i)[0] - touchList.get(i-1)[0];
+            factor = factor + touchList.get(i)[0] - touchList.get(0)[0];
         }
-        factor = factor/(touchList.size()-1);
-        factor = factor/(touchList.get(5)[0]-touchList.get(4)[0]);
+        if (factor-200 >= velocity()){
+            return (factor-200)/velocity();
+        }
+        else if (factor+200 <= velocity()){
+            return (factor+200)/velocity();
+        }
         Log.d(TAG,Float.toString(factor));
         //TODO finish this function...
 		return 1;
@@ -118,7 +122,7 @@ public class CurlingStone extends Sprite{
 	}
 	
 	public void setAy(){
-    	this.ay = (this.speedY)/(1/(this.ax/this.speedX));;
+    	this.ay = (this.speedY)/(1/(this.ax/this.speedX));
     }
 
     //find speed in y-direction to get the scaling correct with the x-speed
