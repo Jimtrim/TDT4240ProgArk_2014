@@ -55,32 +55,26 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 			currentPlayer.setState(2);
 		}
 		
-		if(noStonesMove() && currentPlayer.getState() > 1){
-			if (movingStone.getMoved())	currentPlayer.setState(3);
-		}
-		
 		for(CurlingStone i: stoneList){
 			i.update(dt);
-			
 			for(CurlingStone cld: stoneList){
 				if(i != cld){
 					if(i.collides(cld)){
 						if(cld.getCollidedStone() == null || cld != i.getCollidedStone()){
 							i.collision(cld);
 						}
-
 					}
-
-						
-
 				}
 			}
-				
+			outOfBounds(i);
 		}
-            //outOfBounds(i);
-
-        //stoneList.removeAll(removeStone);
-        //removeStone.clear();
+        stoneList.removeAll(removeStone);
+        removeStone.clear();
+		
+		if(noStonesMove() && currentPlayer.getState() > 1){
+			if (movingStone.getMoved())	currentPlayer.setState(3);
+		}
+		
 		endTurn();
 	}
 	
@@ -179,7 +173,6 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		return this.playerTwoPoints;
 	}
 	
-	
 	public void evaluateStones(){
 		
 	}
@@ -222,8 +215,8 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	}
 
     public void outOfBounds(Sprite stone){
-        Float posX = stone.getPosition().getX();
-        Float posY = stone.getPosition().getY();
+        float posX = stone.getPosition().getX();
+        float posY = stone.getPosition().getY();
         if (posX > track.getLenght() || (posX < track.getHogLine() && currentPlayer.getState()==3)){
             removeStone.add((CurlingStone) stone);
         }

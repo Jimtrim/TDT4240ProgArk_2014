@@ -78,6 +78,7 @@ public class CurlingStone extends Sprite{
             Log.d(TAG,"akselrasjonen i y rettning: " + Float.toString(ay));
 			setSpin(touchList);
 			setAy();
+			Log.d(TAG,Float.toString(getFactor(touchList)));
 			moved = true;
 			setSpeed(speedX, speedY);
 		}else{
@@ -108,7 +109,7 @@ public class CurlingStone extends Sprite{
         else if (factor+200 <= velocity()){
             return (factor+200)/velocity();
         }
-        Log.d(TAG,Float.toString(factor));
+        
 		return 1;
 	}
 	
