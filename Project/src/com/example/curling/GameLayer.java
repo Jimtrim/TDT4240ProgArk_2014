@@ -55,6 +55,10 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 			currentPlayer.setState(2);
 		}
 		
+		if(noStonesMove() && currentPlayer.getState() > 1){
+			if (movingStone.getMoved())	currentPlayer.setState(3);
+		}
+		
 		for(CurlingStone i: stoneList){
 			i.update(dt);
 			for(CurlingStone cld: stoneList){
@@ -70,11 +74,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		}
         stoneList.removeAll(removeStone);
         removeStone.clear();
-		
-		if(noStonesMove() && currentPlayer.getState() > 1){
-			if (movingStone.getMoved())	currentPlayer.setState(3);
-		}
-		
+        
 		endTurn();
 	}
 	
