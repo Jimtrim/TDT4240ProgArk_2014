@@ -13,121 +13,102 @@ public class CurlingStone extends Sprite{
 	
 	private static final String TAG = MainActivity.class.getSimpleName();
 	
-
 	Matrix matrix;
 	
 	private Sprite collidedStone = null; 
 
 	private boolean moved = false;
-	private float speedX;
-	private float speedY;
+	private float speedX,speedY,ax,ay,spin;
     private float startMarkerX = GlobalConstants.SCREENWIDTH*0.3f;
-    private float ax;
-    private float ay;
 	private float friction = 2.0f;
-    private float SPIN;
 	private Vector2 target;
-    private float factor;
-    private float diff;
 	private static Image red = new Image(R.drawable.curling);
 	private static Image yellow = new Image(R.drawable.curlingyellow);
 	private int stoneIndex;
 	private int notation;
-	private double picLength; 
-	
-	
+	private double picLength;
 	
 	public CurlingStone(float x,float y,int playerIndex, Vector2 target){
 		super(red);
 		this.speedX = 0;
 		this.setStoneIndex(0);
-		setPosition(x, y);
+		this.target = target;
+        this.ax = 50;
+        this.spin = 0;
+        this.picLength = red.getHeight();
+        this.matrix = new Matrix();
+        
 		if(playerIndex == 1) {
 			setView(yellow);
 			this.setStoneIndex(1);
 		}
-		this.target = target;
-        this.ax = 50;
-        this.SPIN = 0;
-        this.diff = diff();
-
-        matrix = new Matrix();
+        
         updateMatrix();
-        this.ay = this.ax*this.diff;
-        Log.d(TAG,Float.toString(ay));
-        this.picLength = red.getHeight();
+        setPosition(x, y);
 	}
 	
 	public void update(float dt){
 		super.update(dt);
 		updateMatrix();
-		if (SPIN != 0) {
-			SPIN = (float) (SPIN*0.99); 
-			this.rotate(-SPIN);
+		if (spin != 0) {
+			spin = (float) (spin*0.99); 
+			this.rotate(-spin);
 			if(speedX==0)
-				SPIN=0;
+				spin=0;
 		}
 		if(speedX != 0 || speedY != 0){
-			float lastSpeedy = speedY;
 			speedX = speedX - (this.ax*dt);
-			if (ay == 50){
-				if (speedY < 0){
-					speedY = speedY + (this.ay*dt);
-				}
-				else{
-					speedY = speedY - (this.ay*dt);
-				}
-			}
-			else{
-				speedY = speedY - (this.ay*dt);
-			}
-			
-            Log.d(TAG,Float.toString(ay));
-			
-//            Log.d(TAG,Float.toString(lastSpeedy));
-//            Log.d(TAG,Float.toString(speedY));
+			speedY = speedY - (this.ay*dt);
+
 			if(speedX <= 0){
 				speedX = 0;
-            }
-            if((speedY > 0 && lastSpeedy < 0) || (speedY < 0 && lastSpeedy > 0)){
-            	Log.d(TAG,"yay det funker :p");
                 speedY = 0;
             }
 			setSpeed(speedX, speedY);
 		}
 	}
 	
+	public void draw(Canvas canvas){
+		getView().draw(canvas, matrix);
+	}
+	
 	public void move(List<float[]> touchList){
 		Log.d(TAG, makeString(touchList));
 		if (!moved){
-			for(int i = 1; i < touchList.size(); i ++){
-                factor = factor + touchList.get(i)[0] - touchList.get(i-1)[0];
-            }
-            factor = factor/(touchList.size()-1);
-            factor = factor/(touchList.get(5)[0]-touchList.get(4)[0]);
-            Log.d(TAG,Float.toString(factor));
-            speedX = velocity();
+            speedX = velocity()*getFactor(touchList);
             speedY = speedX*diff();
-			setSpeed(speedX, speedY);
+            Log.d(TAG,"akselrasjonen i y rettning: " + Float.toString(ay));
+			setSpin(touchList);
+			setAy();
 			moved = true;
-			
-			float spinDiff = touchList.get(0)[1] - touchList.get(touchList.size()-1)[1];
-			if ((Math.abs(spinDiff)>(GlobalConstants.SCREENHEIGHT*0.19)) && (Math.abs(spinDiff) < GlobalConstants.SCREENHEIGHT*0.51)) {
-				if (spinDiff > 0) {
-					SPIN = 10; 
-				}
-				else {
-					SPIN = -10;
-				}
-			}
+			setSpeed(speedX, speedY);
 		}else{
-			
+			//TODO legge til kostefunksjon
 		}
 	}
 	
-	public void draw(Canvas canvas){
-//		super.draw(canvas);
-		getView().draw(canvas, matrix);
+	public void setSpin(List<float[]> touchList){
+		float spinDiff = touchList.get(0)[1] - touchList.get(touchList.size()-1)[1];
+		if ((Math.abs(spinDiff)>(GlobalConstants.SCREENHEIGHT*0.19)) && (Math.abs(spinDiff) < GlobalConstants.SCREENHEIGHT*0.51)) {
+			if (spinDiff > 0) {
+				spin = 10; 
+			}
+			else {
+				spin = -10;
+			}
+		}
+	}
+	
+	public float getFactor(List<float[]> touchList){
+		float factor = 0;
+		for(int i = 1; i < touchList.size(); i ++){
+            factor = factor + touchList.get(i)[0] - touchList.get(i-1)[0];
+        }
+        factor = factor/(touchList.size()-1);
+        factor = factor/(touchList.get(5)[0]-touchList.get(4)[0]);
+        Log.d(TAG,Float.toString(factor));
+        //TODO finish this function...
+		return 1;
 	}
 	
 	public String makeString(List<float[]> list){
@@ -138,79 +119,24 @@ public class CurlingStone extends Sprite{
 		return s;
 	}
 	
-	public float getSpeedX(){
-		return this.speedX;
-	}
-
-    public void setSpeedX(float speed){
-        this.speedX = speed;
+	public void setAy(){
+    	this.ay = (this.speedY)/(1/(this.ax/this.speedX));;
     }
-
-    public float getSpeedY(){
-		return this.speedY;
-	}
-    
-    public void setAy(float ay){
-    	this.ay = ay;
-    }
-    public void setAx(float ax){
-        this.ax = ax;
-    }
-    
-    public void setSpeedY(float speed){ 
-    	this.speedY = speed; }
 
     //find speed in y-direction to get the scaling correct with the x-speed
     public float diff(){
         return (target.getY()-GlobalConstants.SCREENHEIGHT*0.5f)/(target.getX()-startMarkerX);
     }
 
-    public boolean getMoved(){
-        return this.moved;
-    }
-
-    public void setCollidedStone(Sprite stone){
-		this.collidedStone = stone; 
-	}
-	
-	public Sprite getCollidedStone(){
-		return this.collidedStone;
-	}
     //perfect velocity
     public float velocity(){
         return ((float) Math.sqrt((double) 2*(this.ax)*(target.getX()-getX())));
-    }
-
-	public int getStoneIndex() {
-		return stoneIndex;
-	}
-
-	public int setStoneIndex(int stoneIndex) {
-		this.stoneIndex = stoneIndex;
-		return stoneIndex;
-	}	
+    }	
 	
 	private void updateMatrix() {
 		matrix.reset();
 		matrix.preRotate(getOrientation(), red.getWidth()/2, red.getHeight()/2);
 		matrix.postTranslate((getPosition().getX()-getOffset().getX()), (getPosition().getY()-getOffset().getY())); 
-	}
-
-	
-	public double getLengthOfStone(){
-		return picLength; 
-	}
-
-	public double getLengthBetweenStone(double dx, double dy){
-		return Math.sqrt(dx*dx+dy*dy);
-	}
-	
-	public double getDx(Sprite stoneHitter, Sprite stoneHurt){
-		return Math.abs(stoneHurt.getPosition().getX()-stoneHitter.getPosition().getX());
-	}
-	
-	public double getDy(Sprite stoneHitter, Sprite stoneHurt){
-		return stoneHurt.getPosition().getY()-stoneHitter.getPosition().getY();
 	}
 	
 	public void collision(Sprite sprite){
@@ -244,16 +170,65 @@ public class CurlingStone extends Sprite{
 			this.setSpeedX((float)vx1);
 			this.setSpeedY((float)vy1);
 			
-			this.setAy(this.ax);
-            
-			
+			this.setAy();
 			
 			((CurlingStone)sprite).setSpeedX((float) vx2);
 			((CurlingStone)sprite).setSpeedY((float)vy2);
 			
-			((CurlingStone)sprite).setAy(this.ax);
-
+			((CurlingStone)sprite).setAy();
 		}
-		
 	}
+	
+	public boolean getMoved(){
+        return this.moved;
+    }
+
+    public void setCollidedStone(Sprite stone){
+		this.collidedStone = stone; 
+	}
+	
+	public Sprite getCollidedStone(){
+		return this.collidedStone;
+	}
+	
+	public int getStoneIndex() {
+		return stoneIndex;
+	}
+
+	public int setStoneIndex(int stoneIndex) {
+		this.stoneIndex = stoneIndex;
+		return stoneIndex;
+	}
+	
+	public double getLengthOfStone(){
+		return picLength; 
+	}
+
+	public double getLengthBetweenStone(double dx, double dy){
+		return Math.sqrt(dx*dx+dy*dy);
+	}
+	
+	public double getDx(Sprite stoneHitter, Sprite stoneHurt){
+		return Math.abs(stoneHurt.getPosition().getX()-stoneHitter.getPosition().getX());
+	}
+	
+	public double getDy(Sprite stoneHitter, Sprite stoneHurt){
+		return stoneHurt.getPosition().getY()-stoneHitter.getPosition().getY();
+	}
+	
+	public float getSpeedX(){
+		return this.speedX;
+	}
+
+    public void setSpeedX(float speed){
+        this.speedX = speed;
+    }
+
+    public float getSpeedY(){
+		return this.speedY;
+	}
+    
+    public void setSpeedY(float speed){ 
+    	this.speedY = speed; 
+    }
 }
