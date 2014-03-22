@@ -75,12 +75,11 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 
 				}
 			}
-				
-		}
-            //outOfBounds(i);
+            outOfBounds(i);
+        }
 
-        //stoneList.removeAll(removeStone);
-        //removeStone.clear();
+        stoneList.removeAll(removeStone);
+        removeStone.clear();
 		endTurn();
 	}
 	
