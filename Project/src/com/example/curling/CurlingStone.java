@@ -40,7 +40,6 @@ public class CurlingStone extends Sprite{
 			setView(yellow);
 			this.setStoneIndex(1);
 		}
-        
         updateMatrix();
         setPosition(x, y);
 	}
@@ -137,8 +136,8 @@ public class CurlingStone extends Sprite{
 	
 	private void updateMatrix() {
 		matrix.reset();
+		matrix.preTranslate((getPosition().getX()-getOffset().getX()), (getPosition().getY()-getOffset().getY())); 
 		matrix.preRotate(getOrientation(), red.getWidth()/2, red.getHeight()/2);
-		matrix.postTranslate((getPosition().getX()-getOffset().getX()), (getPosition().getY()-getOffset().getY())); 
 	}
 	
 	public void collision(Sprite sprite){

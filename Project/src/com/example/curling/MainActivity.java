@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
 	public void onPause(){
 		if(game.getTopState().getClass() == GameState.class) {
 			Log.d(TAG,"legger til pause menu");
-			game.pushState(PauseMenu.getInstance());
+			game.pushState(new PauseMenu());
 			Log.d(TAG,Integer.toString(game.getStateStack().size()));
 		}
 		super.onPause();

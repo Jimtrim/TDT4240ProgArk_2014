@@ -9,34 +9,25 @@ import android.graphics.Color;
 
 public class PauseMenu extends State implements WidgetListener {
 	
-	private TextButton resumeButton, exitButton, optionsButton;
-	
-	private static final PauseMenu PAUSE = new PauseMenu();
+	private TextButton resumeButton, exitButton;
+	private int c = Color.argb(60, 0, 0, 0);
 	
 	public PauseMenu() {
-		resumeButton = new TextButton(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.3f,"Resume Game",GlobalConstants.menuFont);
-		optionsButton = new TextButton(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.5f,"Options Game",GlobalConstants.menuFont);
-		exitButton = new TextButton(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.7f,"Exit Game",GlobalConstants.menuFont);
+		resumeButton = new TextButton(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.4f,"Resume Game",GlobalConstants.menuFont);
+		exitButton = new TextButton(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.6f,"Exit Game",GlobalConstants.menuFont);
 		
 		addTouchListener(resumeButton);
-		addTouchListener(optionsButton);
 		addTouchListener(exitButton);
 		resumeButton.addWidgetListener(this);
-		optionsButton.addWidgetListener(this);
 		exitButton.addWidgetListener(this);
 	}
-	
-	public static PauseMenu getInstance() {
-        return PAUSE;
-    }
 	
 	public void draw(Canvas canvas){
 		super.draw(canvas);
 		getGame().getPreviousState().draw(canvas);
 		try{
-			canvas.drawColor(Color.TRANSPARENT);
+			canvas.drawColor(c);
 			resumeButton.draw(canvas);
-			optionsButton.draw(canvas);
 			exitButton.draw(canvas);
 		}catch (Exception e){};
 	}
@@ -46,9 +37,6 @@ public class PauseMenu extends State implements WidgetListener {
 		// TODO Auto-generated method stub
 		if(action.getSource() == resumeButton && ((CurlingGame)getGame()).getTopState().getClass() == this.getClass()){
 			getGame().popState();
-		}
-		if(action.getSource() == optionsButton) {
-			
 		}
 		if(action.getSource() == exitButton && ((CurlingGame)getGame()).getTopState().getClass() == this.getClass()) {
 			getGame().popState();
