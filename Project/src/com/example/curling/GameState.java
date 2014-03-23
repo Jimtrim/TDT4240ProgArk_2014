@@ -27,8 +27,7 @@ public class GameState extends State{
 		world = new World();
 		gameLayer = new GameLayer(rounds,stones);
 		stats = new DrawStats(this);
-		world.addLayer(gameLayer);
-				
+		world.addLayer(gameLayer);				
 		addTouchListener(stats.getTouchListener());
 		addTouchListener(new Touch());
 		camera = world.getCamera();
@@ -47,7 +46,7 @@ public class GameState extends State{
 		super.draw(canvas);
 		try{
 		world.draw(canvas);
-		stats.draw(canvas);
+		if (((CurlingGame)getGame()).getTopState().getClass() == this.getClass())stats.draw(canvas);
 		if (gameLayer.getStone() != null)	canvas.drawText(Float.toString(gameLayer.getStone().getSpeedX()), 10, 10, new Paint());
 		}catch (Exception e){};
 	}
@@ -109,12 +108,17 @@ public class GameState extends State{
 	}
 	
 	public void moveCamera(){
-		if (gameLayer.getCurrentPlayer().getState() == 0){
+		if (gameLayer.getCurrentPlayer().getState() == 0 && cameraWithinImage(camerax,cameray)){
 			camera.setPosition(new Vector2(camerax,cameray));
 		}
 		else if(gameLayer.getStone().getX() >= GlobalConstants.SCREENWIDTH*0.5f){
 			camera.setPosition(new Vector2(gameLayer.getStone().getX()-GlobalConstants.SCREENWIDTH*0.5f,0));
 		}	
+	}
+
+	private boolean cameraWithinImage(float camerax2, float cameray2) {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 	public float getCamerax() {
