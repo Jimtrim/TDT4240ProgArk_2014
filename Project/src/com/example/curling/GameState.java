@@ -3,13 +3,11 @@ package com.example.curling;
 import java.util.ArrayList;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 import sheep.game.Camera;
 import sheep.game.State;
 import sheep.game.World;
-import sheep.graphics.Image;
 import sheep.input.TouchListener;
 import sheep.math.Vector2;
 
@@ -17,39 +15,29 @@ import sheep.math.Vector2;
  * klassen hvor spillet faktisk blir spilst
  */
 
-public class GameState extends State {
+public class GameState extends State{
 	
-	
-	
-	private Image target = new Image(R.drawable.aim);
 	private GameLayer gameLayer;
 	private World world;
 	private Camera camera;
-	private Paint red,yellow,gray;
 	private float camerax,cameray;
+	private DrawStats stats;
 	
 	public GameState(int rounds){
 		world = new World();
 		gameLayer = new GameLayer(rounds);
+		stats = new DrawStats(this);
 		world.addLayer(gameLayer);
+				
+		addTouchListener(stats.getTouchListener());
 		addTouchListener(new Touch());
 		camera = world.getCamera();
 		camerax = gameLayer.getTrack().getHogLine();
 		cameray = 0;
-        red = new Paint();
-        yellow = new Paint();
-        gray = new Paint();
-        red.setColor(Color.RED);
-        red.setTextSize(30);
-        yellow.setColor(Color.YELLOW);
-        yellow.setTextSize(30);
-        gray.setColor(Color.GRAY);
-        gray.setTextSize(20);
 	}
 	
 	public void update(float dt){
 		world.update(dt);
-
 		if (camera != null){
 			moveCamera();	
 		}
@@ -59,12 +47,7 @@ public class GameState extends State {
 		super.draw(canvas);
 		try{
 		world.draw(canvas);
-		if(gameLayer.getCurrentPlayer().getState() == 0){
-			target.draw(canvas, GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2,GlobalConstants.SCREENHEIGHT*0.5f-target.getHeight()/2);
-		}
-        canvas.drawText("Red", GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.1f, red);
-        canvas.drawText(Integer.toString(gameLayer.getPLayerOnePoints()) + "  :  "+ Integer.toString(gameLayer.getPLayerTwoPoints()), GlobalConstants.SCREENWIDTH*0.48f, GlobalConstants.SCREENHEIGHT*0.1f, gray);
-        canvas.drawText("Yellow", GlobalConstants.SCREENWIDTH*0.6f, GlobalConstants.SCREENHEIGHT*0.1f, yellow);
+		stats.draw(canvas);
 		if (gameLayer.getStone() != null)	canvas.drawText(Float.toString(gameLayer.getStone().getSpeedX()), 10, 10, new Paint());
 		}catch (Exception e){};
 	}
@@ -75,18 +58,10 @@ public class GameState extends State {
 		
 		public boolean onTouchDown(MotionEvent event) {
 			if (gameLayer.getCurrentPlayer().getState() == 0){
-				if(event.getX() > GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2 && event.getX() < GlobalConstants.SCREENWIDTH*.5f+target.getHeight()/2
-						&& event.getY() > GlobalConstants.SCREENHEIGHT*.5f-target.getHeight()/2 && event.getY() < GlobalConstants.SCREENHEIGHT*.5f+target.getHeight()/2){
-					gameLayer.setTarget(new Vector2(camerax+GlobalConstants.SCREENWIDTH*0.5f,cameray+GlobalConstants.SCREENHEIGHT*0.5f));
-					gameLayer.getCurrentPlayer().setState(1);
-					resetCamera();
-					return false;
-				}
 				localx = event.getX();
 				localy = event.getY();
 				return true;
 			}
-			
 			float[] point = {event.getX(),event.getY()};
 			touchList.add(point);
 			return true;
@@ -140,6 +115,18 @@ public class GameState extends State {
 		else if(gameLayer.getStone().getX() >= GlobalConstants.SCREENWIDTH*0.5f){
 			camera.setPosition(new Vector2(gameLayer.getStone().getX()-GlobalConstants.SCREENWIDTH*0.5f,0));
 		}	
+	}
+
+	public float getCamerax() {
+		return camerax;
+	}
+
+	public float getCameray() {
+		return cameray;
+	}
+
+	public GameLayer getGameLayer() {
+		return gameLayer;
 	}
 
 }
