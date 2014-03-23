@@ -31,7 +31,7 @@ public class DrawStats implements WidgetListener{
         gray.setColor(Color.GRAY);
         gray.setTextSize(20);
         
-        setTarget = new ImageButton(GlobalConstants.SCREENWIDTH*0.35f,GlobalConstants.SCREENHEIGHT*0.875f,new Image(R.drawable.settargetidle),new Image(R.drawable.settargetdown));
+        setTarget = new ImageButton(GlobalConstants.SCREENWIDTH*0.35f,GlobalConstants.SCREENHEIGHT*0.875f,new Image(R.drawable.setaimidle),new Image(R.drawable.setaimdown));
 		setTarget.addWidgetListener(this);
 	}
 	
