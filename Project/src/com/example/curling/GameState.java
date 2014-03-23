@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.provider.Settings.Global;
 import android.view.MotionEvent;
 import sheep.game.Camera;
 import sheep.game.State;
@@ -75,6 +76,22 @@ public class GameState extends State {
 				localx = event.getX();
 				localy = event.getY();
 				return true;
+			}
+			// Kostefunksjon implementeres her:
+			else if (gameLayer.getCurrentPlayer().getState() == 2) {
+				
+				// Her kostes det rett frem, og minker reduksjon av fart pga friksjon
+				if (event.getY() > GlobalConstants.SCREENHEIGHT*(3/8) && event.getY() < GlobalConstants.SCREENHEIGHT*(5/8)) {
+					
+				}
+				// Her kostes det på undersiden av curlingballen og ballen skal spinne litt oppover
+				else if (event.getY() > 0 && event.getY() < GlobalConstants.SCREENHEIGHT*(3/8)) {
+					
+				}
+				// Her kostes det på oversiden av curlingballen og ballen skal spinne litt oppover
+				else if (event.getY() > GlobalConstants.SCREENHEIGHT*(5/8) && event.getY() < GlobalConstants.SCREENHEIGHT) {
+					
+				}
 			}
 			
 			float[] point = {event.getX(),event.getY()};
