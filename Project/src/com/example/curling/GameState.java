@@ -23,16 +23,16 @@ public class GameState extends State{
 	private float camerax,cameray;
 	private DrawStats stats;
 	
-	public GameState(int rounds){
+	public GameState(int rounds, int stones){
 		world = new World();
-		gameLayer = new GameLayer(rounds);
+		gameLayer = new GameLayer(rounds,stones);
 		stats = new DrawStats(this);
 		world.addLayer(gameLayer);
 				
 		addTouchListener(stats.getTouchListener());
 		addTouchListener(new Touch());
 		camera = world.getCamera();
-		camerax = gameLayer.getTrack().getHogLine();
+		camerax = gameLayer.getTrack().getGoalPoint()-GlobalConstants.SCREENWIDTH*0.5f;
 		cameray = 0;
 	}
 	

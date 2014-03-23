@@ -22,7 +22,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	
 	private Track track = new Track(new Image(R.drawable.curlingbackground));
 
-	private int rounds,currentRound,totalStones;
+	private int rounds,currentRound,totalStones,stones;
 	private ArrayList<CurlingStone> stoneList = new ArrayList<CurlingStone>();
     private ArrayList<CurlingStone> removeStone = new ArrayList<CurlingStone>();
 	private Player playerOne,playerTwo,currentPlayer;
@@ -34,8 +34,10 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	private Player winnerOfRound;
 	
 	
-	public GameLayer(int rounds){
+	public GameLayer(int rounds,int stones){
 		this.rounds = rounds;
+		this.totalStones = stones;
+		this.stones = totalStones;
 		this.currentRound = 0;
 		this.totalStones = 16;
 		playerOnePoints = 0;
@@ -50,7 +52,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		if (currentPlayer.getState() == 1){
 			movingStone = new CurlingStone(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.5f,currentPlayer.getPlayerIndex(),target);
 			stoneList.add(movingStone);
-			totalStones = totalStones - 1;
+			stones = stones - 1;
 			Log.d(TAG,Integer.toString(stoneList.size()));
 			currentPlayer.setState(2);
 		}
@@ -195,7 +197,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		if (noStonesMove() && currentPlayer.getState() == 3){
 			evaluateStones();
 			nextPlayer();
-			if(totalStones == 0){
+			if(stones == 0){
 				addPoints();
 				newRound();
 				if(currentRound == rounds){
@@ -206,7 +208,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	}
 	
 	public void newRound(){
-		totalStones = 16;
+		stones = totalStones;
 		stoneList.clear();
 	}
 	
