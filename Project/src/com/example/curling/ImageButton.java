@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.MotionEvent;
 import sheep.graphics.Image;
 import sheep.gui.Widget;
@@ -14,7 +13,6 @@ import sheep.math.BoundingBox;
 
 public class ImageButton extends Widget{
 
-	private static final String TAG = MainActivity.class.getSimpleName();
 	
 	private Image idle,pressedDown,currentViwe;
 	private float x,y;
@@ -61,32 +59,23 @@ public class ImageButton extends Widget{
 
 	@Override
 	public boolean onTouchMove(MotionEvent event) {
-
 		if(box.contains(event.getX(), event.getY())) {
-			Log.d(TAG,"det blir registrert at den blir presset...");
 			this.currentViwe = pressedDown;
 			return true;
 		}
-		
 		this.currentViwe = idle;
-		
 		return false;
 	}
 
 	@Override
 	public boolean onTouchUp(MotionEvent event) {
-
 		if(box.contains(event.getX(), event.getY())) {
-			this.currentViwe = idle;
-			
-			for(WidgetListener l : this.listeners)
+			this.currentViwe = idle;	
+			for(WidgetListener l : this.listeners){
 				l.actionPerformed(new WidgetAction(this));
-				Log.d(TAG,"det blir sendt aktion...");
-
-			
+			}
 			return true;
 		}
-		
 		return false;
 	}
 

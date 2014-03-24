@@ -67,7 +67,7 @@ public class GameState extends State{
 		}
 		
 		public boolean onTouchUp(MotionEvent event){
-			if(gameLayer.getCurrentPlayer().getState() == 0){
+			if(gameLayer.getCurrentPlayer().getState() == 0){	
 				camerax = camerax - (event.getX() - localx);
 				cameray = cameray - (event.getY() - localy);
 				return false;
@@ -108,17 +108,34 @@ public class GameState extends State{
 	}
 	
 	public void moveCamera(){
-		if (gameLayer.getCurrentPlayer().getState() == 0 && cameraWithinImage(camerax,cameray)){
-			camera.setPosition(new Vector2(camerax,cameray));
+		if (gameLayer.getCurrentPlayer().getState() == 0){
+			if (cameraWithinImage()){
+				camera.setPosition(new Vector2(camerax,cameray));
+			}
+			
 		}
 		else if(gameLayer.getStone().getX() >= GlobalConstants.SCREENWIDTH*0.5f){
 			camera.setPosition(new Vector2(gameLayer.getStone().getX()-GlobalConstants.SCREENWIDTH*0.5f,0));
 		}	
 	}
 
-	private boolean cameraWithinImage(float camerax2, float cameray2) {
-		// TODO Auto-generated method stub
-		return true;
+	private boolean cameraWithinImage() {
+		if(cameray < -GlobalConstants.SCREENHEIGHT*.5f){
+			cameray = -GlobalConstants.SCREENHEIGHT*.5f;
+			return false;
+		}
+		else if(cameray > GlobalConstants.SCREENHEIGHT*0.5f){
+			cameray = GlobalConstants.SCREENHEIGHT*0.5f;
+			return false;
+		}else if (camerax > gameLayer.getTrack().getLenght()-GlobalConstants.SCREENWIDTH*0.5f){
+			camerax = gameLayer.getTrack().getLenght()-GlobalConstants.SCREENWIDTH*0.5f;
+			return false;
+		}else if(camerax < 0){
+			camerax = 0;
+			return false;
+		}else{
+			return true;
+		}
 	}
 
 	public float getCamerax() {
