@@ -17,7 +17,7 @@ public class GlobalConstants {
 	public static int SCREENHEIGHT = 0;
 	
 	public static Context context = null;
-	
+
 	public static final Paint[] menuFont = {new Font(0, 0, 0, 40, Typeface.SANS_SERIF, Typeface.BOLD),
 											new Font(255, 0, 0, 40, Typeface.SANS_SERIF, Typeface.BOLD)};
 

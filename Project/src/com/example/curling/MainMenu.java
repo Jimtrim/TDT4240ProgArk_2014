@@ -20,7 +20,7 @@ public class MainMenu extends State implements WidgetListener{
 	private TextButton StartGame,Exit,Tutorial;
 	private float scalex,scaley;
 	private Matrix matrix = new Matrix();
-	public Image mainMenuScreen = new Image(R.drawable.frontscreencurling);
+	private Image mainMenuScreen = new Image(R.drawable.frontscreencurling);
 	
 	public MainMenu(){
 		
