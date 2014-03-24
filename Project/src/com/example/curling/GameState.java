@@ -38,6 +38,7 @@ public class GameState extends State{
 	
 	public void update(float dt){
 		world.update(dt);
+		stats.update(dt);
 		if (camera != null){
 			moveCamera();	
 		}
@@ -63,6 +64,8 @@ public class GameState extends State{
 				localy = event.getY();
 				return true;
 			}
+			
+			//Lol har akkurat lagd en annen måte å gjøre dette på Erik :p
 
 			// Kostefunksjon touch:
 			else if (gameLayer.getCurrentPlayer().getState() == 2) {
@@ -94,6 +97,7 @@ public class GameState extends State{
 			}else{
 				if (touchList.size() >= 10){
 					gameLayer.getStone().move(touchList.subList(touchList.size()-10, touchList.size()-1));
+					gameLayer.getStone().resetBrooming();
 				}
 				touchList = new ArrayList<float[]>();
 				return false;

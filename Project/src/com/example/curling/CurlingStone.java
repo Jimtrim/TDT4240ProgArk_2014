@@ -15,7 +15,7 @@ public class CurlingStone extends Sprite{
 	
 	private Matrix matrix;	
 	private Sprite collidedStone = null; 
-	private boolean moved = false;
+	private boolean moved = false,brooming = false,broomingUp = false,broomingDown = false;
 	private float speedX,speedY,ax,ay,spin;
     private float startMarkerX = GlobalConstants.SCREENWIDTH*0.3f;
 	private float friction = 2.0f;
@@ -70,7 +70,6 @@ public class CurlingStone extends Sprite{
 	}
 	
 	public void move(List<float[]> touchList){
-		Log.d(TAG, makeString(touchList));
 		if (!moved){
             speedX = velocity()*getFactor(touchList);
             speedY = speedX*diff();
@@ -82,8 +81,29 @@ public class CurlingStone extends Sprite{
 			setSpeed(speedX, speedY);
 		}else{
 			//TODO legge til kostefunksjon
-			
+			float avarageY = 0;
+			for(float[] i:touchList){
+				avarageY = avarageY + i[1];
+			}
+			avarageY = avarageY/touchList.size();
+			Log.d(TAG,Float.toString(avarageY));
+			if(avarageY < GlobalConstants.SCREENHEIGHT*0.19){
+				//TODO legg til spinn i riktig rettning
+				resetBrooming();
+			}else if(avarageY > GlobalConstants.SCREENHEIGHT*0.81){
+				//TODO legg til spinn i riktig rettning
+				resetBrooming();
+			}else{
+				resetBrooming();
+				this.brooming = true;
+			}
 		}
+	}
+	
+	public void resetBrooming(){
+		this.brooming = false;
+		this.broomingDown = false;
+		this.broomingUp = false;
 	}
 	
 	public void setSpin(List<float[]> touchList){
@@ -110,14 +130,6 @@ public class CurlingStone extends Sprite{
         }
         
 		return 1;
-	}
-	
-	public String makeString(List<float[]> list){
-		String s = "";
-		for(int i = 0; i < list.size();i++){
-			s = s + Float.toString(list.get(i)[0]) + " : " + Float.toString(list.get(i)[1]) + " ";
-		}
-		return s;
 	}
 	
 	public void setAy(){
@@ -231,5 +243,9 @@ public class CurlingStone extends Sprite{
     
     public void setSpeedY(float speed){ 
     	this.speedY = speed; 
+    }
+    
+    public boolean getBrooming(){
+    	return this.brooming;
     }
 }
