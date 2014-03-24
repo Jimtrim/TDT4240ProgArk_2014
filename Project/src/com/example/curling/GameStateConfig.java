@@ -1,9 +1,8 @@
 package com.example.curling;
 
-import java.util.Random;
-
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import sheep.game.State;
 import sheep.graphics.Image;
@@ -21,9 +20,9 @@ public class GameStateConfig extends State implements WidgetListener{
 	ImageButton addRound,removeRound,addStone,removeStone;
 	private Paint numberOfRounds;
 	private int gameRounds = 10,stones = 8;
-	private Random rand = new Random();
-	private int T,B,G;
-	private float time = 0;
+	private float scalex,scaley;
+	private Image configScreen = new Image(R.drawable.opptionsscreen);
+	private Matrix matrix = new Matrix();
 
 	public GameStateConfig(){
 		
@@ -48,23 +47,20 @@ public class GameStateConfig extends State implements WidgetListener{
 		
 		numberOfRounds.setColor(Color.BLACK);
 		numberOfRounds.setTextSize(40);
+		
+		this.scaley = GlobalConstants.SCREENHEIGHT/configScreen.getHeight();
+		this.scalex = GlobalConstants.SCREENWIDTH/configScreen.getWidth();
+		this.matrix.setScale(scalex, scaley);
 	}
 	
 	public void update(float dt){
 		super.update(dt);
-		time = time + dt;
-		if (time >= 0.25){
-			T = rand.nextInt(255);
-			B = rand.nextInt(255);
-			G = rand.nextInt(255);
-			time = 0;
-		}
 	}
 	
 	public void draw(Canvas canvas){
 		super.draw(canvas);
 		try{
-			canvas.drawColor(Color.rgb(T, B, G));
+			configScreen.draw(canvas, matrix);
 			startGame.draw(canvas);
 			addRound.draw(canvas);
 			removeRound.draw(canvas);
