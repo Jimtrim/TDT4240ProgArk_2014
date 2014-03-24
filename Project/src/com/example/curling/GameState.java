@@ -64,6 +64,8 @@ public class GameState extends State{
 				localy = event.getY();
 				return true;
 			}
+			
+			//Lol har akkurat lagd en annen måte å gjøre dette på Erik :p
 
 			// Kostefunksjon implementeres her:
 			else if (gameLayer.getCurrentPlayer().getState() == 2) {
