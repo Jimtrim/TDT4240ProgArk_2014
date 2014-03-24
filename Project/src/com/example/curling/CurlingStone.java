@@ -48,7 +48,7 @@ public class CurlingStone extends Sprite{
 		super.update(dt);
 		updateMatrix();
 		if (spin != 0) {
-			spin = (float) (spin*0.99); 
+			spin = (float) (spin*0.995); 
 			this.rotate(-spin);
 			if(speedX==0)
 				spin=0;
@@ -74,7 +74,7 @@ public class CurlingStone extends Sprite{
 		if (!moved){
             speedX = velocity()*getFactor(touchList);
             speedY = speedX*diff();
-            Log.d(TAG,"akselrasjonen i y rettning: " + Float.toString(ay));
+            Log.d(TAG,"akselerasjonen i y rettning: " + Float.toString(ay));
 			setSpin(touchList);
 			setAy();
 			Log.d(TAG,Float.toString(getFactor(touchList)));
@@ -82,6 +82,7 @@ public class CurlingStone extends Sprite{
 			setSpeed(speedX, speedY);
 		}else{
 			//TODO legge til kostefunksjon
+			
 		}
 	}
 	
@@ -89,10 +90,9 @@ public class CurlingStone extends Sprite{
 		float spinDiff = touchList.get(0)[1] - touchList.get(touchList.size()-1)[1];
 		if ((Math.abs(spinDiff)>(GlobalConstants.SCREENHEIGHT*0.19)) && (Math.abs(spinDiff) < GlobalConstants.SCREENHEIGHT*0.51)) {
 			if (spinDiff > 0) {
-				spin = 10; 
-			}
-			else {
-				spin = -10;
+				spin = 7; 
+			}else{
+				spin = -7;
 			}
 		}
 	}

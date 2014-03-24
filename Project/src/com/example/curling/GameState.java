@@ -55,7 +55,7 @@ public class GameState extends State{
 	
 	public class Touch implements TouchListener{
 		private ArrayList<float[]> touchList = new ArrayList<float[]>();
-		private float localx,localy;
+		private float localx,localy,broomy;
 		
 		public boolean onTouchDown(MotionEvent event) {
 			if (gameLayer.getCurrentPlayer().getState() == 0){
@@ -64,20 +64,19 @@ public class GameState extends State{
 				return true;
 			}
 
-			// Kostefunksjon implementeres her:
+			// Kostefunksjon touch:
 			else if (gameLayer.getCurrentPlayer().getState() == 2) {
-				
-				// Her kostes det rett frem, og minker reduksjon av fart pga friksjon
+				// Her kostes det rett foran ball
 				if (event.getY() > GlobalConstants.SCREENHEIGHT*(3/8) && event.getY() < GlobalConstants.SCREENHEIGHT*(5/8)) {
-					
+					broomy = GlobalConstants.SCREENHEIGHT*0.5f;
 				}
-				// Her kostes det på undersiden av curlingballen og ballen skal spinne litt oppover
+				// Her kostes det på undersiden 
 				else if (event.getY() > 0 && event.getY() < GlobalConstants.SCREENHEIGHT*(3/8)) {
-					
+					broomy = GlobalConstants.SCREENHEIGHT*0.6f;
 				}
-				// Her kostes det på oversiden av curlingballen og ballen skal spinne litt oppover
+				// Her kostes det på oversiden
 				else if (event.getY() > GlobalConstants.SCREENHEIGHT*(5/8) && event.getY() < GlobalConstants.SCREENHEIGHT) {
-					
+					broomy = GlobalConstants.SCREENHEIGHT*0.4f;
 				}
 			}
 			
@@ -87,6 +86,7 @@ public class GameState extends State{
 		}
 		
 		public boolean onTouchUp(MotionEvent event){
+			broomy = 0;
 			if(gameLayer.getCurrentPlayer().getState() == 0){	
 				camerax = camerax - (event.getX() - localx);
 				cameray = cameray - (event.getY() - localy);
@@ -98,6 +98,7 @@ public class GameState extends State{
 				touchList = new ArrayList<float[]>();
 				return false;
 			}
+			
 		}
 
 		public boolean onTouchMove(MotionEvent event) {
