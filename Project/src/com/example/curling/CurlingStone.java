@@ -26,6 +26,7 @@ public class CurlingStone extends Sprite{
 	private int stoneIndex;
 	private double picLength;
 	private Shape shape;
+	private float spinFriction = 0.5f;
 	
 	public CurlingStone(float x,float y,int playerIndex, Vector2 target){
 		super(red);
@@ -188,6 +189,10 @@ public class CurlingStone extends Sprite{
 			
 			this.setAy();
 			
+			this.setSpin(-1 * ((CurlingStone)sprite).getSpin() * spinFriction);
+			
+			((CurlingStone)sprite).setSpin(((CurlingStone)sprite).getSpin() * spinFriction);
+			
 			((CurlingStone)sprite).setSpeedX((float) vx2);
 			((CurlingStone)sprite).setSpeedY((float)vy2);
 			
@@ -250,5 +255,13 @@ public class CurlingStone extends Sprite{
     
     public boolean getBrooming(){
     	return this.brooming;
+    }
+    
+    public float getSpin(){
+    	return this.spin;
+    }
+    
+    public void setSpin(float spin){
+    	this.spin = spin;
     }
 }
