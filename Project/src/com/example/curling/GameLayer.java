@@ -193,6 +193,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 			nextPlayer();
 			if(stones == 0){
 				addPoints();
+
 				newRound();
 				if(currentRound == rounds){
 					showWinner();
