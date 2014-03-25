@@ -26,6 +26,7 @@ public class DrawStats implements WidgetListener{
 	private Image redWon = new Image(R.drawable.redwon);
 	private Image yellowWon = new Image(R.drawable.yellowwon);
 	private Image trophy = new Image(R.drawable.trophy_golden);
+	
 	public DrawStats(GameState game){
 		this.game = game;
 		
