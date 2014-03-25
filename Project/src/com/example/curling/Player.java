@@ -12,10 +12,12 @@ public class Player {
 	
 	private int state;
 	private int playerIndex;
+    private int points;
 
 	public Player(int index){
 		state = 0;
         playerIndex = index;
+        points = 0;
 	}
 	
 	public int getState(){
@@ -33,5 +35,9 @@ public class Player {
     public void setPlayerIndex(int playerIndex){
     	this.playerIndex=playerIndex;
     }
+
+    public int getPoints() { return this.points; }
+
+    public void setPoints (int points){ this.points += points; }
 	
 }
