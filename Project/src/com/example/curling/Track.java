@@ -49,6 +49,6 @@ public class Track extends Sprite{
     }
     
     public float getOuterCircle(){
-    	return 3717*scale;
+    	return 3691 *scale;
     }
 }
