@@ -52,7 +52,9 @@ public class CurlingGame extends Game {
 	
 	public void popState(int n) {
 		this.thread.popState(n);
-
+		for(int i = 0; i < n; i++){
+			stateStack.pop();
+		}
 	}
 	
 	public State getPreviousState() {

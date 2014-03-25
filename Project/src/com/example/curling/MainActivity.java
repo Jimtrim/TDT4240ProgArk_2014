@@ -38,8 +38,8 @@ public class MainActivity extends Activity {
 		if(game.getTopState().getClass() == GameState.class) {
 			Log.d(TAG,"legger til pause menu");
 			game.pushState(new PauseMenu());
+			Log.d(TAG,Integer.toString(game.getStateStack().size()));
 		}
-//		game.surfaceDestroyed(game.getHolder());
 		super.onPause();
 	}
 	
@@ -54,14 +54,6 @@ public class MainActivity extends Activity {
 			game.getStateStack().clear();
 			game.pushState(new MainMenu());
 		}
-	}
-	
-	public void onStop(){
-		super.onStop();
-	}
-	
-	public void onStart(){
-		super.onStart();
 	}
 	
 	public void onBackPressed(){
