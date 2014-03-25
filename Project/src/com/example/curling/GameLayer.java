@@ -30,8 +30,9 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	private CurlingStone movingStone;
 	private int playerOnePoints,playerTwoPoints;
 	private Vector2 target;
-	private CurlingStone winningStone;
 	private Player winnerOfRound;
+	double targetY = GlobalConstants.SCREENHEIGHT*0.5;
+	float targetX = track.getGoalPoint();
 	
 	
 	public GameLayer(int rounds,int stones){
@@ -129,8 +130,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	}
 	
     public int compare(CurlingStone a, CurlingStone b){
-    	double targetY = GlobalConstants.SCREENHEIGHT*0.5;
-		float targetX = track.getGoalPoint();
+    	
 		double distanceA = Math.pow(Math.abs(a.getPosition().getX()-targetX), 2) + Math.pow(Math.abs(a.getPosition().getY()-targetY), 2);
 		double distanceB = Math.pow(Math.abs(b.getPosition().getX()-targetX), 2) + Math.pow(Math.abs(b.getPosition().getY()-targetY), 2);
     	int startComparison = compare(distanceA, distanceB);
@@ -145,7 +145,6 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	
 	public void addPoints(){
 		currentRound = currentRound + 1;
-		int points = 0;
 		winnerOfRound = null;
 		ArrayList<CurlingStone> sortedList = sortStoneList(stoneList);
         winnerOfRound = win(sortedList);
@@ -168,20 +167,19 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
     }
 	
 	public void evaluateStones(){
-		
+		double R = targetY; 
+		double areal = Math.PI*R;
 	}
 
 	public void showWinner(){
 		if (playerOnePoints > playerTwoPoints) {
-			//congratz.setVisible(true)
-			//playerone.setVisible(true)
+			
 		}
 		else if (playerTwoPoints > playerOnePoints) {
-			//congratz.setVisible(true)
-			//playertwo.setVisible(true)
+			
 		}
 		else {
-			//tie.setVisible(true)
+			
 		}
 	}
 	
