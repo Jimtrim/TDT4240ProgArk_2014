@@ -133,11 +133,6 @@ public class CurlingStone extends Sprite{
 		
 		boolean collided = shape.collides(((CurlingStone)sprite).getShape());
 		
-//		if(collided) {
-//			notifyCollisionListeners(sprite);
-//			sprite.notifyCollisionListeners(this);
-//		}
-		
 		return collided;
 	}
 	
@@ -158,12 +153,14 @@ public class CurlingStone extends Sprite{
             factor = factor + touchList.get(i)[0] - touchList.get(0)[0];
         }
         if (factor-200 >= velocity()){
+        	if ((factor-200)/velocity() >1.25f){
+        		return 1.25f;
+        	}
             return (factor-200)/velocity();
         }
         else if (factor+200 <= velocity()){
             return (factor+200)/velocity();
         }
-        
 		return 1;
 	}
 	
@@ -191,9 +188,7 @@ public class CurlingStone extends Sprite{
 	public void collision(Sprite sprite){
 		double dx = getDx(this, sprite);
 		double dy = getDy(this, sprite);
-		Log.d(TAG,Double.toString(getLengthBetweenStone(dx, dy)));
 		if (getLengthOfStone() >= getLengthBetweenStone(dx,dy)){
-			
 			this.setCollidedStone(sprite);
 			((CurlingStone)sprite).setCollidedStone(this);
 			
