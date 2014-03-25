@@ -14,7 +14,7 @@ public class DrawStats implements WidgetListener{
 	
 	private Paint red,yellow,gray;
 	private Image target = new Image(R.drawable.aim);
-	private Image brooming = new Image(R.drawable.curlingbroom),brooming2 = new Image(R.drawable.curlingbroom2),brooming3 = new Image(R.drawable.curlingbroom3),
+	private Image brooming = new Image(R.drawable.curlingbroomalt2),brooming2 = new Image(R.drawable.curlingbroom2),brooming3 = new Image(R.drawable.curlingbroom3),
 	brooming4 = new Image(R.drawable.curlingbroom4),brooming5 = new Image(R.drawable.curlingbroom5);
 	private Image currentBrooming;
 	private ImageButton setTarget;
