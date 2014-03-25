@@ -33,6 +33,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	private Player winnerOfRound;
 	double targetY = GlobalConstants.SCREENHEIGHT*0.5;
 	float targetX = track.getGoalPoint();
+	double circle;
 	
 	
 	public GameLayer(int rounds,int stones){
@@ -129,10 +130,21 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		return stoneList;	
 	}
 	
+	public double getDistanceY(CurlingStone i){
+		double distanceY = Math.abs(i.getPosition().getY()-targetY);
+		return distanceY;
+	}
+	
+	public double getDistanceX(CurlingStone i){
+		double distanceX = Math.abs(i.getPosition().getX()-targetX);
+		return distanceX;
+	}
+	
     public int compare(CurlingStone a, CurlingStone b){
-    	
-		double distanceA = Math.pow(Math.abs(a.getPosition().getX()-targetX), 2) + Math.pow(Math.abs(a.getPosition().getY()-targetY), 2);
-		double distanceB = Math.pow(Math.abs(b.getPosition().getX()-targetX), 2) + Math.pow(Math.abs(b.getPosition().getY()-targetY), 2);
+    	//Math.pow(Math.abs(b.getPosition().getX()-targetX), 2) + Math.pow(Math.abs(b.getPosition().getY()-targetY), 2);
+    	double distanceA = Math.pow(getDistanceX(a), 2) + Math.pow(getDistanceY(a), 2);
+    	double distanceB = Math.pow(getDistanceX(b), 2) + Math.pow(getDistanceY(b), 2);
+		
     	int startComparison = compare(distanceA, distanceB);
     	return startComparison;
    	}
@@ -170,8 +182,14 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
     public Player getWinner() {return winnerOfRound; }
 	
 	public void evaluateStones(){
-		double R = targetY; 
-		double areal = Math.PI*R;
+		double radius = Math.abs(targetX-circle);
+		double stoneDistance;
+		for(CurlingStone i: stoneList){
+			stoneDistance = Math.pow(getDistanceX(i), 2) + Math.pow(getDistanceY(i), 2);
+			if (stoneDistance > radius){
+				removeStone.add(i);
+			}
+		}
 	}
 
 	public void showWinner(){
