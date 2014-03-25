@@ -159,7 +159,6 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		currentRound = currentRound + 1;
 		winnerOfRound = null;
 		ArrayList<CurlingStone> sortedList = sortStoneList(stoneList);
-
         if (sortedList.size()!=0){
             winnerOfRound = win(sortedList);
             for(CurlingStone i: sortedList){
@@ -187,7 +186,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		for(CurlingStone i: stoneList){
 			stoneDistance = Math.pow(getDistanceX(i), 2) + Math.pow(getDistanceY(i), 2);
 			if (stoneDistance > radius){
-				removeStone.add(i);
+				stoneList.remove(i);
 			}
 		}
 	}
@@ -206,11 +205,10 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	
 	public void endTurn(){
 		if (noStonesMove() && currentPlayer.getState() == 3){
-			evaluateStones();
 			nextPlayer();
 			if(stones == 0){
+                evaluateStones();
 				addPoints();
-
 				newRound();
 				if(currentRound == rounds){
 					showWinner();
