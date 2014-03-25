@@ -148,31 +148,24 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		int points = 0;
 		winnerOfRound = null;
 		ArrayList<CurlingStone> sortedList = sortStoneList(stoneList);
+        winnerOfRound = win(sortedList);
 		for(CurlingStone i: sortedList){
 			if(sortedList.get(0).getStoneIndex() != i.getStoneIndex()){
 				break;
 			}
 			else {
-				points += 1;
+				winnerOfRound.setPoints(1);
 			}
 		}
 		
-		if (sortedList.get(0).getStoneIndex() == 0){
-			playerOnePoints += points;
-		}
-		else if (sortedList.get(0).getStoneIndex() == 1){
-			playerTwoPoints += points;
-		}
-		
 	}
-	
-	public int getPLayerOnePoints(){
-		return this.playerOnePoints;
-	}
-	
-	public int getPLayerTwoPoints(){
-		return this.playerTwoPoints;
-	}
+
+    public Player win(ArrayList<CurlingStone> stones){
+        if (stones.get(0).getStoneIndex()==0){
+            return playerOne;
+        }
+        return playerTwo;
+    }
 	
 	public void evaluateStones(){
 		
@@ -229,6 +222,9 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
     public Player getCurrentPlayer(){
     	return this.currentPlayer;
     }
+
+    public Player getPlayerOne() { return playerOne; }
+    public Player getPlayerTwo() { return playerTwo; }
     
     public Track getTrack(){
     	return this.track;

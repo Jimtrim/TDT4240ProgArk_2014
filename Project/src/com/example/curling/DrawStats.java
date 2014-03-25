@@ -70,7 +70,7 @@ public class DrawStats implements WidgetListener{
 			currentBrooming.draw(canvas, GlobalConstants.SCREENWIDTH*0.55f,game.getGameLayer().getStone().getY()-32);
 		}
         canvas.drawText("Red", GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.1f, red);
-        canvas.drawText(Integer.toString(game.getGameLayer().getPLayerOnePoints()) + "  :  "+ Integer.toString(game.getGameLayer().getPLayerTwoPoints()), GlobalConstants.SCREENWIDTH*0.48f, GlobalConstants.SCREENHEIGHT*0.1f, gray);
+        canvas.drawText(Integer.toString(game.getGameLayer().getPlayerOne().getPoints()) + "  :  "+ Integer.toString(game.getGameLayer().getPlayerTwo().getPoints()), GlobalConstants.SCREENWIDTH*0.48f, GlobalConstants.SCREENHEIGHT*0.1f, gray);
         canvas.drawText("Yellow", GlobalConstants.SCREENWIDTH*0.6f, GlobalConstants.SCREENHEIGHT*0.1f, yellow);
 	}
 
