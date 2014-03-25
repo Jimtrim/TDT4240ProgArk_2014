@@ -5,6 +5,8 @@ import java.util.List;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.util.Log;
+import sheep.collision.Polygon;
+import sheep.collision.Shape;
 import sheep.game.Sprite;
 import sheep.graphics.Image;
 import sheep.math.Vector2;
@@ -18,13 +20,12 @@ public class CurlingStone extends Sprite{
 	private boolean moved = false,brooming = false,broomingUp = false,broomingDown = false;
 	private float speedX,speedY,ax,ay,spin;
     private float startMarkerX = GlobalConstants.SCREENWIDTH*0.3f;
-	private float friction = 2.0f;
 	private Vector2 target;
 	private static Image red = new Image(R.drawable.curling);
 	private static Image yellow = new Image(R.drawable.curlingyellow);
 	private int stoneIndex;
-	private int notation;
 	private double picLength;
+	private Shape shape;
 	
 	public CurlingStone(float x,float y,int playerIndex, Vector2 target){
 		super(red);
@@ -35,7 +36,7 @@ public class CurlingStone extends Sprite{
         this.spin = 0;
         this.picLength = red.getHeight();
         this.matrix = new Matrix();
-        
+        this.shape = new Polygon(red.getBoundingBox().getPoints());
 		if(playerIndex == 1) {
 			setView(yellow);
 			this.setStoneIndex(1);
@@ -47,6 +48,7 @@ public class CurlingStone extends Sprite{
 	public void update(float dt){
 		super.update(dt);
 		updateMatrix();
+		shape.update(dt, matrix);
 		if (spin != 0) {
 			spin = (float) (spin*0.995); 
 			this.rotate(-spin);
@@ -76,7 +78,7 @@ public class CurlingStone extends Sprite{
             Log.d(TAG,"akselerasjonen i y rettning: " + Float.toString(ay));
 			setSpin(touchList);
 			setAy();
-			Log.d(TAG,Float.toString(getFactor(touchList)));
+//			Log.d(TAG,Float.toString(getFactor(touchList)));
 			moved = true;
 			setSpeed(speedX, speedY);
 		}else{
@@ -86,7 +88,7 @@ public class CurlingStone extends Sprite{
 				avarageY = avarageY + i[1];
 			}
 			avarageY = avarageY/touchList.size();
-			Log.d(TAG,Float.toString(avarageY));
+//			Log.d(TAG,Float.toString(avarageY));
 			if(avarageY < GlobalConstants.SCREENHEIGHT*0.19){
 				//TODO legg til spinn i riktig rettning
 				resetBrooming();
@@ -108,7 +110,7 @@ public class CurlingStone extends Sprite{
 	
 	public void setSpin(List<float[]> touchList){
 		float spinDiff = touchList.get(0)[1] - touchList.get(touchList.size()-1)[1];
-		if ((Math.abs(spinDiff)>(GlobalConstants.SCREENHEIGHT*0.19)) && (Math.abs(spinDiff) < GlobalConstants.SCREENHEIGHT*0.51)) {
+		if ((Math.abs(spinDiff)>(GlobalConstants.SCREENHEIGHT*0.10)) && (Math.abs(spinDiff) < GlobalConstants.SCREENHEIGHT*0.90)) {
 			if (spinDiff > 0) {
 				spin = 7; 
 			}else{
@@ -150,14 +152,15 @@ public class CurlingStone extends Sprite{
 		matrix.reset();
 		matrix.preTranslate((getPosition().getX()-getOffset().getX()), (getPosition().getY()-getOffset().getY())); 
 		matrix.preRotate(getOrientation(), red.getWidth()/2, red.getHeight()/2);
+		matrix.preScale(1.0f, 1.0f);
 	}
 	
 	public void collision(Sprite sprite){
 		double dx = getDx(this, sprite);
 		double dy = getDy(this, sprite);
-		
+		Log.d(TAG,Double.toString(getLengthBetweenStone(dx, dy)));
 		if (getLengthOfStone() >= getLengthBetweenStone(dx,dy)){
-
+			
 			this.setCollidedStone(sprite);
 			((CurlingStone)sprite).setCollidedStone(this);
 			
@@ -197,11 +200,11 @@ public class CurlingStone extends Sprite{
 	}
 	
 	public double getDx(Sprite stoneHitter, Sprite stoneHurt){
-		return Math.abs(stoneHurt.getPosition().getX()-stoneHitter.getPosition().getX());
+		return Math.abs(stoneHurt.getX()-stoneHitter.getX());
 	}
 	
 	public double getDy(Sprite stoneHitter, Sprite stoneHurt){
-		return stoneHurt.getPosition().getY()-stoneHitter.getPosition().getY();
+		return stoneHurt.getY()-stoneHitter.getY();
 	}
 	
 	public boolean getMoved(){

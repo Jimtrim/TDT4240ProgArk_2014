@@ -99,7 +99,7 @@ public class GameState extends State{
 					gameLayer.getStone().move(touchList.subList(touchList.size()-10, touchList.size()-1));
 					gameLayer.getStone().resetBrooming();
 				}
-				touchList = new ArrayList<float[]>();
+				touchList.clear();
 				return false;
 			}
 			
