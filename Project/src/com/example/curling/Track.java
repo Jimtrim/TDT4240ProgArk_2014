@@ -47,4 +47,8 @@ public class Track extends Sprite{
     public float getGoalPoint(){
     	return 3901*scale;
     }
+    
+    public float getOuterCircle(){
+    	return 3717*scale;
+    }
 }

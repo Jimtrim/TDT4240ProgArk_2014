@@ -31,6 +31,9 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	private int playerOnePoints,playerTwoPoints;
 	private Vector2 target;
 	private Player winnerOfRound;
+	double targetY = GlobalConstants.SCREENHEIGHT*0.5;
+	float targetX = track.getGoalPoint();
+	double circle;
 	
 	
 	public GameLayer(int rounds,int stones){
@@ -127,11 +130,21 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		return stoneList;	
 	}
 	
+	public double getDistanceY(CurlingStone i){
+		double distanceY = Math.abs(i.getPosition().getY()-targetY);
+		return distanceY;
+	}
+	
+	public double getDistanceX(CurlingStone i){
+		double distanceX = Math.abs(i.getPosition().getX()-targetX);
+		return distanceX;
+	}
+	
     public int compare(CurlingStone a, CurlingStone b){
-    	double targetY = GlobalConstants.SCREENHEIGHT*0.5;
-		float targetX = track.getGoalPoint();
-		double distanceA = Math.pow(Math.abs(a.getPosition().getX()-targetX), 2) + Math.pow(Math.abs(a.getPosition().getY()-targetY), 2);
-		double distanceB = Math.pow(Math.abs(b.getPosition().getX()-targetX), 2) + Math.pow(Math.abs(b.getPosition().getY()-targetY), 2);
+    	//Math.pow(Math.abs(b.getPosition().getX()-targetX), 2) + Math.pow(Math.abs(b.getPosition().getY()-targetY), 2);
+    	double distanceA = Math.pow(getDistanceX(a), 2) + Math.pow(getDistanceY(a), 2);
+    	double distanceB = Math.pow(getDistanceX(b), 2) + Math.pow(getDistanceY(b), 2);
+		
     	int startComparison = compare(distanceA, distanceB);
     	return startComparison;
    	}
@@ -144,7 +157,6 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	
 	public void addPoints(){
 		currentRound = currentRound + 1;
-		int points = 0;
 		winnerOfRound = null;
 		ArrayList<CurlingStone> sortedList = sortStoneList(stoneList);
 
@@ -170,20 +182,25 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
     public Player getWinner() {return winnerOfRound; }
 	
 	public void evaluateStones(){
-		
+		double radius = Math.abs(targetX-circle);
+		double stoneDistance;
+		for(CurlingStone i: stoneList){
+			stoneDistance = Math.pow(getDistanceX(i), 2) + Math.pow(getDistanceY(i), 2);
+			if (stoneDistance > radius){
+				removeStone.add(i);
+			}
+		}
 	}
 
 	public void showWinner(){
 		if (playerOnePoints > playerTwoPoints) {
-			//congratz.setVisible(true)
-			//playerone.setVisible(true)
+			
 		}
 		else if (playerTwoPoints > playerOnePoints) {
-			//congratz.setVisible(true)
-			//playertwo.setVisible(true)
+			
 		}
 		else {
-			//tie.setVisible(true)
+			
 		}
 	}
 	
