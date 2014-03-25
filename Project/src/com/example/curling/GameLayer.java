@@ -34,6 +34,9 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	double targetY = GlobalConstants.SCREENHEIGHT*0.5;
 	float targetX = track.getGoalPoint();
 	double circle;
+	boolean showWinner = false;
+	boolean yellowWon = false;
+	boolean redWon = false;
 	
 	
 	public GameLayer(int rounds,int stones){
@@ -193,13 +196,12 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 
 	public void showWinner(){
 		if (playerOnePoints > playerTwoPoints) {
-			
+			showWinner = true;
+			redWon = true;
 		}
 		else if (playerTwoPoints > playerOnePoints) {
-			
-		}
-		else {
-			
+			showWinner = true;
+			yellowWon = true;
 		}
 	}
 	

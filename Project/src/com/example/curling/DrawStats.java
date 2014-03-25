@@ -22,6 +22,9 @@ public class DrawStats implements WidgetListener{
 	private ArrayList<Image> broomingAnimation = new ArrayList<Image>();
 	private float time = 0;
 	private int imageIndex = 0;
+	private Image redWon = new Image(R.drawable.redwon);
+	private Image yellowWon = new Image(R.drawable.yellowwon);
+	private Image trophy = new Image(R.drawable.trophy_golden);
 	public DrawStats(GameState game){
 		this.game = game;
 		
@@ -72,6 +75,16 @@ public class DrawStats implements WidgetListener{
         canvas.drawText("Red", GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.1f, red);
         canvas.drawText(Integer.toString(game.getGameLayer().getPlayerOne().getPoints()) + "  :  "+ Integer.toString(game.getGameLayer().getPlayerTwo().getPoints()), GlobalConstants.SCREENWIDTH*0.48f, GlobalConstants.SCREENHEIGHT*0.1f, gray);
         canvas.drawText("Yellow", GlobalConstants.SCREENWIDTH*0.6f, GlobalConstants.SCREENHEIGHT*0.1f, yellow);
+        
+        if(game.getGameLayer().showWinner == true){
+        	trophy.draw(canvas, GlobalConstants.SCREENWIDTH*0.2f, GlobalConstants.SCREENHEIGHT*0.2f);
+        	if(game.getGameLayer().redWon == true){
+        		redWon.draw(canvas, GlobalConstants.SCREENWIDTH*0.3f, GlobalConstants.SCREENHEIGHT*0.2f);
+        	}
+        	if(game.getGameLayer().yellowWon == true){
+        		yellowWon.draw(canvas, GlobalConstants.SCREENWIDTH*0.3f, GlobalConstants.SCREENHEIGHT*0.2f);
+        	}
+        }
 	}
 
 	public void actionPerformed(WidgetAction action) {
