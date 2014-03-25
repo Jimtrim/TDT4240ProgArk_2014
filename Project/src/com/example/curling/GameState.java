@@ -66,6 +66,7 @@ public class GameState extends State{
 			float[] point = {event.getX(),event.getY()};
 			touchList.add(point);
 			return true;
+
 		}
 		
 		public boolean onTouchUp(MotionEvent event){

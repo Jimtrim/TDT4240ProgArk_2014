@@ -81,7 +81,7 @@ public class CurlingStone extends Sprite{
 	}
 	
 	public void move(List<float[]> touchList){
-		if (!moved){
+		if (!moved&&getFactor(touchList)>0){
             speedX = velocity()*getFactor(touchList);
             speedY = speedX*diff();
             Log.d(TAG,"akselerasjonen i y rettning: " + Float.toString(ay));
@@ -115,6 +115,30 @@ public class CurlingStone extends Sprite{
 		this.brooming = false;
 		this.broomingDown = false;
 		this.broomingUp = false;
+	}
+	
+	public Shape getShape(){
+		return this.shape;
+	}
+	
+	public boolean collides(Sprite sprite) {
+		
+		// Check mask.
+		if(((getGroup() & sprite.getMask()) != 0) || ((sprite.getGroup() & getMask()) != 0))
+			return false;
+		
+		// If one of the sprites have no shape, then they can't collide.
+		if(shape == null || ((CurlingStone)sprite).getShape() == null)
+			return false;
+		
+		boolean collided = shape.collides(((CurlingStone)sprite).getShape());
+		
+//		if(collided) {
+//			notifyCollisionListeners(sprite);
+//			sprite.notifyCollisionListeners(this);
+//		}
+		
+		return collided;
 	}
 	
 	public void setSpin(List<float[]> touchList){
