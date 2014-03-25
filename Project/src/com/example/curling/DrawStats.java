@@ -79,10 +79,10 @@ public class DrawStats implements WidgetListener{
         if(game.getGameLayer().showWinner == true){
         	trophy.draw(canvas, GlobalConstants.SCREENWIDTH*0.2f, GlobalConstants.SCREENHEIGHT*0.2f);
         	if(game.getGameLayer().redWon == true){
-        		redWon.draw(canvas, GlobalConstants.SCREENWIDTH*0.3f, GlobalConstants.SCREENHEIGHT*0.2f);
+        		redWon.draw(canvas, GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.4f);
         	}
         	if(game.getGameLayer().yellowWon == true){
-        		yellowWon.draw(canvas, GlobalConstants.SCREENWIDTH*0.3f, GlobalConstants.SCREENHEIGHT*0.2f);
+        		yellowWon.draw(canvas, GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.4f);
         	}
         }
 	}

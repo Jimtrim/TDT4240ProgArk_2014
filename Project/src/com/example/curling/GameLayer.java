@@ -28,7 +28,6 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	private Player playerOne,playerTwo,currentPlayer;
 	private Vector2 nullvector = new Vector2(0.0f, 0.0f); 
 	private CurlingStone movingStone;
-	private int playerOnePoints,playerTwoPoints;
 	private Vector2 target;
 	private Player winnerOfRound;
 	double targetY = GlobalConstants.SCREENHEIGHT*0.5;
@@ -45,8 +44,6 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		this.stones = totalStones;
 		this.currentRound = 0;
 		this.totalStones = stones;
-		playerOnePoints = 0;
-		playerTwoPoints = 0;
 		playerOne = new Player(0);
 		playerTwo = new Player(1);
 		currentPlayer = playerOne;
@@ -144,7 +141,6 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	}
 	
     public int compare(CurlingStone a, CurlingStone b){
-    	//Math.pow(Math.abs(b.getPosition().getX()-targetX), 2) + Math.pow(Math.abs(b.getPosition().getY()-targetY), 2);
     	double distanceA = Math.pow(getDistanceX(a), 2) + Math.pow(getDistanceY(a), 2);
     	double distanceB = Math.pow(getDistanceX(b), 2) + Math.pow(getDistanceY(b), 2);
 		
@@ -169,7 +165,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
                     break;
                 }
                 else {
-                    winnerOfRound.setPoints(1);
+                    winnerOfRound.setPoints(1); 
                 }
             }
             currentPlayer = getWinner();        }
@@ -187,7 +183,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		double radius = Math.abs(targetX-circle);
 		double stoneDistance;
 		for(CurlingStone i: stoneList){
-			stoneDistance = Math.pow(getDistanceX(i), 2) + Math.pow(getDistanceY(i), 2);
+			stoneDistance = Math.sqrt(Math.pow(getDistanceX(i), 2) + Math.pow(getDistanceY(i), 2));
 			if (stoneDistance > radius){
 				removeStone.add(i);
 			}
@@ -197,11 +193,11 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	}
 
 	public void showWinner(){
-		if (playerOnePoints > playerTwoPoints) {
+		if (playerOne.getPoints() > playerTwo.getPoints()) {
 			showWinner = true;
 			redWon = true;
 		}
-		else if (playerTwoPoints > playerOnePoints) {
+		else if (playerTwo.getPoints() > playerOne.getPoints()) {
 			showWinner = true;
 			yellowWon = true;
 		}

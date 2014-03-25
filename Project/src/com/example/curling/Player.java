@@ -1,5 +1,7 @@
 package com.example.curling;
 
+import android.util.Log;
+
 /*
  * kjapp kode for aa faa til rundene i curling
  * state 0: set target for stone
@@ -38,6 +40,6 @@ public class Player {
 
     public int getPoints() { return this.points; }
 
-    public void setPoints (int points){ this.points += points; }
+    public void setPoints (int points){ this.points += points;}
 	
 }
