@@ -30,7 +30,6 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	private CurlingStone movingStone;
 	private int playerOnePoints,playerTwoPoints;
 	private Vector2 target;
-	private CurlingStone winningStone;
 	private Player winnerOfRound;
 	
 	
