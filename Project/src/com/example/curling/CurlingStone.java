@@ -82,7 +82,7 @@ public class CurlingStone extends Sprite{
 	
 	public void move(List<float[]> touchList){
 		if (!moved&&getFactor(touchList)>0){
-            speedX = velocity()*getFactor(touchList);
+            speedX = velocity();
             speedY = speedX*diff();
             Log.d(TAG,"akselerasjonen i y rettning: " + Float.toString(ay));
 			setSpin(touchList);
@@ -191,7 +191,8 @@ public class CurlingStone extends Sprite{
 		
 		Vector2 vector = this.getPosition().getSubtracted(sprite.getPosition());
 		Log.d(TAG,Float.toString(vector.getLength()));
-		
+		vector.multiply((float) (((48.01-getLengthBetweenStone(dx, dy))/getLengthBetweenStone(dx, dy))));
+		Log.d(TAG,Float.toString(vector.getLength()));
 		Log.d(TAG,Double.toString(getLengthBetweenStone(dx, dy)));
 		if (getLengthOfStone() >= getLengthBetweenStone(dx,dy)){
 			this.setCollidedStone(sprite);
@@ -229,6 +230,7 @@ public class CurlingStone extends Sprite{
 			((CurlingStone)sprite).setSpeedY((float)vy2);
 			
 			((CurlingStone)sprite).setAy();
+			((CurlingStone)sprite).getPosition().subtract(vector);
 		}
 	}
 	

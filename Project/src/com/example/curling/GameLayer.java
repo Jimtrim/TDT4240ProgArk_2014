@@ -189,9 +189,11 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		for(CurlingStone i: stoneList){
 			stoneDistance = Math.pow(getDistanceX(i), 2) + Math.pow(getDistanceY(i), 2);
 			if (stoneDistance > radius){
-				stoneList.remove(i);
+				removeStone.add(i);
 			}
 		}
+		stoneList.removeAll(removeStone);
+		removeStone.clear();
 	}
 
 	public void showWinner(){
