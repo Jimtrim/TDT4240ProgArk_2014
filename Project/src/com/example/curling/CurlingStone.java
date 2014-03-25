@@ -21,12 +21,13 @@ public class CurlingStone extends Sprite{
 	private float speedX,speedY,ax,ay,spin;
     private float startMarkerX = GlobalConstants.SCREENWIDTH*0.3f;
 	private Vector2 target;
+	private float friction = 1;
 	private static Image red = new Image(R.drawable.curling);
 	private static Image yellow = new Image(R.drawable.curlingyellow);
 	private int stoneIndex;
 	private double picLength;
 	private Shape shape;
-	private float spinFriction = 0.5f;
+	private float spinFriction = 0.9f;
 	
 	public CurlingStone(float x,float y,int playerIndex, Vector2 target){
 		super(red);
@@ -52,13 +53,20 @@ public class CurlingStone extends Sprite{
 		shape.update(dt, matrix);
 		if (spin != 0) {
 			spin = (float) (spin*0.995); 
-			this.rotate(-spin);
+			rotate(-spin);
 			if(speedX==0)
 				spin=0;
 		}
+		if(brooming){
+			if(friction > 0.5f) friction = friction-0.01f;
+		}else{
+			if (friction <1){
+				friction = friction + 0.01f;
+			}
+		}
 		if(speedX != 0 || speedY != 0){
-			speedX = speedX - (this.ax*dt);
-			speedY = speedY - (this.ay*dt);
+			speedX = speedX - (this.ax*dt)*friction;
+			speedY = speedY - (this.ay*dt)*friction;
 
 			if(speedX <= 0){
 				speedX = 0;
@@ -90,10 +98,10 @@ public class CurlingStone extends Sprite{
 			}
 			avarageY = avarageY/touchList.size();
 //			Log.d(TAG,Float.toString(avarageY));
-			if(avarageY < GlobalConstants.SCREENHEIGHT*0.19){
+			if(avarageY < GlobalConstants.SCREENHEIGHT*0.25){
 				//TODO legg til spinn i riktig rettning
 				resetBrooming();
-			}else if(avarageY > GlobalConstants.SCREENHEIGHT*0.81){
+			}else if(avarageY > GlobalConstants.SCREENHEIGHT*0.75){
 				//TODO legg til spinn i riktig rettning
 				resetBrooming();
 			}else{
@@ -189,9 +197,9 @@ public class CurlingStone extends Sprite{
 			
 			this.setAy();
 			
-			this.setSpin(-1 * ((CurlingStone)sprite).getSpin() * spinFriction);
+			this.setSpin(this.getSpin() * spinFriction);
 			
-			((CurlingStone)sprite).setSpin(((CurlingStone)sprite).getSpin() * spinFriction);
+			((CurlingStone)sprite).setSpin(-1 * this.getSpin() * spinFriction);
 			
 			((CurlingStone)sprite).setSpeedX((float) vx2);
 			((CurlingStone)sprite).setSpeedY((float)vy2);
