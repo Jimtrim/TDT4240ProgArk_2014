@@ -81,7 +81,7 @@ public class CurlingStone extends Sprite{
 	}
 	
 	public void move(List<float[]> touchList){
-		if (!moved){
+		if (!moved&&getFactor(touchList)>0){
             speedX = velocity()*getFactor(touchList);
             speedY = speedX*diff();
             Log.d(TAG,"akselerasjonen i y rettning: " + Float.toString(ay));

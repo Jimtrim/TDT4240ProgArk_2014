@@ -82,10 +82,11 @@ public class GameState extends State{
 //					broomy = GlobalConstants.SCREENHEIGHT*0.4f;
 //				}
 //			}
-			
-			float[] point = {event.getX(),event.getY()};
-			touchList.add(point);
-			return true;
+			else{
+				float[] point = {event.getX(),event.getY()};
+				touchList.add(point);
+				return true;
+			}
 		}
 		
 		public boolean onTouchUp(MotionEvent event){
