@@ -188,6 +188,11 @@ public class CurlingStone extends Sprite{
 	public void collision(Sprite sprite){
 		double dx = getDx(this, sprite);
 		double dy = getDy(this, sprite);
+		
+		Vector2 vector = this.getPosition().getSubtracted(sprite.getPosition());
+		Log.d(TAG,Float.toString(vector.getLength()));
+		
+		Log.d(TAG,Double.toString(getLengthBetweenStone(dx, dy)));
 		if (getLengthOfStone() >= getLengthBetweenStone(dx,dy)){
 			this.setCollidedStone(sprite);
 			((CurlingStone)sprite).setCollidedStone(this);
