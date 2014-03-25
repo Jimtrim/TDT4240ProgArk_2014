@@ -117,6 +117,30 @@ public class CurlingStone extends Sprite{
 		this.broomingUp = false;
 	}
 	
+	public Shape getShape(){
+		return this.shape;
+	}
+	
+	public boolean collides(Sprite sprite) {
+		
+		// Check mask.
+		if(((getGroup() & sprite.getMask()) != 0) || ((sprite.getGroup() & getMask()) != 0))
+			return false;
+		
+		// If one of the sprites have no shape, then they can't collide.
+		if(shape == null || ((CurlingStone)sprite).getShape() == null)
+			return false;
+		
+		boolean collided = shape.collides(((CurlingStone)sprite).getShape());
+		
+//		if(collided) {
+//			notifyCollisionListeners(sprite);
+//			sprite.notifyCollisionListeners(this);
+//		}
+		
+		return collided;
+	}
+	
 	public void setSpin(List<float[]> touchList){
 		float spinDiff = touchList.get(0)[1] - touchList.get(touchList.size()-1)[1];
 		if ((Math.abs(spinDiff)>(GlobalConstants.SCREENHEIGHT*0.10)) && (Math.abs(spinDiff) < GlobalConstants.SCREENHEIGHT*0.90)) {
