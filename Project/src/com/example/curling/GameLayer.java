@@ -31,12 +31,12 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	private int playerOnePoints,playerTwoPoints;
 	private Vector2 target;
 	private Player winnerOfRound;
-	double targetY = GlobalConstants.SCREENHEIGHT*0.5;
-	float targetX = track.getGoalPoint();
-	double circle;
-	boolean showWinner = false;
-	boolean yellowWon = false;
-	boolean redWon = false;
+	private double targetY = GlobalConstants.SCREENHEIGHT*0.5;
+	private float targetX = track.getGoalPoint();
+	private double circle;
+	private boolean showWinner = false;
+	private boolean yellowWon = false;
+	private boolean redWon = false;
 	
 	
 	public GameLayer(int rounds,int stones){
@@ -181,8 +181,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
         }
         return playerTwo;
     }
-    public Player getWinner() {return winnerOfRound; }
-	
+    
 	public void evaluateStones(){
 		double radius = Math.abs(targetX-circle);
 		double stoneDistance;
@@ -226,10 +225,6 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		stoneList.clear();
 	}
 	
-	public CurlingStone getStone(){
-		return this.movingStone;
-	}
-
     public void outOfBounds(Sprite stone){
         float posX = stone.getPosition().getX();
         float posY = stone.getPosition().getY();
@@ -240,13 +235,38 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
             removeStone.add((CurlingStone) stone);
         }
     }
+    
+    public Player getWinner() {
+    	return winnerOfRound;
+    }
+    
+    public CurlingStone getStone(){
+		return this.movingStone;
+	}
+    
+    public boolean getShowWinner(){
+    	return this.showWinner;
+    }
+    
+    public boolean getRedWon(){
+    	return this.redWon;
+    }
+    
+    public boolean getYellowWon(){
+    	return this.yellowWon;
+    }
       
     public Player getCurrentPlayer(){
     	return this.currentPlayer;
     }
 
-    public Player getPlayerOne() { return playerOne; }
-    public Player getPlayerTwo() { return playerTwo; }
+    public Player getPlayerOne() {
+    	return playerOne;
+    }
+    
+    public Player getPlayerTwo() {
+    	return playerTwo;
+    }
     
     public Track getTrack(){
     	return this.track;

@@ -14,6 +14,7 @@ public class DrawStats implements WidgetListener{
 	
 	private Paint red,yellow,gray;
 	private Image target = new Image(R.drawable.aim);
+	private Image targetYellow = new Image(R.drawable.aimyellow);
 	private Image brooming = new Image(R.drawable.curlingbroomalt2),brooming2 = new Image(R.drawable.curlingbroom2),brooming3 = new Image(R.drawable.curlingbroom3),
 	brooming4 = new Image(R.drawable.curlingbroom4),brooming5 = new Image(R.drawable.curlingbroom5);
 	private Image currentBrooming;
@@ -66,7 +67,11 @@ public class DrawStats implements WidgetListener{
 	
 	public void draw(Canvas canvas){
 		if(game.getGameLayer().getCurrentPlayer().getState() == 0){
-			target.draw(canvas, GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2,GlobalConstants.SCREENHEIGHT*0.5f-target.getHeight()/2);
+			if(game.getGameLayer().getCurrentPlayer().getPlayerIndex() == 0){
+				target.draw(canvas, GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2,GlobalConstants.SCREENHEIGHT*0.5f-target.getHeight()/2);
+			}else{
+				targetYellow.draw(canvas, GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2,GlobalConstants.SCREENHEIGHT*0.5f-target.getHeight()/2);
+			}
 			setTarget.draw(canvas);
 		}
 		if(game.getGameLayer().getCurrentPlayer().getState() == 2 && game.getGameLayer().getStone().getBrooming()){
@@ -76,12 +81,12 @@ public class DrawStats implements WidgetListener{
         canvas.drawText(Integer.toString(game.getGameLayer().getPlayerOne().getPoints()) + "  :  "+ Integer.toString(game.getGameLayer().getPlayerTwo().getPoints()), GlobalConstants.SCREENWIDTH*0.48f, GlobalConstants.SCREENHEIGHT*0.1f, gray);
         canvas.drawText("Yellow", GlobalConstants.SCREENWIDTH*0.6f, GlobalConstants.SCREENHEIGHT*0.1f, yellow);
         
-        if(game.getGameLayer().showWinner == true){
+        if(game.getGameLayer().getShowWinner()){
         	trophy.draw(canvas, GlobalConstants.SCREENWIDTH*0.2f, GlobalConstants.SCREENHEIGHT*0.2f);
-        	if(game.getGameLayer().redWon == true){
+        	if(game.getGameLayer().getRedWon()){
         		redWon.draw(canvas, GlobalConstants.SCREENWIDTH*0.3f, GlobalConstants.SCREENHEIGHT*0.2f);
         	}
-        	if(game.getGameLayer().yellowWon == true){
+        	if(game.getGameLayer().getYellowWon()){
         		yellowWon.draw(canvas, GlobalConstants.SCREENWIDTH*0.3f, GlobalConstants.SCREENHEIGHT*0.2f);
         	}
         }

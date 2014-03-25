@@ -57,6 +57,7 @@ public class CurlingStone extends Sprite{
 			if(speedX==0)
 				spin=0;
 		}
+		
 		if(brooming){
 			if(friction > 0.5f) friction = friction-0.01f;
 		}else{
@@ -64,6 +65,12 @@ public class CurlingStone extends Sprite{
 				friction = friction + 0.01f;
 			}
 		}
+		if (broomingUp){
+			spin = spin + 0.1f;
+		}else if(broomingDown){
+			spin = spin - 0.1f;
+		}
+		
 		if(speedX != 0 || speedY != 0){
 			speedX = speedX - (this.ax*dt)*friction;
 			speedY = speedY - (this.ay*dt)*friction;
@@ -87,23 +94,20 @@ public class CurlingStone extends Sprite{
             Log.d(TAG,"akselerasjonen i y rettning: " + Float.toString(ay));
 			setSpin(touchList);
 			setAy();
-//			Log.d(TAG,Float.toString(getFactor(touchList)));
 			moved = true;
 			setSpeed(speedX, speedY);
 		}else{
-			//TODO legge til kostefunksjon
 			float avarageY = 0;
 			for(float[] i:touchList){
 				avarageY = avarageY + i[1];
 			}
 			avarageY = avarageY/touchList.size();
-//			Log.d(TAG,Float.toString(avarageY));
 			if(avarageY < GlobalConstants.SCREENHEIGHT*0.25){
-				//TODO legg til spinn i riktig rettning
 				resetBrooming();
+				this.broomingUp = true;
 			}else if(avarageY > GlobalConstants.SCREENHEIGHT*0.75){
-				//TODO legg til spinn i riktig rettning
 				resetBrooming();
+				this.broomingDown = true;
 			}else{
 				resetBrooming();
 				this.brooming = true;
