@@ -74,7 +74,7 @@ public class GameStateConfig extends State implements WidgetListener{
 	@Override
 	public void actionPerformed(WidgetAction action) {
 		if(action.getSource() == startGame){
-			getGame().pushState(new GameState(gameRounds,stones*2));
+			getGame().pushState(new GameState(gameRounds,stones));
 		}
 		else if(action.getSource() == addRound && gameRounds>=2 && gameRounds<20) {
 			gameRounds+=2;
