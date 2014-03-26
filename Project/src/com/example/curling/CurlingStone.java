@@ -10,6 +10,10 @@ import sheep.collision.Shape;
 import sheep.game.Sprite;
 import sheep.graphics.Image;
 import sheep.math.Vector2;
+/*
+ * Movement, collision, spin of the instance curlingstone
+ */
+
 
 public class CurlingStone extends Sprite{
 	
@@ -215,8 +219,10 @@ public class CurlingStone extends Sprite{
 			double vaP1=va1 + (1+ed)*(va2-va1)/(1+mass/mass);
 			double vaP2=va2 + (1+ed)*(va1-va2)/(1+mass/mass);
 			
-			double vx1=vaP1*ax-vb1*ay,  vy1=vaP1*ay+vb1*ax;// new vx,vy for ball 1 after collision
-			double vx2=vaP2*ax-vb2*ay,  vy2=vaP2*ay+vb2*ax;// new vx,vy for ball 2 after collision
+			// new vx,vy for ball 1 after collision
+			double vx1=vaP1*ax-vb1*ay,  vy1=vaP1*ay+vb1*ax;
+			// new vx,vy for ball 2 after collision
+			double vx2=vaP2*ax-vb2*ay,  vy2=vaP2*ay+vb2*ax;
 			
 			this.setSpeedX((float)vx1);
 			this.setSpeedY((float)vy1);
