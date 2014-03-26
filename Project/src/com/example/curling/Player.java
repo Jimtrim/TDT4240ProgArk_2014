@@ -15,11 +15,13 @@ public class Player {
 	private int state;
 	private int playerIndex;
     private int points;
+    private int stones;
 
-	public Player(int index){
-		state = 0;
-        playerIndex = index;
-        points = 0;
+	public Player(int index,int stones){
+		this.state = 0;
+        this.playerIndex = index;
+        this.points = 0;
+        this.stones = stones;
 	}
 	
 	public int getState(){
@@ -38,8 +40,23 @@ public class Player {
     	this.playerIndex=playerIndex;
     }
 
-    public int getPoints() { return this.points; }
+    public int getPoints() {
+    	return this.points;
+    }
 
-    public void setPoints (int points){ this.points += points;}
-	
+    public void setPoints (int points){
+    	this.points += points;
+    }
+    
+    public int getNumberOfStones(){
+    	return this.stones;
+    }
+    
+    public void subtractOneStone(){
+    	this.stones = this.stones - 1;
+    }
+    
+    public void setStones(int stones){
+    	this.stones = stones;
+    }
 }

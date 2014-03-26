@@ -22,7 +22,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	
 	private Track track = new Track(new Image(R.drawable.curlingbackground));
 
-	private int rounds,currentRound,totalStones,stones;
+	private int rounds,currentRound,totalStones;
 	private ArrayList<CurlingStone> stoneList = new ArrayList<CurlingStone>();
     private ArrayList<CurlingStone> removeStone = new ArrayList<CurlingStone>();
 	private Player playerOne,playerTwo,currentPlayer;
@@ -40,11 +40,9 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	public GameLayer(int rounds,int stones){
 		this.rounds = rounds;
 		this.totalStones = stones;
-		this.stones = totalStones;
 		this.currentRound = 0;
-		this.totalStones = stones;
-		playerOne = new Player(0);
-		playerTwo = new Player(1);
+		playerOne = new Player(0,totalStones);
+		playerTwo = new Player(1,totalStones);
 		currentPlayer = playerOne;
 	}
 
@@ -53,8 +51,8 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		if (currentPlayer.getState() == 1){
 			movingStone = new CurlingStone(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.5f,currentPlayer.getPlayerIndex(),target);
 			stoneList.add(movingStone);
-			stones = stones - 1;
-			Log.d(TAG,Integer.toString(stoneList.size()));
+			currentPlayer.subtractOneStone();
+			Log.d(TAG,Integer.toString(currentPlayer.getNumberOfStones()));
 			currentPlayer.setState(2);
 		}
 		if(noStonesMove() && currentPlayer.getState() > 1){
@@ -204,7 +202,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	public void endTurn(){
 		if (noStonesMove() && currentPlayer.getState() == 3){
 			nextPlayer();
-			if(stones == 0){
+			if((playerOne.getNumberOfStones()+playerTwo.getNumberOfStones()) == 0){
                 evaluateStones();
 				addPoints();
 				newRound();
@@ -216,7 +214,8 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	}
 	
 	public void newRound(){
-		stones = totalStones;
+		playerOne.setStones(totalStones);
+		playerTwo.setStones(totalStones);
 		stoneList.clear();
 	}
 	

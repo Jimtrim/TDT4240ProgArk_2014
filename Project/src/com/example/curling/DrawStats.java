@@ -34,6 +34,8 @@ public class DrawStats implements WidgetListener{
 	private Image redWon = new Image(R.drawable.redwon);
 	private Image yellowWon = new Image(R.drawable.yellowwon);
 	private Image trophy = new Image(R.drawable.trophy_golden);
+	private Image redStone = new Image(R.drawable.redcurlingsmall);
+	private Image yellowStone = new Image(R.drawable.yellowcurlingsmall);
 	
 	public DrawStats(GameState game){
 		this.game = game;
@@ -135,6 +137,12 @@ public class DrawStats implements WidgetListener{
         canvas.drawText("Red", GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.1f, red);
         canvas.drawText(Integer.toString(game.getGameLayer().getPlayerOne().getPoints()) + "  :  "+ Integer.toString(game.getGameLayer().getPlayerTwo().getPoints()), GlobalConstants.SCREENWIDTH*0.48f, GlobalConstants.SCREENHEIGHT*0.1f, gray);
         canvas.drawText("Yellow", GlobalConstants.SCREENWIDTH*0.6f, GlobalConstants.SCREENHEIGHT*0.1f, yellow);
+        for(int i = 0; i < game.getGameLayer().getPlayerOne().getNumberOfStones(); i++){
+        	redStone.draw(canvas,GlobalConstants.SCREENWIDTH*0.3f + (redStone.getWidth()*1.2f*i*-1),GlobalConstants.SCREENHEIGHT*0.065f);
+        }
+        for(int i = 0; i < game.getGameLayer().getPlayerTwo().getNumberOfStones(); i++){
+        	yellowStone.draw(canvas,GlobalConstants.SCREENWIDTH*0.725f + (yellowStone.getWidth()*1.2f*i),GlobalConstants.SCREENHEIGHT*0.065f);
+        }
         
         if(game.getGameLayer().getShowWinner()){
         	trophy.draw(canvas, GlobalConstants.SCREENWIDTH*0.2f, GlobalConstants.SCREENHEIGHT*0.2f);
