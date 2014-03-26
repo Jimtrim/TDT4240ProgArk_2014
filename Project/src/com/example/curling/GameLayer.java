@@ -12,7 +12,7 @@ import sheep.graphics.Image;
 import sheep.math.BoundingBox;
 import sheep.math.Vector2;
 
-/*
+/**
  * modellen + logikken til spillet
  */
 

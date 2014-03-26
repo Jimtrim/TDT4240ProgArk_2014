@@ -66,9 +66,9 @@ public class CurlingStone extends Sprite{
 			}
 		}
 		if (broomingUp){
-			spin = spin + 0.1f;
+			spin = spin + 0.05f;
 		}else if(broomingDown){
-			spin = spin - 0.1f;
+			spin = spin - 0.05f;
 		}
 		
 		if(speedX != 0 || speedY != 0){
@@ -194,10 +194,7 @@ public class CurlingStone extends Sprite{
 		double dy = getDy(this, sprite);
 		
 		Vector2 vector = this.getPosition().getSubtracted(sprite.getPosition());
-		Log.d(TAG,Float.toString(vector.getLength()));
 		vector.multiply((float) (((48.01-getLengthBetweenStone(dx, dy))/getLengthBetweenStone(dx, dy))));
-		Log.d(TAG,Float.toString(vector.getLength()));
-		Log.d(TAG,Double.toString(getLengthBetweenStone(dx, dy)));
 		if (getLengthOfStone() >= getLengthBetweenStone(dx,dy)){
 			this.setCollidedStone(sprite);
 			((CurlingStone)sprite).setCollidedStone(this);
@@ -223,7 +220,7 @@ public class CurlingStone extends Sprite{
 			
 			this.setSpeedX((float)vx1);
 			this.setSpeedY((float)vy1);
-			
+			this.setSpeed(speedX, speedY);
 			this.setAy();
 			
 			this.setSpin(this.getSpin() * spinFriction);
@@ -293,6 +290,14 @@ public class CurlingStone extends Sprite{
     
     public boolean getBrooming(){
     	return this.brooming;
+    }
+    
+    public boolean getBroomingUp(){
+    	return this.broomingUp;
+    }
+    
+    public boolean getBroomingDown(){
+    	return this.broomingDown;
     }
     
     public float getSpin(){
