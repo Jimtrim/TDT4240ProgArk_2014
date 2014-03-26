@@ -117,7 +117,7 @@ public class DrawStats implements WidgetListener{
 	public void draw(Canvas canvas){
 		if(game.getGameLayer().getCurrentPlayer().getState() == 0){
 			if(game.getGameLayer().getCurrentPlayer().getPlayerIndex() == 0){
-				target.draw(canvas, GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2,GlobalConstants.SCREENHEIGHT*0.5f-target.getHeight()/2);
+                    target.draw(canvas, GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2,GlobalConstants.SCREENHEIGHT*0.5f-target.getHeight()/2);
 			}else{
 				targetYellow.draw(canvas, GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2,GlobalConstants.SCREENHEIGHT*0.5f-target.getHeight()/2);
 			}
