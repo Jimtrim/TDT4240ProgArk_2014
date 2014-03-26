@@ -17,7 +17,7 @@ public class CurlingStone extends Sprite{
 	
 	private Matrix matrix;	
 	private Sprite collidedStone = null; 
-	private boolean moved = false,brooming = false,broomingUp = false,broomingDown = false;
+	private boolean moved = false, brooming = false, broomingUp = false, broomingDown = false;
 	private float speedX,speedY,ax,ay,spin;
     private float startMarkerX = GlobalConstants.SCREENWIDTH*0.3f;
 	private Vector2 target;

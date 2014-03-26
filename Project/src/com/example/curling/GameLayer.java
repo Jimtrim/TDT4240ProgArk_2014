@@ -26,7 +26,6 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	private ArrayList<CurlingStone> stoneList = new ArrayList<CurlingStone>();
     private ArrayList<CurlingStone> removeStone = new ArrayList<CurlingStone>();
 	private Player playerOne,playerTwo,currentPlayer;
-	private Vector2 nullvector = new Vector2(0.0f, 0.0f); 
 	private CurlingStone movingStone;
 	private Vector2 target;
 	private Player winnerOfRound;
@@ -91,7 +90,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	
 	public boolean noStonesMove(){
 		for(Sprite i: stoneList){
-			if (i.getSpeed().getLength() != nullvector.getLength()){
+			if (i.getSpeed().getLength() != 0){
 				return false;
 			}
 		}
