@@ -203,7 +203,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
                 evaluateStones();
 				addPoints();
 				newRound();
-				if(currentRound == rounds){
+				if(currentRound >= rounds && playerOne.getPoints() != playerTwo.getPoints()){
 					showWinner();
 				}
 			}
