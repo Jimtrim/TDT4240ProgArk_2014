@@ -14,8 +14,7 @@ import sheep.math.Vector2;
 
 /**
  * 
- * 
- * 
+ * game logic. Rounds, stone and player controller
  */
 
 public class GameLayer extends Layer implements Comparator<CurlingStone>{
@@ -47,7 +46,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	}
 
 	public void update(float dt) {
-		//sjekker om det er starten til spilleren
+		//prepare curlingstone for throw/slide
 		if (currentPlayer.getState() == 1){
 			movingStone = new CurlingStone(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.5f,currentPlayer.getPlayerIndex(),target);
 			stoneList.add(movingStone);
@@ -55,10 +54,14 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 			Log.d(TAG,Integer.toString(currentPlayer.getNumberOfStones()));
 			currentPlayer.setState(2);
 		}
+		
+		
 		if(noStonesMove() && currentPlayer.getState() == 2){
-			if (movingStone.getMoved())	currentPlayer.setState(3);
+			if (movingStone.getMoved())	
+				currentPlayer.setState(3);
 		}
 		
+		//check for collision
 		for(CurlingStone i: stoneList){
 			i.update(dt);
 			for(CurlingStone cld: stoneList){
@@ -70,7 +73,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 					}
 				}
 			}
-			outOfBounds(i);
+			outOfBounds(i); //check if the stone is outside the bound
 		}
         stoneList.removeAll(removeStone);
         removeStone.clear();
@@ -101,6 +104,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		else currentPlayer = playerOne;
 	}
 	
+	//sort the stones closest to the target(goal)
 	public ArrayList<CurlingStone> sortStoneList(ArrayList<CurlingStone> stoneList){
 		int comparison;
 		CurlingStone a;
@@ -127,16 +131,19 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		return stoneList;	
 	}
 	
+	//between stone and the target(goal)
 	public double getDistanceY(CurlingStone i){
 		double distanceY = Math.abs(i.getPosition().getY()-GlobalConstants.SCREENHEIGHT*0.5);
 		return distanceY;
 	}
 	
+	//between stone and the target(goal)
 	public double getDistanceX(CurlingStone i){
 		double distanceX = Math.abs(i.getPosition().getX()-track.getGoalPoint());
 		return distanceX;
 	}
 	
+	//compare the distance between to stone for finding the stone closest to the target(goal)
     public int compare(CurlingStone a, CurlingStone b){
     	double distanceA = Math.pow(getDistanceX(a), 2) + Math.pow(getDistanceY(a), 2);
     	double distanceB = Math.pow(getDistanceX(b), 2) + Math.pow(getDistanceY(b), 2);
@@ -151,6 +158,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	         : 0;
     }
 	
+    //give points to the player
 	public void addPoints(){
 		currentRound = currentRound + 1;
 		winnerOfRound = null;
@@ -175,6 +183,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
         return playerTwo;
     }
     
+    //evaluate which stone is inside the target(goal)
 	public void evaluateStones(){
 		double radius = Math.abs(track.getGoalPoint()-circle);
 		double stoneDistance;
