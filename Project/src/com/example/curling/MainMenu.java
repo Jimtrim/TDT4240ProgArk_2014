@@ -17,7 +17,7 @@ import android.graphics.Matrix;
 public class MainMenu extends State implements WidgetListener{
 	
 	Random rand = new Random();
-	private TextButton StartGame,Exit,Tutorial;
+	private TextButton StartGame,Tutorial;
 	private float scalex,scaley;
 	private Matrix matrix = new Matrix();
 	private Image mainMenuScreen = new Image(R.drawable.frontscreencurling);
@@ -26,15 +26,12 @@ public class MainMenu extends State implements WidgetListener{
 		
 		StartGame = new TextButton(GlobalConstants.SCREENWIDTH*0.1f, GlobalConstants.SCREENHEIGHT*0.4f, "Start Game",GlobalConstants.menuFont);
 		Tutorial = new TextButton(GlobalConstants.SCREENWIDTH*0.1f, GlobalConstants.SCREENHEIGHT*0.55f,"Tutorial",GlobalConstants.menuFont);
-		Exit = new TextButton(GlobalConstants.SCREENWIDTH*0.1f, GlobalConstants.SCREENHEIGHT*0.7f,"Exit",GlobalConstants.menuFont);
 		
 		addTouchListener(StartGame);
 		addTouchListener(Tutorial);
-		addTouchListener(Exit);
 		
 		StartGame.addWidgetListener(this);
 		Tutorial.addWidgetListener(this);
-		Exit.addWidgetListener(this);
 		
 		this.scaley = GlobalConstants.SCREENHEIGHT/mainMenuScreen.getHeight();
 		this.scalex = GlobalConstants.SCREENWIDTH/mainMenuScreen.getWidth();
@@ -51,15 +48,12 @@ public class MainMenu extends State implements WidgetListener{
 		mainMenuScreen.draw(canvas, this.matrix);
 		StartGame.draw(canvas);
 		Tutorial.draw(canvas);
-		Exit.draw(canvas);
 		}catch(Exception e){};
 	}
 
 	public void actionPerformed(WidgetAction action) {
 		if(action.getSource() == StartGame){
-			getGame().pushState(new GameStateConfig());
-		}else if(action.getSource() == Exit){
-			
+			getGame().pushState(new GameStateConfig());	
 		}else if(action.getSource() == Tutorial){
 			//TODO lag tutorial
 		}

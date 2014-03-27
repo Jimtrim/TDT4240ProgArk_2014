@@ -13,7 +13,9 @@ import sheep.math.BoundingBox;
 import sheep.math.Vector2;
 
 /**
- * modellen + logikken til spillet
+ * 
+ * 
+ * 
  */
 
 public class GameLayer extends Layer implements Comparator<CurlingStone>{
