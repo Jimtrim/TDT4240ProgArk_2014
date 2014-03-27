@@ -30,7 +30,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	private CurlingStone movingStone;
 	private Vector2 target;
 	private Player winnerOfRound;
-	private double circle;
+	private double circle = track.getOuterCircle();
 	private boolean showWinner = false;
 	private boolean yellowWon = false;
 	private boolean redWon = false;
