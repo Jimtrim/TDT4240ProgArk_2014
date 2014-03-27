@@ -33,7 +33,6 @@ public class CurlingStone extends Sprite{
 	private Shape shape;
 	private Vector2 target;
 
-	
 	public CurlingStone(float x,float y,int playerIndex, Vector2 target){
 		super(red);
 		this.speedX = 0;
@@ -92,6 +91,7 @@ public class CurlingStone extends Sprite{
 		getView().draw(canvas, matrix);
 	}
 	
+	//initialize speedX and speedY
 	public void move(List<float[]> touchList){
 		if (!moved&&getFactor(touchList)>0){
             speedX = velocity()*getFactor(touchList);
@@ -134,6 +134,7 @@ public class CurlingStone extends Sprite{
 		return shape.collides(((CurlingStone)sprite).getShape());
 	}
 	
+	//set spin to the stone from start
 	public void setSpin(List<float[]> touchList){
 		float spinDiff = touchList.get(0)[1] - touchList.get(touchList.size()-1)[1];
 		if ((Math.abs(spinDiff)>(GlobalConstants.SCREENHEIGHT*0.10)) && (Math.abs(spinDiff) < GlobalConstants.SCREENHEIGHT*0.90)) {
@@ -145,6 +146,7 @@ public class CurlingStone extends Sprite{
 		}
 	}
 	
+	//finds the unknown factor by touch, for a more "random" speed by multiply it to the velocity
 	public float getFactor(List<float[]> touchList){
 		float factor = 0;
 		for(int i = 1; i < touchList.size(); i ++){
@@ -187,8 +189,10 @@ public class CurlingStone extends Sprite{
 		double dx = getDx(this, sprite);
 		double dy = getDy(this, sprite);
 		
+		//finds how much overlapping between two stone
 		Vector2 vector = this.getPosition().getSubtracted(sprite.getPosition());
 		vector.multiply((float) (((48.01-getLengthBetweenStone(dx, dy))/getLengthBetweenStone(dx, dy))));
+		
 		if (getLengthOfStone() >= getLengthBetweenStone(dx,dy)){
 			this.setCollidedStone(sprite);
 			((CurlingStone)sprite).setCollidedStone(this);
@@ -227,18 +231,23 @@ public class CurlingStone extends Sprite{
 			((CurlingStone)sprite).setSpeedY((float)vy2);
 			
 			((CurlingStone)sprite).setAy();
+			
+			//prevents overlapping
 			((CurlingStone)sprite).getPosition().subtract(vector);
 		}
 	}
+	
 	
 	public double getLengthBetweenStone(double dx, double dy){
 		return Math.sqrt(dx*dx+dy*dy);
 	}
 	
+	//dx between two stone
 	public double getDx(Sprite stoneHitter, Sprite stoneHurt){
 		return Math.abs(stoneHurt.getX()-stoneHitter.getX());
 	}
 	
+	//dy between two stone
 	public double getDy(Sprite stoneHitter, Sprite stoneHurt){
 		return stoneHurt.getY()-stoneHitter.getY();
 	}

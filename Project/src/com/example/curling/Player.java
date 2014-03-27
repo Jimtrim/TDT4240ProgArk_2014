@@ -1,7 +1,5 @@
 package com.example.curling;
 
-import android.util.Log;
-
 /*
  * kjapp kode for aa faa til rundene i curling
  * state 0: set target for stone

@@ -1,10 +1,17 @@
 package com.example.curling;
 
 import android.graphics.Canvas;
+
 import android.graphics.Matrix;
 import android.util.Log;
 import sheep.game.Sprite;
 import sheep.graphics.Image;
+
+/**
+ * This class is the representation of the track in the game. It is here the game gets the 
+ * 
+ *
+ */
 
 public class Track extends Sprite{
 
