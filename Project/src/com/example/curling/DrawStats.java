@@ -53,7 +53,7 @@ public class DrawStats implements WidgetListener{
         setTarget = new ImageButton(GlobalConstants.SCREENWIDTH*0.35f,GlobalConstants.SCREENHEIGHT*0.875f,new Image(R.drawable.setaimidle),new Image(R.drawable.setaimdown));
 		setTarget.addWidgetListener(this);
 
-        next = new ImageButton(GlobalConstants.SCREENWIDTH*0.35f,GlobalConstants.SCREENHEIGHT*0.675f,new Image(R.drawable.nextidle),new Image(R.drawable.nextpressed));
+        next = new ImageButton(GlobalConstants.SCREENWIDTH*0.4f,GlobalConstants.SCREENHEIGHT*0.75f,new Image(R.drawable.nextidle),new Image(R.drawable.nextpressed));
         next.addWidgetListener(this);
 
 		broomingAnimation.add(brooming);
@@ -127,8 +127,7 @@ public class DrawStats implements WidgetListener{
 				targetYellow.draw(canvas, GlobalConstants.SCREENWIDTH*.5f-target.getHeight()/2,GlobalConstants.SCREENHEIGHT*0.5f-target.getHeight()/2);
 			}
 			setTarget.draw(canvas);
-		}
-		if(game.getGameLayer().getCurrentPlayer().getState() == 2){
+		}else if(game.getGameLayer().getCurrentPlayer().getState() == 2){
 			if(game.getGameLayer().getStone().getBrooming()){
 				currentBrooming.draw(canvas, GlobalConstants.SCREENWIDTH*0.52f,game.getGameLayer().getStone().getY()-32);
 			}else if(game.getGameLayer().getStone().getBroomingUp()){
@@ -136,7 +135,10 @@ public class DrawStats implements WidgetListener{
 			}else if(game.getGameLayer().getStone().getBroomingDown()){
 				currentBrooming.draw(canvas, GlobalConstants.SCREENWIDTH*0.50f,game.getGameLayer().getStone().getY()+13);
 			}
-		}
+		}else if(game.getGameLayer().getCurrentPlayer().getState() == 4){
+			 next.draw(canvas);
+    	}
+		
         canvas.drawText("Red", GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.1f, red);
         canvas.drawText(Integer.toString(game.getGameLayer().getPlayerOne().getPoints()) + "  :  "+ Integer.toString(game.getGameLayer().getPlayerTwo().getPoints()), GlobalConstants.SCREENWIDTH*0.48f, GlobalConstants.SCREENHEIGHT*0.1f, gray);
         canvas.drawText("Yellow", GlobalConstants.SCREENWIDTH*0.6f, GlobalConstants.SCREENHEIGHT*0.1f, yellow);
@@ -145,10 +147,6 @@ public class DrawStats implements WidgetListener{
         }
         for(int i = 0; i < game.getGameLayer().getPlayerTwo().getNumberOfStones(); i++){
         	yellowStone.draw(canvas,GlobalConstants.SCREENWIDTH*0.725f + (yellowStone.getWidth()*1.2f*i),GlobalConstants.SCREENHEIGHT*0.065f);
-        }
-
-        if(game.getGameLayer().getCurrentPlayer().getState() == 4){
-            next.draw(canvas);
         }
         
         if(game.getGameLayer().getShowWinner()){
@@ -173,7 +171,7 @@ public class DrawStats implements WidgetListener{
 		}
         if (game.getGameLayer().getCurrentPlayer().getState() == 4){
             if (action.getSource() == next){
-                game.getGameLayer().getCurrentPlayer().setState(0);
+            	game.getGameLayer().getCurrentPlayer().setState(0);
                 game.resetCamera();
             }
         }

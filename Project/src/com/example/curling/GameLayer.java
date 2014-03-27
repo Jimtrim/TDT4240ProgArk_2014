@@ -29,8 +29,6 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	private CurlingStone movingStone;
 	private Vector2 target;
 	private Player winnerOfRound;
-	private double targetY = GlobalConstants.SCREENHEIGHT*0.5;
-	private float targetX = track.getGoalPoint();
 	private double circle;
 	private boolean showWinner = false;
 	private boolean yellowWon = false;
@@ -128,12 +126,12 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	}
 	
 	public double getDistanceY(CurlingStone i){
-		double distanceY = Math.abs(i.getPosition().getY()-targetY);
+		double distanceY = Math.abs(i.getPosition().getY()-GlobalConstants.SCREENHEIGHT*0.5);
 		return distanceY;
 	}
 	
 	public double getDistanceX(CurlingStone i){
-		double distanceX = Math.abs(i.getPosition().getX()-targetX);
+		double distanceX = Math.abs(i.getPosition().getX()-track.getGoalPoint());
 		return distanceX;
 	}
 	
@@ -176,7 +174,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
     }
     
 	public void evaluateStones(){
-		double radius = Math.abs(targetX-circle);
+		double radius = Math.abs(track.getGoalPoint()-circle);
 		double stoneDistance;
 		for(CurlingStone i: stoneList){
 			stoneDistance = Math.sqrt(Math.pow(getDistanceX(i), 2) + Math.pow(getDistanceY(i), 2));

@@ -24,14 +24,15 @@ public class CurlingStone extends Sprite{
 	private boolean moved = false, brooming = false, broomingUp = false, broomingDown = false;
 	private float speedX,speedY,ax,ay,spin;
     private float startMarkerX = GlobalConstants.SCREENWIDTH*0.3f;
-	private Vector2 target;
+	private float spinFriction = 0.9f;
 	private float friction = 1;
-	private static Image red = new Image(R.drawable.curling);
-	private static Image yellow = new Image(R.drawable.curlingyellow);
 	private int stoneIndex;
 	private double picLength;
+	private static Image red = new Image(R.drawable.curling);
+	private static Image yellow = new Image(R.drawable.curlingyellow);
 	private Shape shape;
-	private float spinFriction = 0.9f;
+	private Vector2 target;
+
 	
 	public CurlingStone(float x,float y,int playerIndex, Vector2 target){
 		super(red);
@@ -130,18 +131,7 @@ public class CurlingStone extends Sprite{
 	}
 	
 	public boolean collides(Sprite sprite) {
-		
-		// Check mask.
-		if(((getGroup() & sprite.getMask()) != 0) || ((sprite.getGroup() & getMask()) != 0))
-			return false;
-		
-		// If one of the sprites have no shape, then they can't collide.
-		if(shape == null || ((CurlingStone)sprite).getShape() == null)
-			return false;
-		
-		boolean collided = shape.collides(((CurlingStone)sprite).getShape());
-		
-		return collided;
+		return shape.collides(((CurlingStone)sprite).getShape());
 	}
 	
 	public void setSpin(List<float[]> touchList){
