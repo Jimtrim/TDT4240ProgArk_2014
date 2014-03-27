@@ -27,8 +27,9 @@ public class GameState extends State{
 		world = new World();
 		gameLayer = new GameLayer(rounds,stones);
 		stats = new DrawStats(this);
-		world.addLayer(gameLayer);				
-		addTouchListener(stats.getTouchListener());
+		world.addLayer(gameLayer);
+        addTouchListener(stats.getNextListener());
+        addTouchListener(stats.getTargetListener());
 		addTouchListener(new Touch());
 		camera = world.getCamera();
 		camerax = gameLayer.getTrack().getGoalPoint()-GlobalConstants.SCREENWIDTH*0.5f;

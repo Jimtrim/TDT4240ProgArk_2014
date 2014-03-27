@@ -23,7 +23,7 @@ public class DrawStats implements WidgetListener{
 	broomingUp4 = new Image(R.drawable.curlingbroomup4),broomingUp5 = new Image(R.drawable.curlingbroomup5);
 	private Image currentBrooming;
 
-	private ImageButton setTarget;
+	private ImageButton setTarget,next;
 	private GameState game;
 	private ArrayList<Image> broomingAnimation = new ArrayList<Image>();
 	private ArrayList<Image> broomingAnimationDown = new ArrayList<Image>();
@@ -52,7 +52,10 @@ public class DrawStats implements WidgetListener{
         
         setTarget = new ImageButton(GlobalConstants.SCREENWIDTH*0.35f,GlobalConstants.SCREENHEIGHT*0.875f,new Image(R.drawable.setaimidle),new Image(R.drawable.setaimdown));
 		setTarget.addWidgetListener(this);
-		
+
+        next = new ImageButton(GlobalConstants.SCREENWIDTH*0.35f,GlobalConstants.SCREENHEIGHT*0.675f,new Image(R.drawable.nextidle),new Image(R.drawable.nextpressed));
+        next.addWidgetListener(this);
+
 		broomingAnimation.add(brooming);
 		broomingAnimation.add(brooming2);
 		broomingAnimation.add(brooming3);
@@ -145,7 +148,7 @@ public class DrawStats implements WidgetListener{
         }
 
         if(game.getGameLayer().getCurrentPlayer().getState() == 4){
-            setTarget.draw(canvas);
+            next.draw(canvas);
         }
         
         if(game.getGameLayer().getShowWinner()){
@@ -169,14 +172,17 @@ public class DrawStats implements WidgetListener{
 			}
 		}
         if (game.getGameLayer().getCurrentPlayer().getState() == 4){
-            if (action.getSource() == setTarget){
+            if (action.getSource() == next){
                 game.getGameLayer().getCurrentPlayer().setState(0);
                 game.resetCamera();
             }
         }
 	}
 	
-	public ImageButton getTouchListener(){
+	public ImageButton getTargetListener(){
 		return this.setTarget;
 	}
+    public ImageButton getNextListener(){
+        return this.next;
+    }
 }
