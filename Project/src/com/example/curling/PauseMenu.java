@@ -7,6 +7,9 @@ import sheep.gui.WidgetListener;
 import android.graphics.Canvas;
 import android.graphics.Color;
 
+/*
+ * Pause menu - buttons, text
+ */
 public class PauseMenu extends State implements WidgetListener {
 	
 	private TextButton resumeButton, exitButton;

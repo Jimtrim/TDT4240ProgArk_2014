@@ -10,6 +10,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+/*
+ * Image, text and animation of the overview of the game (image and text which pops up when playing)
+ */
+
+
 public class DrawStats implements WidgetListener{
 	
 	private Paint red,yellow,gray;

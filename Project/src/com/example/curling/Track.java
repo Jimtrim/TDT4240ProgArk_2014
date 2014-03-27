@@ -6,6 +6,10 @@ import android.util.Log;
 import sheep.game.Sprite;
 import sheep.graphics.Image;
 
+/*
+ * Track image and information
+ */
+
 public class Track extends Sprite{
 
 	private static final String TAG = MainActivity.class.getSimpleName();

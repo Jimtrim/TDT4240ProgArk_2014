@@ -6,13 +6,12 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 
 /*
- * globale vareiable og konstanter
+ * globale variables and constants
  */
 
 public class GlobalConstants {
 	
-	
-	//setter variablene i main on create det er derfor de ikke er final
+	//sets variables in main on create. Therefore not final
 	public static int SCREENWIDTH = 0;
 	public static int SCREENHEIGHT = 0;
 	

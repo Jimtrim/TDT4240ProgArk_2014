@@ -12,6 +12,10 @@ import sheep.game.State;
 import sheep.input.Keyboard;
 import sheep.input.Touch;
 
+/*
+ * An extension of sheep's 'game' to make it possible to pause without crash.
+ */
+
 public class CurlingGame extends Game {
 
 	private static final String TAG = MainActivity.class.getSimpleName();
