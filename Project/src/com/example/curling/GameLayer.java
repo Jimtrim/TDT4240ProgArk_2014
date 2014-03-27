@@ -55,7 +55,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 			Log.d(TAG,Integer.toString(currentPlayer.getNumberOfStones()));
 			currentPlayer.setState(2);
 		}
-		if(noStonesMove() && currentPlayer.getState() > 1){
+		if(noStonesMove() && currentPlayer.getState() == 2){
 			if (movingStone.getMoved())	currentPlayer.setState(3);
 		}
 		
