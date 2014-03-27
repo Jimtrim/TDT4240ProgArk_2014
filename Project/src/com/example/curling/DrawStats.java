@@ -12,7 +12,7 @@ import android.graphics.Paint;
 
 public class DrawStats implements WidgetListener{
 	
-	private Paint red,yellow,gray;
+	private Paint red,yellow,gray, nextRound;
 	private Image target = new Image(R.drawable.aim);
 	private Image targetYellow = new Image(R.drawable.aimyellow);
 	private Image brooming = new Image(R.drawable.curlingbroomalt2),brooming2 = new Image(R.drawable.curlingbroom2),brooming3 = new Image(R.drawable.curlingbroom3),
@@ -49,6 +49,9 @@ public class DrawStats implements WidgetListener{
         gray = new Paint();
         gray.setColor(Color.GRAY);
         gray.setTextSize(20);
+        nextRound = new Paint();
+        nextRound.setColor(Color.GRAY);
+        nextRound.setTextSize(60);
         
         setTarget = new ImageButton(GlobalConstants.SCREENWIDTH*0.35f,GlobalConstants.SCREENHEIGHT*0.875f,new Image(R.drawable.setaimidle),new Image(R.drawable.setaimdown));
 		setTarget.addWidgetListener(this);
@@ -145,6 +148,10 @@ public class DrawStats implements WidgetListener{
                     yellowWon.draw(canvas, GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.4f);
 
                 }
+            }
+            else{
+                canvas.drawText("End round " + Integer.toString(game.getGameLayer().getCurrentRound()), GlobalConstants.SCREENWIDTH*0.33f, GlobalConstants.SCREENHEIGHT*0.4f, nextRound);
+                canvas.drawText(game.getGameLayer().getCurrentPlayer().getName() + " is up!", GlobalConstants.SCREENWIDTH*0.3f, GlobalConstants.SCREENHEIGHT*0.6f, nextRound);
             }
 			next.draw(canvas);
     	}
