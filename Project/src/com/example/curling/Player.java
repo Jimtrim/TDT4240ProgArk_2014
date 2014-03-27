@@ -8,6 +8,7 @@ import android.util.Log;
  * state 1: steinen har ikke blitt sendt av goerde ennaa
  * state 2: steinen har blitt sendt
  * state 3: steinen har stoppet
+ * state 4: start new round
  */
 
 public class Player {

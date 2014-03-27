@@ -74,7 +74,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		}
         stoneList.removeAll(removeStone);
         removeStone.clear();
-        
+
 		endTurn();
 	}
 	
@@ -201,7 +201,6 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	
 	public void endTurn(){
 		if (noStonesMove() && currentPlayer.getState() == 3){
-			nextPlayer();
 			if((playerOne.getNumberOfStones()+playerTwo.getNumberOfStones()) == 0){
                 evaluateStones();
 				addPoints();
@@ -210,6 +209,9 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 					showWinner();
 				}
 			}
+            else{
+                nextPlayer();
+            }
 		}
 	}
 	
@@ -217,6 +219,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		playerOne.setStones(totalStones);
 		playerTwo.setStones(totalStones);
 		stoneList.clear();
+        getCurrentPlayer().setState(4);
 	}
 	
     public void outOfBounds(Sprite stone){

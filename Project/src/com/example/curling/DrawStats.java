@@ -143,6 +143,10 @@ public class DrawStats implements WidgetListener{
         for(int i = 0; i < game.getGameLayer().getPlayerTwo().getNumberOfStones(); i++){
         	yellowStone.draw(canvas,GlobalConstants.SCREENWIDTH*0.725f + (yellowStone.getWidth()*1.2f*i),GlobalConstants.SCREENHEIGHT*0.065f);
         }
+
+        if(game.getGameLayer().getCurrentPlayer().getState() == 4){
+            setTarget.draw(canvas);
+        }
         
         if(game.getGameLayer().getShowWinner()){
         	trophy.draw(canvas, GlobalConstants.SCREENWIDTH*0.2f, GlobalConstants.SCREENHEIGHT*0.2f);
@@ -164,6 +168,12 @@ public class DrawStats implements WidgetListener{
 				game.resetCamera();
 			}
 		}
+        if (game.getGameLayer().getCurrentPlayer().getState() == 4){
+            if (action.getSource() == setTarget){
+                game.getGameLayer().getCurrentPlayer().setState(0);
+                game.resetCamera();
+            }
+        }
 	}
 	
 	public ImageButton getTouchListener(){
