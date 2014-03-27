@@ -259,9 +259,8 @@ public class CurlingStone extends Sprite{
 		return stoneIndex;
 	}
 
-	public int setStoneIndex(int stoneIndex) {
+	public void setStoneIndex(int stoneIndex) {
 		this.stoneIndex = stoneIndex;
-		return stoneIndex;
 	}
 	
 	public double getLengthOfStone(){

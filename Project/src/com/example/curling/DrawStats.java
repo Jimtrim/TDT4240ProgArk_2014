@@ -136,7 +136,17 @@ public class DrawStats implements WidgetListener{
 				currentBrooming.draw(canvas, GlobalConstants.SCREENWIDTH*0.50f,game.getGameLayer().getStone().getY()+13);
 			}
 		}else if(game.getGameLayer().getCurrentPlayer().getState() == 4){
-			 next.draw(canvas);
+            if(game.getGameLayer().getShowWinner()){
+                trophy.draw(canvas, GlobalConstants.SCREENWIDTH*0.2f, GlobalConstants.SCREENHEIGHT*0.2f);
+                if(game.getGameLayer().getRedWon()){
+                    redWon.draw(canvas, GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.4f);
+                }
+                if(game.getGameLayer().getYellowWon()){
+                    yellowWon.draw(canvas, GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.4f);
+
+                }
+            }
+			next.draw(canvas);
     	}
 		
         canvas.drawText("Red", GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.1f, red);
@@ -147,17 +157,6 @@ public class DrawStats implements WidgetListener{
         }
         for(int i = 0; i < game.getGameLayer().getPlayerTwo().getNumberOfStones(); i++){
         	yellowStone.draw(canvas,GlobalConstants.SCREENWIDTH*0.725f + (yellowStone.getWidth()*1.2f*i),GlobalConstants.SCREENHEIGHT*0.065f);
-        }
-        
-        if(game.getGameLayer().getShowWinner()){
-        	trophy.draw(canvas, GlobalConstants.SCREENWIDTH*0.2f, GlobalConstants.SCREENHEIGHT*0.2f);
-        	if(game.getGameLayer().getRedWon()){
-        		redWon.draw(canvas, GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.4f);
-        	}
-        	if(game.getGameLayer().getYellowWon()){
-        		yellowWon.draw(canvas, GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.4f);
-
-        	}
         }
 	}
 
@@ -171,8 +170,13 @@ public class DrawStats implements WidgetListener{
 		}
         if (game.getGameLayer().getCurrentPlayer().getState() == 4){
             if (action.getSource() == next){
-            	game.getGameLayer().getCurrentPlayer().setState(0);
-                game.resetCamera();
+                if (game.getGameLayer().getShowWinner()){
+                    game.getGame().popState(2);
+                }
+                else{
+                	game.getGameLayer().getCurrentPlayer().setState(0);
+                    game.resetCamera();
+                }
             }
         }
 	}
