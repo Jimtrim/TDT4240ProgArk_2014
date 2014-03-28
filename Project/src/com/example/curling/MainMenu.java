@@ -55,7 +55,7 @@ public class MainMenu extends State implements WidgetListener{
 		if(action.getSource() == StartGame){
 			getGame().pushState(new GameStateConfig());	
 		}else if(action.getSource() == Tutorial){
-			//TODO lag tutorial
+			getGame().pushState(new Tutorial());
 		}
 	}
 
