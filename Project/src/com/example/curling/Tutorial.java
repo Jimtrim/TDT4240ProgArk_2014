@@ -17,10 +17,18 @@ public class Tutorial extends State{
 private Image currentImage;
 	private int imageIndex = 0;
 	private static Tutorial Instance = new Tutorial();
+	private boolean tutorial1 = true;
 	
 	private Matrix matrix = new Matrix();
 	
 	public Tutorial(){
+		tutorial1();
+		this.matrix.setScale(GlobalConstants.SCREENWIDTH/tutorial.get(0).getWidth(), GlobalConstants.SCREENHEIGHT/tutorial.get(0).getHeight());
+		this.currentImage = tutorial.get(imageIndex);
+		this.addTouchListener(new Touch());
+	}
+	
+	public void tutorial1(){
 		this.tutorial.add(new Image(R.drawable.tutorial1));
 		this.tutorial.add(new Image(R.drawable.tutorial2));
 		this.tutorial.add(new Image(R.drawable.tutorial3));
@@ -33,6 +41,9 @@ private Image currentImage;
 		this.tutorial.add(new Image(R.drawable.tutorial10));
 		this.tutorial.add(new Image(R.drawable.tutorial11));
 		this.tutorial.add(new Image(R.drawable.tutorial12));
+	}
+	
+	public void tutorial2(){
 		this.tutorial.add(new Image(R.drawable.tutorial13));
 		this.tutorial.add(new Image(R.drawable.tutorial14));
 		this.tutorial.add(new Image(R.drawable.tutorial15));
@@ -45,9 +56,6 @@ private Image currentImage;
 		this.tutorial.add(new Image(R.drawable.tutorial22));
 		this.tutorial.add(new Image(R.drawable.tutorial23));
 		this.tutorial.add(new Image(R.drawable.tutorial24));
-		this.matrix.setScale(GlobalConstants.SCREENWIDTH/tutorial.get(0).getWidth(), GlobalConstants.SCREENHEIGHT/tutorial.get(0).getHeight());
-		this.currentImage = tutorial.get(imageIndex);
-		this.addTouchListener(new Touch());
 	}
 	
 	public static Tutorial getInstance(){
@@ -68,9 +76,20 @@ private Image currentImage;
 		@Override
 		public boolean onTouchUp(MotionEvent event) {
 			if (imageIndex == tutorial.size()-1){
-				imageIndex = 0;
-				currentImage = tutorial.get(imageIndex);
-				getGame().popState();
+				if(!tutorial1){
+					tutorial.clear();
+					tutorial1();
+					imageIndex = 0;
+					currentImage = tutorial.get(imageIndex);
+					tutorial1 = true;
+					getGame().popState();
+				}else{
+					tutorial.clear();
+					tutorial2();
+					imageIndex = 0;
+					currentImage = tutorial.get(imageIndex);
+					tutorial1 = false;
+				}
 			}else{
 				imageIndex = imageIndex + 1;
 				currentImage = tutorial.get(imageIndex);
