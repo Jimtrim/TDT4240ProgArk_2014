@@ -22,9 +22,6 @@ private Image currentImage;
 	private Matrix matrix = new Matrix();
 	
 	public Tutorial(){
-		tutorial1();
-		this.matrix.setScale(GlobalConstants.SCREENWIDTH/tutorial.get(0).getWidth(), GlobalConstants.SCREENHEIGHT/tutorial.get(0).getHeight());
-		this.currentImage = tutorial.get(imageIndex);
 		this.addTouchListener(new Touch());
 	}
 	
@@ -62,6 +59,14 @@ private Image currentImage;
 		return Instance;
 	}
 	
+	public void reset(){
+		tutorial1();
+		imageIndex = 0;
+		matrix.setScale(GlobalConstants.SCREENWIDTH/tutorial.get(0).getWidth(), GlobalConstants.SCREENHEIGHT/tutorial.get(0).getHeight());
+		currentImage = tutorial.get(imageIndex);
+		tutorial1 = true;
+	}
+	
 	public void draw(Canvas canvas){
 		currentImage.draw(canvas, matrix);
 		canvas.drawText("touch for next", GlobalConstants.SCREENWIDTH*0.8f, GlobalConstants.SCREENHEIGHT*0.8f, new Paint());
@@ -78,10 +83,6 @@ private Image currentImage;
 			if (imageIndex == tutorial.size()-1){
 				if(!tutorial1){
 					tutorial.clear();
-					tutorial1();
-					imageIndex = 0;
-					currentImage = tutorial.get(imageIndex);
-					tutorial1 = true;
 					getGame().popState();
 				}else{
 					tutorial.clear();
