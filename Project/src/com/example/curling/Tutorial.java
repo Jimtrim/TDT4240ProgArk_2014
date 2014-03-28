@@ -40,6 +40,7 @@ public class Tutorial extends State{
 	private Image tutorial24 = new Image(R.drawable.tutorial24);
 	private Image currentImage;
 	private int imageIndex = 0;
+	private static Tutorial Instance = new Tutorial();
 	
 	private Matrix matrix = new Matrix();
 	
@@ -73,6 +74,10 @@ public class Tutorial extends State{
 		this.addTouchListener(new Touch());
 	}
 	
+	public static Tutorial getInstance(){
+		return Instance;
+	}
+	
 	public void draw(Canvas canvas){
 		currentImage.draw(canvas, matrix);
 		canvas.drawText("touch for next", GlobalConstants.SCREENWIDTH*0.8f, GlobalConstants.SCREENHEIGHT*0.8f, new Paint());
@@ -88,6 +93,8 @@ public class Tutorial extends State{
 		public boolean onTouchUp(MotionEvent event) {
 			if (imageIndex == tutorial.size()-1){
 				getGame().popState();
+				imageIndex = 0;
+				currentImage = tutorial.get(imageIndex);
 			}else{
 				imageIndex = imageIndex + 1;
 				currentImage = tutorial.get(imageIndex);
