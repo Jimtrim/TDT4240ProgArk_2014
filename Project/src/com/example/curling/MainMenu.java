@@ -11,7 +11,7 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 
 /*
- * hovedmenye til spillet
+ * Main menu to the game - buttons, text
  */
 
 public class MainMenu extends State implements WidgetListener{

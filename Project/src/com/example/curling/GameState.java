@@ -12,7 +12,10 @@ import sheep.input.TouchListener;
 import sheep.math.Vector2;
 
 /*
- * klassen hvor spillet faktisk blir spilst
+ * The class where the game actually being played
+ * Controller for playing the game (touch interaction).
+ * 
+ * Camera view over the game
  */
 
 public class GameState extends State{

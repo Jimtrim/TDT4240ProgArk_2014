@@ -1,12 +1,18 @@
 package com.example.curling;
 
 /*
- * kjapp kode for aa faa til rundene i curling
+ * state information
+ * 
  * state 0: set target for stone
- * state 1: steinen har ikke blitt sendt av goerde ennaa
- * state 2: steinen har blitt sendt
- * state 3: steinen har stoppet
- * state 4: start new round
+ * state 1: throw/slide stone
+ * state 2: stone movement along the track
+ * state 3: stone have stopped
+ * state 4: start new round after all the stone have been used
+ * 
+ * player information
+ * 
+ * points given and stone information to the player
+ * 
  */
 
 public class Player {

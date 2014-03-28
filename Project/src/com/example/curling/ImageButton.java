@@ -11,6 +11,10 @@ import sheep.gui.WidgetAction;
 import sheep.gui.WidgetListener;
 import sheep.math.BoundingBox;
 
+/*
+ * An extension for buttons used in the game
+ */
+
 public class ImageButton extends Widget{
 
 	

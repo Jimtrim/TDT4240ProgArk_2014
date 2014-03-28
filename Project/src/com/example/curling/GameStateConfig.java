@@ -11,7 +11,7 @@ import sheep.gui.WidgetAction;
 import sheep.gui.WidgetListener;
 
 /*
- * klassen hvor man bestemmer hvor mange runder man vil spille
+ * The config-menu to choose rounds and stones in for a game
  */
 
 public class GameStateConfig extends State implements WidgetListener{
