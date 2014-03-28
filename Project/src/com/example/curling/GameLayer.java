@@ -30,7 +30,6 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	private CurlingStone movingStone;
 	private Vector2 target;
 	private Player winnerOfRound;
-	private double circle = track.getOuterCircle();
 	private boolean showWinner = false;
 	private boolean yellowWon = false;
 	private boolean redWon = false;
@@ -193,7 +192,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
     
     //evaluate which stone is inside the target(goal)
 	public void evaluateStones(){
-		double radius = Math.abs(track.getGoalPoint()-circle);
+		double radius = Math.abs(track.getGoalPoint()-track.getOuterCircle());
 		double stoneDistance;
 		for(CurlingStone i: stoneList){
 			stoneDistance = Math.sqrt(Math.pow(getDistanceX(i), 2) + Math.pow(getDistanceY(i), 2));

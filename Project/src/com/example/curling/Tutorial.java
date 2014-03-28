@@ -75,7 +75,7 @@ public class Tutorial extends State{
 	
 	public void draw(Canvas canvas){
 		currentImage.draw(canvas, matrix);
-		canvas.drawText("touch for next", GlobalConstants.SCREENWIDTH*0.8f, GlobalConstants.SCREENHEIGHT*0.95f, new Paint());
+		canvas.drawText("touch for next", GlobalConstants.SCREENWIDTH*0.8f, GlobalConstants.SCREENHEIGHT*0.8f, new Paint());
 	}
 	
 	private class Touch implements TouchListener{
