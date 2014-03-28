@@ -1,7 +1,5 @@
 package com.example.curling;
 
-import android.util.Log;
-
 /*
  * state information
  * 
@@ -23,12 +21,15 @@ public class Player {
 	private int playerIndex;
     private int points;
     private int stones;
+    private String name;
 
-	public Player(int index,int stones){
+	public Player(int index,int stones, String name){
 		this.state = 0;
         this.playerIndex = index;
         this.points = 0;
         this.stones = stones;
+        this.name = name;
+
 	}
 	
 	public int getState(){
@@ -62,6 +63,7 @@ public class Player {
     public void subtractOneStone(){
     	this.stones = this.stones - 1;
     }
+    public String getName (){ return this.name; }
     
     public void setStones(int stones){
     	this.stones = stones;

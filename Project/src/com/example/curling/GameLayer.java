@@ -13,6 +13,7 @@ import sheep.math.BoundingBox;
 import sheep.math.Vector2;
 
 /**
+ * 
  * game logic. Rounds, stone and player controller
  */
 
@@ -25,11 +26,10 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	private int rounds,currentRound,totalStones;
 	private ArrayList<CurlingStone> stoneList = new ArrayList<CurlingStone>();
     private ArrayList<CurlingStone> removeStone = new ArrayList<CurlingStone>();
-	private Player playerOne,playerTwo,currentPlayer;
+	private Player playerOne, playerTwo,currentPlayer;
 	private CurlingStone movingStone;
 	private Vector2 target;
 	private Player winnerOfRound;
-	private double circle;
 	private boolean showWinner = false;
 	private boolean yellowWon = false;
 	private boolean redWon = false;
@@ -39,8 +39,8 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		this.rounds = rounds;
 		this.totalStones = stones;
 		this.currentRound = 0;
-		playerOne = new Player(0,totalStones);
-		playerTwo = new Player(1,totalStones);
+		playerOne = new Player(0,totalStones, "Red");
+		playerTwo = new Player(1,totalStones, "Yellow");
 		currentPlayer = playerOne;
 	}
 
@@ -98,7 +98,6 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	}
 	
 	public void nextPlayer(){
-		currentPlayer.setState(0);
 		if(currentPlayer == playerOne) currentPlayer = playerTwo;
 		else currentPlayer = playerOne;
 	}
@@ -162,29 +161,38 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 		currentRound = currentRound + 1;
 		winnerOfRound = null;
 		ArrayList<CurlingStone> sortedList = sortStoneList(stoneList);
+        startPlayer(sortedList);
         if (sortedList.size()!=0){
-            winnerOfRound = win(sortedList);
             for(CurlingStone i: sortedList){
                 if(sortedList.get(0).getStoneIndex() != i.getStoneIndex()){
                     break;
                 }
                 else {
-                    winnerOfRound.setPoints(1); 
+                    currentPlayer.setPoints(1);
                 }
             }
-            currentPlayer = getWinner();        }
+       }
 	}
 
-    public Player win(ArrayList<CurlingStone> stones){
-        if (stones.get(0).getStoneIndex()==0){
-            return playerOne;
+    public void startPlayer(ArrayList<CurlingStone> stones){
+        if(stones.size()==0){
+            nextPlayer();
         }
-        return playerTwo;
+        else{
+            if (stones.get(0).getStoneIndex()==0){
+                currentPlayer.setState(0);
+                currentPlayer = playerOne;
+            }
+            else if (stones.get(0).getStoneIndex()==1){
+                currentPlayer.setState(0);
+                currentPlayer = playerTwo;
+            }
+        }
     }
     
     //evaluate which stone is inside the target(goal)
 	public void evaluateStones(){
-		double radius = Math.abs(track.getGoalPoint()-circle);
+		double radius = Math.abs(track.getGoalPoint()-track.getOuterCircle());
 		double stoneDistance;
 		for(CurlingStone i: stoneList){
 			stoneDistance = Math.sqrt(Math.pow(getDistanceX(i), 2) + Math.pow(getDistanceY(i), 2));
@@ -209,15 +217,16 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 	
 	public void endTurn(){
 		if (noStonesMove() && currentPlayer.getState() == 3){
-			if((playerOne.getNumberOfStones()+playerTwo.getNumberOfStones()) == 0){
+			if((playerOne.getNumberOfStones()+ playerTwo.getNumberOfStones()) == 0){
                 evaluateStones();
 				addPoints();
 				newRound();
-				if(currentRound == rounds){
+				if(currentRound >= rounds && playerOne.getPoints() != playerTwo.getPoints()){
 					showWinner();
 				}
 			}
             else{
+                currentPlayer.setState(0);
                 nextPlayer();
             }
 		}
@@ -280,5 +289,7 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
     public void setTarget(Vector2 p){
     	this.target = p;
     }
+
+    public int getCurrentRound() { return currentRound; }
 
 }

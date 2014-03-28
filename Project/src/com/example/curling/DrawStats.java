@@ -17,7 +17,7 @@ import android.graphics.Paint;
 
 public class DrawStats implements WidgetListener{
 	
-	private Paint red,yellow,gray;
+	private Paint red,yellow,gray, nextRound;
 	private Image target = new Image(R.drawable.aim);
 	private Image targetYellow = new Image(R.drawable.aimyellow);
 	private Image brooming = new Image(R.drawable.curlingbroomalt2),brooming2 = new Image(R.drawable.curlingbroom2),brooming3 = new Image(R.drawable.curlingbroom3),
@@ -54,6 +54,9 @@ public class DrawStats implements WidgetListener{
         gray = new Paint();
         gray.setColor(Color.GRAY);
         gray.setTextSize(20);
+        nextRound = new Paint();
+        nextRound.setColor(Color.GRAY);
+        nextRound.setTextSize(60);
         
         setTarget = new ImageButton(GlobalConstants.SCREENWIDTH*0.35f,GlobalConstants.SCREENHEIGHT*0.875f,new Image(R.drawable.setaimidle),new Image(R.drawable.setaimdown));
 		setTarget.addWidgetListener(this);
@@ -141,7 +144,21 @@ public class DrawStats implements WidgetListener{
 				currentBrooming.draw(canvas, GlobalConstants.SCREENWIDTH*0.50f,game.getGameLayer().getStone().getY()+13);
 			}
 		}else if(game.getGameLayer().getCurrentPlayer().getState() == 4){
-			 next.draw(canvas);
+            if(game.getGameLayer().getShowWinner()){
+                trophy.draw(canvas, GlobalConstants.SCREENWIDTH*0.2f, GlobalConstants.SCREENHEIGHT*0.2f);
+                if(game.getGameLayer().getRedWon()){
+                    redWon.draw(canvas, GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.4f);
+                }
+                if(game.getGameLayer().getYellowWon()){
+                    yellowWon.draw(canvas, GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.4f);
+
+                }
+            }
+            else{
+                canvas.drawText("End round " + Integer.toString(game.getGameLayer().getCurrentRound()), GlobalConstants.SCREENWIDTH*0.33f, GlobalConstants.SCREENHEIGHT*0.4f, nextRound);
+                canvas.drawText(game.getGameLayer().getCurrentPlayer().getName() + " is up!", GlobalConstants.SCREENWIDTH*0.3f, GlobalConstants.SCREENHEIGHT*0.6f, nextRound);
+            }
+			next.draw(canvas);
     	}
 		
         canvas.drawText("Red", GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.1f, red);
@@ -152,17 +169,6 @@ public class DrawStats implements WidgetListener{
         }
         for(int i = 0; i < game.getGameLayer().getPlayerTwo().getNumberOfStones(); i++){
         	yellowStone.draw(canvas,GlobalConstants.SCREENWIDTH*0.725f + (yellowStone.getWidth()*1.2f*i),GlobalConstants.SCREENHEIGHT*0.065f);
-        }
-        
-        if(game.getGameLayer().getShowWinner()){
-        	trophy.draw(canvas, GlobalConstants.SCREENWIDTH*0.2f, GlobalConstants.SCREENHEIGHT*0.2f);
-        	if(game.getGameLayer().getRedWon()){
-        		redWon.draw(canvas, GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.4f);
-        	}
-        	if(game.getGameLayer().getYellowWon()){
-        		yellowWon.draw(canvas, GlobalConstants.SCREENWIDTH*0.35f, GlobalConstants.SCREENHEIGHT*0.4f);
-
-        	}
         }
 	}
 
@@ -176,8 +182,13 @@ public class DrawStats implements WidgetListener{
 		}
         if (game.getGameLayer().getCurrentPlayer().getState() == 4){
             if (action.getSource() == next){
-            	game.getGameLayer().getCurrentPlayer().setState(0);
-                game.resetCamera();
+                if (game.getGameLayer().getShowWinner()){
+                    game.getGame().popState(2);
+                }
+                else{
+                	game.getGameLayer().getCurrentPlayer().setState(0);
+                    game.resetCamera();
+                }
             }
         }
 	}
