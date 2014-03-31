@@ -14,7 +14,7 @@ import sheep.math.BoundingBox;
 public class ImageButton extends Widget{
 
 	
-	private Image idle,pressedDown,currentViwe;
+	private Image idle,pressedDown,currentView;
 	private float x,y;
 	private BoundingBox box;
 	private LinkedList<WidgetListener> listeners;
@@ -23,7 +23,7 @@ public class ImageButton extends Widget{
 		this.listeners = new LinkedList<WidgetListener>();
 		this.idle = idle;
 		this.pressedDown = pressedDown;
-		this.currentViwe = idle;
+		this.currentView = idle;
 		this.x = x;
 		this.y = y;
 		updateBox();
@@ -39,11 +39,11 @@ public class ImageButton extends Widget{
 	
 	@Override
 	public void draw(Canvas canvas) {
-		currentViwe.draw(canvas, x,y);
+		currentView.draw(canvas, x,y);
 	}
 	
 	private void updateBox() {
-		Rect bounds = new Rect(0,0,(int)currentViwe.getWidth(),(int)currentViwe.getHeight());
+		Rect bounds = new Rect(0,0,(int)currentView.getWidth(),(int)currentView.getHeight());
 		bounds.offset((int)x, (int)y);
 		this.box = new BoundingBox(bounds);
 	}
@@ -51,7 +51,7 @@ public class ImageButton extends Widget{
 	@Override
 	public boolean onTouchDown(MotionEvent event) {
 		if(box.contains(event.getX(), event.getY())) {
-			this.currentViwe = pressedDown;
+			this.currentView = pressedDown;
 			return true;
 		}
 		return false;
@@ -60,17 +60,17 @@ public class ImageButton extends Widget{
 	@Override
 	public boolean onTouchMove(MotionEvent event) {
 		if(box.contains(event.getX(), event.getY())) {
-			this.currentViwe = pressedDown;
+			this.currentView = pressedDown;
 			return true;
 		}
-		this.currentViwe = idle;
+		this.currentView = idle;
 		return false;
 	}
 
 	@Override
 	public boolean onTouchUp(MotionEvent event) {
 		if(box.contains(event.getX(), event.getY())) {
-			this.currentViwe = idle;	
+			this.currentView = idle;	
 			for(WidgetListener l : this.listeners){
 				l.actionPerformed(new WidgetAction(this));
 			}
