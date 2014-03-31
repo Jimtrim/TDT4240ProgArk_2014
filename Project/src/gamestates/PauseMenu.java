@@ -40,7 +40,6 @@ public class PauseMenu extends State implements WidgetListener {
 
 	@Override
 	public void actionPerformed(WidgetAction action) {
-		// TODO Auto-generated method stub
 		if(action.getSource() == resumeButton && ((CurlingGame)getGame()).getTopState().getClass() == this.getClass()){
 			getGame().popState();
 		}

@@ -6,25 +6,21 @@ import java.util.Comparator;
 import com.example.curling.R;
 
 import curling.GlobalConstants;
-import curling.MainActivity;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.util.Log;
 import sheep.game.Layer;
 import sheep.game.Sprite;
 import sheep.graphics.Image;
 import sheep.math.BoundingBox;
 import sheep.math.Vector2;
 
-/**
+/*
  * 
  * game logic. Rounds, stone and player controller
  */
 
 public class GameLayer extends Layer implements Comparator<CurlingStone>{
-	
-	private static final String TAG = MainActivity.class.getSimpleName();
 	
 	private Track track = new Track(new Image(R.drawable.curlingbackground));
 
@@ -55,7 +51,6 @@ public class GameLayer extends Layer implements Comparator<CurlingStone>{
 			movingStone = new CurlingStone(GlobalConstants.SCREENWIDTH*0.3f,GlobalConstants.SCREENHEIGHT*0.5f,currentPlayer.getPlayerIndex(),target);
 			stoneList.add(movingStone);
 			currentPlayer.subtractOneStone();
-			Log.d(TAG,Integer.toString(currentPlayer.getNumberOfStones()));
 			currentPlayer.setState(2);
 		}
 		

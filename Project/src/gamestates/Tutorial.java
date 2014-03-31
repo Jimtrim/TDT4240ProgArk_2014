@@ -15,6 +15,10 @@ import sheep.game.State;
 import sheep.graphics.Image;
 import sheep.input.TouchListener;
 
+/*
+ * The class that draws and shows the tutorial
+ */
+
 public class Tutorial extends State{
 
 	private ArrayList<Image> tutorial = new ArrayList<Image>();

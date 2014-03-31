@@ -4,7 +4,6 @@ import java.util.Stack;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import sheep.game.Game;
 import sheep.game.GameThread;
@@ -18,7 +17,6 @@ import sheep.input.Touch;
 
 public class CurlingGame extends Game {
 
-	private static final String TAG = MainActivity.class.getSimpleName();
 	private Stack<State> stateStack = new Stack<State>(); 
 	private GameThread thread;
 	
@@ -29,7 +27,6 @@ public class CurlingGame extends Game {
 	public void resumeStates() { 
 		for (int i=0; i<stateStack.size(); i++) {
 			thread.pushState(stateStack.get(i));
-			Log.d(TAG,stateStack.get(i).getClass().toString());
 		}
 		stateStack.peek().setGame(this);
 	}
@@ -51,7 +48,6 @@ public class CurlingGame extends Game {
 	public void popState() {
 		this.thread.popState(1);
 		stateStack.pop();
-		Log.d(TAG,"bruker riktig klasse :p");
 	}
 	
 	public void popState(int n) {
@@ -67,7 +63,6 @@ public class CurlingGame extends Game {
 
 	@Override
 	public void surfaceCreated(SurfaceHolder arg0) {
-		Log.d(TAG,"lager surface");
 		Keyboard.getInstance().addKeyboardListener(thread);
 		Touch.getInstance().addTouchListener(thread);
 		this.thread.setRunning(true);
