@@ -1,6 +1,12 @@
-package com.example.curling;
+package gamestates;
+
 
 import java.util.ArrayList;
+
+import com.example.curling.R;
+
+import curling.GlobalConstants;
+import curling.ImageButton;
 
 import sheep.graphics.Image;
 import sheep.gui.WidgetAction;

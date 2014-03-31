@@ -1,4 +1,4 @@
-package com.example.curling;
+package models;
 
 /*
  * state information

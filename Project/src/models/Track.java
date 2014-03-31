@@ -1,4 +1,7 @@
-package com.example.curling;
+package models;
+
+import curling.GlobalConstants;
+import curling.MainActivity;
 
 import android.graphics.Canvas;
 

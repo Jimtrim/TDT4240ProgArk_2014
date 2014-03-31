@@ -1,6 +1,10 @@
-package com.example.curling;
+package gamestates;
 
 import java.util.ArrayList;
+
+import com.example.curling.R;
+
+import curling.GlobalConstants;
 
 import android.graphics.Canvas;
 import android.graphics.Matrix;

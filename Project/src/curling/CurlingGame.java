@@ -1,4 +1,4 @@
-package com.example.curling;
+package curling;
 
 import java.util.Stack;
 

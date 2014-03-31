@@ -1,4 +1,9 @@
-package com.example.curling;
+package gamestates;
+
+import com.example.curling.R;
+
+import curling.GlobalConstants;
+import curling.ImageButton;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

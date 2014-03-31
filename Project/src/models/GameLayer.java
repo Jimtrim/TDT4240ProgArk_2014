@@ -1,7 +1,12 @@
-package com.example.curling;
+package models;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+
+import com.example.curling.R;
+
+import curling.GlobalConstants;
+import curling.MainActivity;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

@@ -1,6 +1,10 @@
-package com.example.curling;
+package gamestates;
 
 import java.util.Random;
+
+import com.example.curling.R;
+
+import curling.GlobalConstants;
 
 import sheep.game.State;
 import sheep.graphics.Image;

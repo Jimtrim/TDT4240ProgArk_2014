@@ -1,4 +1,7 @@
-package com.example.curling;
+package gamestates;
+
+import curling.CurlingGame;
+import curling.GlobalConstants;
 
 import sheep.game.State;
 import sheep.gui.TextButton;

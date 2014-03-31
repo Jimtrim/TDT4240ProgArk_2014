@@ -1,4 +1,10 @@
-package com.example.curling;
+package curling;
+
+import gamestates.GameState;
+import gamestates.MainMenu;
+import gamestates.PauseMenu;
+
+import com.example.curling.R;
 
 import sheep.game.GameThread;
 import android.os.Bundle;

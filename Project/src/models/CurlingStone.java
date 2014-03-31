@@ -1,6 +1,11 @@
-package com.example.curling;
+package models;
 
 import java.util.List;
+
+import com.example.curling.R;
+
+import curling.GlobalConstants;
+import curling.MainActivity;
 
 import android.graphics.Canvas;
 import android.graphics.Matrix;
